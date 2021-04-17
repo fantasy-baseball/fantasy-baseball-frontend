@@ -68,9 +68,14 @@ const GlobalStyles = createGlobalStyle`
   h4,
   h5,
   h6 {
+    font-family: "Nanum Barun Gothic", sans-serif;
     font-size: ${({ theme }) => theme.fontSizes.bigger};
-    letter-spacing: 0.08em;
     color: ${({ theme }) => theme.colors.white};
+  }
+
+  .english-title {
+    font-family: "Bebas Neue", "Nanum Barun Gothic", sans-serif;
+    letter-spacing: 0.08em;
     transform: scale(1, 0.9);
   }
 `;
