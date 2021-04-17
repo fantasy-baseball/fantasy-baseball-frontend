@@ -2,7 +2,12 @@
   "name": "fantasy-baseball",
   "version": "0.1.0",
   "private": true,
+  "bugs": {
+    "url": "https://github.com/fantasy-baseball/fantasy-baseball-frontend",
+    "email": "eluka22@gmail.com"
+  },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "cross-env": "^7.0.3",
     "date-fns": "^2.21.1",
     "immer": "^9.0.1",
