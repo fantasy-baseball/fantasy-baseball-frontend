@@ -4,8 +4,7 @@ import RankingList from "./RankingList";
 
 const Wrapper = styled.article`
   width: 450px;
-  height: auto;
-  min-height: 600px;
+  height: 450px;
   padding: 50px 0 0 0;
 `;
 
