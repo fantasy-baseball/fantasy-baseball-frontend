@@ -13,7 +13,7 @@ const TextBox = styled.div`
   width: calc(100% - 50px);
   height: 100%;
   margin: 0 ${({ theme }) => theme.margins.base} 0 0;
-  padding: ${({ theme }) => theme.paddings.middle};
+  padding: ${({ theme }) => theme.paddings.bigger};
   background: ${({ theme }) => theme.colors.white};
   overflow: auto;
 `;
