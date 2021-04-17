@@ -12,6 +12,7 @@ const colors = {
 const fontSizes = {
   small: calcRem(8),
   base: calcRem(16),
+  middle: calcRem(24),
   big: calcRem(32),
   bigger: calcRem(40),
   biggest: calcRem(48),
@@ -20,6 +21,16 @@ const fontSizes = {
 const margins = {
   small: calcRem(8),
   base: calcRem(16),
+  middle: calcRem(24),
+  big: calcRem(32),
+  bigger: calcRem(40),
+  biggest: calcRem(48),
+};
+
+const paddings = {
+  small: calcRem(8),
+  base: calcRem(16),
+  middle: calcRem(24),
   big: calcRem(32),
   bigger: calcRem(40),
   biggest: calcRem(48),
@@ -29,6 +40,7 @@ const theme = {
   colors,
   fontSizes,
   margins,
+  paddings,
 };
 
 export default theme;
