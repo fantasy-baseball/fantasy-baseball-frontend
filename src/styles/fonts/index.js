@@ -12,7 +12,7 @@ import NanumBarunGothicLightWoff2 from "./NanumBarunGothic/NanumBarunGothicLight
 import NanumBarunGothicUltraLightWoff from "./NanumBarunGothic/NanumBarunGothicUltraLightSubset.woff";
 import NanumBarunGothicUltraLightWoff2 from "./NanumBarunGothic/NanumBarunGothicUltraLightSubset.woff2";
 
-export default createGlobalStyle`
+const globalFonts = createGlobalStyle`
   @font-face {
     font-family: "Bebas Neue";
     font-style: normal;
@@ -54,3 +54,5 @@ export default createGlobalStyle`
       url(${NanumBarunGothicUltraLightWoff2}) format("woff2");
   }
 `;
+
+export default globalFonts;
