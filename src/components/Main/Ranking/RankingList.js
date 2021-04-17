@@ -92,7 +92,7 @@ function PlayersRankingList() {
   return (
     <Wrapper>
       <Title>
-        투수 배당금 TOP 5
+        유저들이 선택한 TOP 5
         <span>* 어제자 기준</span>
       </Title>
       <FirstPlayer>
@@ -101,7 +101,7 @@ function PlayersRankingList() {
           <li>1</li>
           <li>강동연</li>
           <li>NC 다이노스</li>
-          <li>345,123,123,123</li>
+          <li>431 명</li>
         </Info>
       </FirstPlayer>
       <OtherPlayers>
@@ -109,25 +109,25 @@ function PlayersRankingList() {
           <span>1</span>
           <span>수아레즈</span>
           <span>LG</span>
-          <span>123,456,789</span>
+          <span>425 명</span>
         </Player>
         <Player>
           <span>1</span>
           <span>수아레즈</span>
           <span>LG</span>
-          <span>123,456,789</span>
+          <span>420 명</span>
         </Player>
         <Player>
           <span>1</span>
           <span>수아레즈</span>
           <span>LG</span>
-          <span>123,456,789</span>
+          <span>150 명</span>
         </Player>
         <Player>
           <span>1</span>
           <span>수아레즈</span>
           <span>LG</span>
-          <span>123,456,789</span>
+          <span>110 명</span>
         </Player>
       </OtherPlayers>
     </Wrapper>
