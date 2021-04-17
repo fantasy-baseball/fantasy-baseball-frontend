@@ -18,7 +18,7 @@ const List = styled.div`
 function ScheduleList() {
   return (
     <Wrapper>
-      <h2 className="bebas-neue">TODAY GAMES</h2>
+      <h2 className="english-title">TODAY GAMES</h2>
       <List>
         <ScheduleListEntry />
         <ScheduleListEntry />

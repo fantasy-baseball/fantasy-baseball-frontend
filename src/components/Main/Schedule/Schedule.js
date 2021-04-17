@@ -25,6 +25,7 @@ const Wrapper = styled.article`
 const DateBox = styled.div`
   padding: 30px 30px 0 0;
   position: relative;
+  font-family: "Bebas Neue";
   font-size: ${({ theme }) => theme.fontSizes.biggest};
   letter-spacing: 0.1em;
   color: ${({ theme }) => theme.colors.white};
