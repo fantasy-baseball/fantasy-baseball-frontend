@@ -4,7 +4,7 @@ import { GoogleLogin } from "react-google-login";
 
 function Login() {
   const history = useHistory();
-  const googleSuccess = async ({ tokenId }) => {
+  const onGoogleSuccess = async ({ tokenId }) => {
     try {
       const res = await fetch(`${process.env.REACT_APP_API_ADDRESS}/users/login`, {
         headers: {
@@ -20,7 +20,7 @@ function Login() {
     }
   };
 
-  const googleFailure = () => {
+  const onGoogleFailure = () => {
     history.push("/");
   };
 
@@ -36,8 +36,8 @@ function Login() {
           google login
         </button>
       )}
-      onSuccess={googleSuccess}
-      onFailure={googleFailure}
+      onSuccess={onGoogleSuccess}
+      onFailure={onGoogleFailure}
       cookiePolicy="single_host_origin"
     />
   );
