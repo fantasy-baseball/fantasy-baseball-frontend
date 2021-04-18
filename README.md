@@ -16,6 +16,8 @@
 - scss (node-sass)
 - date-fns
 - cross-env
+- react-google-login
+
 
 ### Backend
 - Express
