@@ -9,9 +9,9 @@ function Login() {
       const res = await fetch(`${process.env.REACT_APP_API_ADDRESS}/users/login`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenId}`
+          Authorization: `Bearer ${tokenId}`,
         },
-        credentials: "include"
+        credentials: "include",
       });
       const { data } = await res.json();
       console.log(data);
