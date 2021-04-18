@@ -34,8 +34,8 @@ const Logo = styled.img`
 `;
 
 const TeamName = styled.p`
-  margin: ${({ theme }) => theme.margins.small} 0;
-  font-size: margin: ${({ theme }) => theme.margins.base} 0;;
+  margin: ${({ theme }) => theme.margins.small};
+  font-size: ${({ theme }) => theme.fontSizes.base};
 `;
 
 const Pitcher = styled.p`
