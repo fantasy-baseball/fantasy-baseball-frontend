@@ -25,8 +25,12 @@ function Login() {
     <GoogleLogin
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
       render={(renderProps) => (
-        <button type="button" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-          custom google login
+        <button
+          type="button"
+          onClick={renderProps.onClick}
+          disabled={renderProps.disabled}
+        >
+          google login
         </button>
       )}
       onSuccess={googleSuccess}
