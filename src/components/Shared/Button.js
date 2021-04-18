@@ -50,11 +50,17 @@ const End = styled.span`
   transform-origin: bottom left;
 `;
 
-function SharedButton({ type, title, color }) {
+function SharedButton({
+  type,
+  title,
+  color,
+  handleClick,
+}) {
   return (
     <Button
       type={type}
       color={color}
+      onClick={handleClick}
     >
       {title}
       <Arrow>
@@ -66,9 +72,10 @@ function SharedButton({ type, title, color }) {
 }
 
 SharedButton.propTypes = {
-  title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default SharedButton;
