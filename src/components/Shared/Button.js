@@ -1,26 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-
-const selectColor = (props) => {
-  switch (props.color) {
-    case "white":
-      return props.theme.colors.white;
-    case "black":
-      return props.theme.colors.black;
-    default:
-      return props.theme.colors.black;
-  }
-};
+import stylesUtils from "../../styles/utils";
 
 const Button = styled.button`
   padding: ${({ theme }) => theme.paddings.base};
   background: transparent;
-  border: 1px solid ${(props) => selectColor(props)};
+  border: 1px solid ${(props) => stylesUtils.selectColor(props)};
   font-family: "Bebas Neue";
   font-size: ${({ theme }) => theme.fontSizes.middle};
   letter-spacing: 0.1rem;
-  color: ${(props) => selectColor(props)};
+  color: ${(props) => stylesUtils.selectColor(props)};
   cursor: pointer;
   transition: 0.3s all;
 
@@ -45,14 +35,14 @@ const Arrow = styled.span`
 const Line = styled.span`
   width: 100%;
   height: 1px;
-  background: ${(props) => selectColor(props)};
+  background: ${(props) => stylesUtils.selectColor(props)};
   display: inline-block;
 `;
 
 const End = styled.span`
   width: 15px;
   height: 1px;
-  background: ${(props) => selectColor(props)};
+  background: ${(props) => stylesUtils.selectColor(props)};
   display: inline-block;
   position: absolute;
   bottom: 8px;
