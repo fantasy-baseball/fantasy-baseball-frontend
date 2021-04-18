@@ -10,8 +10,11 @@ function Login() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenId}`
-        }
+        },
+        credentials: "include"
       });
+      const { data } = await res.json();
+      console.log(data);
     } catch (err) {
       console.error(err);
     }
