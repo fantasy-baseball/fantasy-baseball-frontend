@@ -19,6 +19,7 @@
       {
         "arrays": "only-multiline",
         "objects": "only-multiline",
+        "imports": "only-multiline",
         "functions": "never"
       }
     ]
