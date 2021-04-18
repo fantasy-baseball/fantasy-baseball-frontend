@@ -1,10 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 
 function Login() {
+  const history = useHistory();
   const googleSuccess = async ({ tokenId }) => {
     try {
-      const res = await fetch("http://localhost:5000/users/login", {
+      const res = await fetch(`${process.env.REACT_APP_API_ADDRESS}/users/login`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenId}`
@@ -16,24 +18,21 @@ function Login() {
   };
 
   const googleFailure = () => {
-    console.log("google sign in unsuccessful");
+    history.push("/");
   };
 
   return (
-    <>
-      <GoogleLogin
-        clientId="286718780152-q76fp5k4tfc9jgt7ltjafeh0rsq9jeq4.apps.googleusercontent.com"
-        render={(renderProps) => (
-          <button type="button" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-            custom google login
-          </button>
-        )}
-        buttonText="Google Login"
-        onSuccess={googleSuccess}
-        onFailure={googleFailure}
-        cookiePolicy="single_host_origin"
-      />
-    </>
+    <GoogleLogin
+      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+      render={(renderProps) => (
+        <button type="button" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+          custom google login
+        </button>
+      )}
+      onSuccess={googleSuccess}
+      onFailure={googleFailure}
+      cookiePolicy="single_host_origin"
+    />
   );
 }
 
