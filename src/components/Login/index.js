@@ -1,27 +1,21 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
+import { saveUser } from "../../reducers";
+import { failLogin } from "../../actions/user";
 
 function Login() {
   const history = useHistory();
-  const onGoogleSuccess = async ({ tokenId }) => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_ADDRESS}/users/login`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenId}`,
-        },
-        credentials: "include",
-      });
-      const { data } = await res.json();
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
+  const dispatch = useDispatch();
+
+  const onGoogleSuccess = ({ tokenId }) => {
+    dispatch(saveUser(tokenId));
   };
 
   const onGoogleFailure = () => {
-    history.push("/");
+    dispatch(failLogin());
+    history.push("/login");
   };
 
   return (
