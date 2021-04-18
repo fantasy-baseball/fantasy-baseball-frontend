@@ -78,6 +78,15 @@ const GlobalStyles = createGlobalStyle`
     letter-spacing: 0.08em;
     transform: scale(1, 0.9);
   }
+
+  .hidden {
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    position: absolute;
+    overflow: hidden;
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
 `;
 
 export default GlobalStyles;
