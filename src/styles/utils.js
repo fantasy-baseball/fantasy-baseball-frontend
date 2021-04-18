@@ -1,11 +1,11 @@
 const selectColor = (props) => {
   switch (props.color) {
     case "white":
-      return props.theme.colors.white;
+      return props.theme.color.white;
     case "black":
-      return props.theme.colors.black;
+      return props.theme.color.black;
     default:
-      return props.theme.colors.black;
+      return props.theme.color.black;
   }
 };
 

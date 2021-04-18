@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 const List = styled.div`
   width: 100%;
   height: 180px;
-  background: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.color.white};
   display: flex;
 `;
 

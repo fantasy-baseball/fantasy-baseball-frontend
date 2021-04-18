@@ -14,7 +14,7 @@ const Entry = styled.div`
     width: 1px;
     height: 140px;
     margin: -70px 0 0 0;
-    background: ${({ theme }) => theme.colors.lightgrey};
+    background: ${({ theme }) => theme.color.lightgrey};
     display: block;
     position: absolute;
     top: 50%;
@@ -24,7 +24,7 @@ const Entry = styled.div`
 `;
 
 const Team = styled.div`
-  padding: 0 ${({ theme }) => theme.margins.base};
+  padding: 0 ${({ theme }) => theme.margin.base};
   text-align: center;
 `;
 
@@ -34,12 +34,12 @@ const Logo = styled.img`
 `;
 
 const TeamName = styled.p`
-  margin: ${({ theme }) => theme.margins.small};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  margin: ${({ theme }) => theme.margin.small};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Pitcher = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Info = styled.div`
@@ -48,12 +48,12 @@ const Info = styled.div`
 `;
 
 const Versus = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.bigger};
-  color: ${({ theme }) => theme.colors.lightgrey};
+  font-size: ${({ theme }) => theme.fontSize.bigger};
+  color: ${({ theme }) => theme.color.lightgrey};
 `;
 
 const Time = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 function ScheduleListEntry() {

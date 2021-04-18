@@ -12,9 +12,9 @@ const Wrapper = styled.article`
 const TextBox = styled.div`
   width: calc(100% - 50px);
   height: 100%;
-  margin: 0 ${({ theme }) => theme.margins.base} 0 0;
-  padding: ${({ theme }) => theme.paddings.bigger};
-  background: ${({ theme }) => theme.colors.white};
+  margin: 0 ${({ theme }) => theme.margin.base} 0 0;
+  padding: ${({ theme }) => theme.padding.bigger};
+  background: ${({ theme }) => theme.color.white};
   overflow: auto;
 `;
 
@@ -23,7 +23,7 @@ const Title = styled.p`
   font-family: "Bebas Neue";
   font-size: 3rem;
   letter-spacing: 0.1em;
-  color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.color.blue};
 `;
 
 const Content = styled.p`

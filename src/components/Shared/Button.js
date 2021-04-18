@@ -4,19 +4,19 @@ import styled from "styled-components";
 import stylesUtils from "../../styles/utils";
 
 const Button = styled.button`
-  padding: ${({ theme }) => theme.paddings.base};
+  padding: ${({ theme }) => theme.padding.base};
   background: transparent;
   border: 1px solid ${(props) => stylesUtils.selectColor(props)};
   font-family: "Bebas Neue";
-  font-size: ${({ theme }) => theme.fontSizes.middle};
+  font-size: ${({ theme }) => theme.fontSize.middle};
   letter-spacing: 0.1rem;
   color: ${(props) => stylesUtils.selectColor(props)};
   cursor: pointer;
   transition: 0.3s all;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.blue};
-    border: 1px solid ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.color.blue};
+    border: 1px solid ${({ theme }) => theme.color.blue};
 
     & > span {
       width: 70px;

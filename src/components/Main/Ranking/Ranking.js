@@ -19,16 +19,16 @@ const Tab = styled.li`
   height: auto;
   display: inline-block;
   font-family: "Bebas Neue";
-  font-size: ${({ theme }) => theme.fontSizes.middle};
+  font-size: ${({ theme }) => theme.fontSize.middle};
   text-align: center;
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.color.grey};
   cursor: pointer;
 
   &.active span {
-    padding: 0 ${({ theme }) => theme.paddings.small};
-    background: ${({ theme }) => theme.colors.blue};
+    padding: 0 ${({ theme }) => theme.padding.small};
+    background: ${({ theme }) => theme.color.blue};
     font-size: 1.2em;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.color.white};
   }
 `;
 

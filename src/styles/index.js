@@ -58,7 +58,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    background: ${({ theme }) => theme.colors.black};
+    background: ${({ theme }) => theme.color.black};
     font-family: "Nanum Barun Gothic", "Bebas Neue", sans-serif;
     font-size: 16px;
   }
@@ -69,8 +69,8 @@ const GlobalStyles = createGlobalStyle`
   h5,
   h6 {
     font-family: "Nanum Barun Gothic", sans-serif;
-    font-size: ${({ theme }) => theme.fontSizes.bigger};
-    color: ${({ theme }) => theme.colors.white};
+    font-size: ${({ theme }) => theme.fontSize.bigger};
+    color: ${({ theme }) => theme.color.white};
   }
 
   .english-title {

@@ -17,13 +17,13 @@ const Countdown = styled.div`
   font-family: "Bebas Neue";
   font-size: 3rem;
   letter-spacing: 0.1rem;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.color.white};
   position: relative;
 
   &::before {
     width: 200px;
     height: 3.5rem;
-    background: ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.color.blue};
     display: block;
     position: absolute;
     top: -5px;

@@ -13,7 +13,7 @@ const Wrapper = styled.article`
   &::before {
     width: 480px;
     height: 240px;
-    background: ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.color.blue};
     display: block;
     position: absolute;
     bottom: 10px;
@@ -26,9 +26,9 @@ const DateBox = styled.div`
   padding: 30px 30px 0 0;
   position: relative;
   font-family: "Bebas Neue";
-  font-size: ${({ theme }) => theme.fontSizes.biggest};
+  font-size: ${({ theme }) => theme.fontSize.biggest};
   letter-spacing: 0.1em;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.color.white};
 `;
 
 export default function Schedule() {

@@ -5,22 +5,22 @@ import playerImage from "../../../assets/images/player_image.jpg";
 const Wrapper = styled.div`
   width: 100%;
   height: 350px;
-  padding: ${({ theme }) => theme.paddings.middle};
-  background: ${({ theme }) => theme.colors.white};
+  padding: ${({ theme }) => theme.padding.middle};
+  background: ${({ theme }) => theme.color.white};
 `;
 
 const Title = styled.h2`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSizes.middle};
+  font-size: ${({ theme }) => theme.fontSize.middle};
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.color.black};
 `;
 
 const TitleInfo = styled.span`
   font-size: 1rem;
-  color: ${({ theme }) => theme.colors.lightgrey};
+  color: ${({ theme }) => theme.color.lightgrey};
 `;
 
 const FirstPlayer = styled.div`
@@ -40,7 +40,7 @@ const Info = styled.ul`
 
   li:first-child {
     font-size: 2rem;
-    color: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme }) => theme.color.blue};
   }
 
   li:nth-child(2) {
@@ -55,16 +55,16 @@ const Info = styled.ul`
   li:last-child {
     padding: 0.3rem;
     display: inline-block;
-    background: ${({ theme }) => theme.colors.blue};
+    background: ${({ theme }) => theme.color.blue};
     font-size: 1rem;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.color.white};
   }
 `;
 
 const PlayerImage = styled.img`
   width: 90px;
   height: 115px;
-  border: 1px solid ${({ theme }) => theme.colors.lightgrey};
+  border: 1px solid ${({ theme }) => theme.color.lightgrey};
 `;
 
 const OtherPlayers = styled.ul`
@@ -80,7 +80,7 @@ const Player = styled.li`
   }
 
   span:nth-child(3) {
-    color: ${({ theme }) => theme.colors.grey};
+    color: ${({ theme }) => theme.color.grey};
   }
 
   span:last-child {
