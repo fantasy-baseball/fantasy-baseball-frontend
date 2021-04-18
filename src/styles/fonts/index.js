@@ -19,7 +19,7 @@ const globalFonts = createGlobalStyle`
     letter-spacing: 0.1em;
     src: local("Bebas Neue"), local("BebasNeue"),
       url(${BebasNeueWoff}) format("woff"),
-      url()(${BebasNeueWoff2}) format()("woff2");
+      url(${BebasNeueWoff2}) format("woff2");
   }
 
   @font-face {
