@@ -75,7 +75,7 @@ const GlobalStyles = createGlobalStyle`
 
   .english-title {
     font-family: "Bebas Neue", "Nanum Barun Gothic", sans-serif;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     transform: scale(1, 0.9);
   }
 

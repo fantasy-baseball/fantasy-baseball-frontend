@@ -27,7 +27,7 @@ const DateBox = styled.div`
   position: relative;
   font-family: "Bebas Neue";
   font-size: ${({ theme }) => theme.fontSize.biggest};
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: ${({ theme }) => theme.color.white};
 `;
 
