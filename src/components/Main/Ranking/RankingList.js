@@ -16,11 +16,11 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.middle};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.black};
+`;
 
-  span {
-    font-size: 1rem;
-    color: ${({ theme }) => theme.colors.lightgrey};
-  }
+const TitleInfo = styled.span`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.lightgrey};
 `;
 
 const FirstPlayer = styled.div`
@@ -93,7 +93,7 @@ function PlayersRankingList() {
     <Wrapper>
       <Title>
         유저들이 선택한 TOP 5
-        <span>* 어제자 기준</span>
+        <TitleInfo>* 어제자 기준</TitleInfo>
       </Title>
       <FirstPlayer>
         <PlayerImage src={playerImage} />
