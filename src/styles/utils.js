@@ -9,8 +9,8 @@ const selectColor = (props) => {
   }
 };
 
-const stylesUtils = {
+const stylesUtil = {
   selectColor,
 };
 
-export default stylesUtils;
+export default stylesUtil;
