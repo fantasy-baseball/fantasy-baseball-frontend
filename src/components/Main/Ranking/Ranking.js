@@ -35,6 +35,7 @@ const Tab = styled.li`
 function Ranking() {
   return (
     <Wrapper>
+      <h2 className="hidden">TODAY RANKINGS</h2>
       <Tabs>
         <Tab className="active">
           <span>USERS</span>

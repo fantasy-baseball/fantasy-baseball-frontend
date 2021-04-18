@@ -33,6 +33,7 @@ const Content = styled.p`
 function Guide() {
   return (
     <Wrapper>
+      <h2 className="hidden">BETTING GUIDE</h2>
       <TextBox>
         <Title>WELCOME TO FANTASY BASEBALL</Title>
         <Content>

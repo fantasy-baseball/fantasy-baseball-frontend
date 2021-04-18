@@ -40,6 +40,7 @@ const Timer = styled.span`
 function Betting() {
   return (
     <Wrapper>
+      <h2 className="hidden">BETTING COUNTDOWN</h2>
       <Countdown>
         GAME START COUNTDOWN
         <Timer>
