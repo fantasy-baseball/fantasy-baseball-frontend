@@ -1,6 +1,6 @@
 const calcRem = (size) => `${size / 16}rem`;
 
-const colors = {
+const color = {
   black: "#1a1d23",
   blue: "#0f4cd9",
   white: "#ffffff",
@@ -9,7 +9,7 @@ const colors = {
   lightgrey: "#ddddde",
 };
 
-const fontSizes = {
+const fontSize = {
   small: calcRem(8),
   base: calcRem(16),
   middle: calcRem(24),
@@ -18,7 +18,7 @@ const fontSizes = {
   biggest: calcRem(48),
 };
 
-const margins = {
+const margin = {
   small: calcRem(8),
   base: calcRem(16),
   middle: calcRem(24),
@@ -27,7 +27,7 @@ const margins = {
   biggest: calcRem(48),
 };
 
-const paddings = {
+const padding = {
   small: calcRem(8),
   base: calcRem(16),
   middle: calcRem(24),
@@ -37,10 +37,10 @@ const paddings = {
 };
 
 const theme = {
-  colors,
-  fontSizes,
-  margins,
-  paddings,
+  color,
+  fontSize,
+  margin,
+  padding,
 };
 
 export default theme;
