@@ -17,6 +17,7 @@
         "objects": "only-multiline",
         "functions": "never"
       }
-    ]
+    ],
+    "no-unused-vars": "warn"
   }
 }
