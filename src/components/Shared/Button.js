@@ -50,12 +50,14 @@ const End = styled.span`
   transform-origin: bottom left;
 `;
 
-function SharedButton({
-  type,
-  title,
-  color,
-  handleClick,
-}) {
+function SharedButton(props) {
+  const {
+    type,
+    title,
+    color,
+    handleClick,
+  } = props;
+
   return (
     <Button
       type={type}
