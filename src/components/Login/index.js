@@ -96,11 +96,16 @@ const LoginTitle = styled.p`
 `;
 
 const TopTitle = styled.span`
+  position: relative;
+
   &::before {
     width: 0.74em;
     height: 5px;
     background: ${({ theme }) => theme.color.blue};
     display: block;
+    position: absolute;
+    top: -0.1em;
+    left: 0;
     content: "";
   }
 `;
