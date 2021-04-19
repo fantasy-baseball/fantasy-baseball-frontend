@@ -30,6 +30,7 @@ const TableHeader = styled.div`
     padding: ${({ theme }) => theme.padding.small};
     display: table-cell;
     text-align: center;
+    cursor: pointer;
 
     &.sort-asc::after {
       padding: 0 0 0 0.5rem;
@@ -49,10 +50,10 @@ const TableHeader = styled.div`
 
 const TableBody = styled.div`
   width: 100%;
+  height: ${(props) => props.height};
   background: ${({ theme }) => theme.color.darkgrey};
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.color.white};
-  height: ${(props) => props.height};
   overflow-y: auto;
 
   .tr {
