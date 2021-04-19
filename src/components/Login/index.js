@@ -83,15 +83,15 @@ const SemitransparentBlock = styled.div`
 const LoginTitle = styled.p`
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: calc(50% - 1em);
+  left: 7rem;
+  z-index: 3;
   font-family: "Bebas Neue";
   font-size: 12rem;
   letter-spacing: 0.1em;
   color: ${({ theme }) => theme.color.white};
   text-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: calc(50% - 1em);
-  left: 7rem;
-  z-index: 3;
   transform: scale(1, 0.9);
 `;
 
