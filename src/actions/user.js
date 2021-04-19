@@ -5,25 +5,8 @@ import {
   LOGOUT
 } from "../constants/actionTypes";
 
-export const waitUser = () => ({
-  type: LOGIN_PENDING,
-});
-
-export const createUser = (payload) => ({
-  type: LOGIN_SUCCESS,
-  payload,
-});
-
-export const failLogin = () => ({
-  type: LOGIN_FAILURE,
-});
-
-export const deleteUser = () => ({
-  type: LOGOUT,
-});
-
 export const saveUser = (tokenId) => async (dispatch) => {
-  dispatch(waitUser());
+  dispatch({ type: LOGIN_PENDING });
 
   try {
     const res = await fetch(`${process.env.REACT_APP_API_ADDRESS}/users/login`, {
@@ -33,15 +16,15 @@ export const saveUser = (tokenId) => async (dispatch) => {
       },
       credentials: "include",
     });
-    const { result, data } = await res.json();
+    const { result, data: user } = await res.json();
 
     if (result === "ok") {
-      dispatch(createUser(data));
+      dispatch({ type: LOGIN_SUCCESS, user });
     } else {
-      dispatch(failLogin());
+      dispatch({ type: LOGIN_FAILURE });
     }
   } catch {
-    dispatch(failLogin());
+    dispatch({ type: LOGIN_FAILURE });
   }
 };
 
@@ -62,6 +45,6 @@ export const clearUser = () => async (dispatch) => {
   const { result } = await res.json();
 
   if (result === "ok") {
-    dispatch(deleteUser());
+    dispatch({ type: LOGOUT });
   }
 };
