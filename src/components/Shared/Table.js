@@ -74,14 +74,16 @@ const TableBody = styled.div`
   }
 `;
 
-function SharedTable({
-  tableColumns,
-  tableData,
-  search,
-  colWidths,
-  tableHeight,
-  placeholder = "",
-}) {
+function SharedTable(props) {
+  const {
+    tableColumns,
+    tableData,
+    search,
+    colWidths,
+    tableHeight,
+    placeholder = "",
+  } = props;
+
   const [keyword, setKeyword] = useState("");
 
   const columns = useMemo(() => tableColumns, []);

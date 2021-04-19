@@ -30,13 +30,15 @@ const Input = styled.input`
   }
 `;
 
-function SharedInput({
-  type,
-  name,
-  value,
-  placeholder,
-  handleChange,
-}) {
+function SharedInput(props) {
+  const {
+    type,
+    name,
+    value,
+    placeholder,
+    handleChange,
+  } = props;
+
   return (
     <InputBox>
       <Input
