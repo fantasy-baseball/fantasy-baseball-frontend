@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import dateUtil from "../../../utils/date";
 import ScheduleList from "./ScheduleList";
 
 const Wrapper = styled.article`
@@ -32,12 +33,16 @@ const DateBox = styled.div`
 `;
 
 export default function Schedule() {
+  const today = dateUtil.formatDate(new Date(), "yyyy-MM-dd-eee");
+
   return (
     <Wrapper>
       <DateBox>
-        <p>2021</p>
-        <p>04/14</p>
-        <p>WED</p>
+        <p>{today.substring(0, 4)}</p>
+        <p>
+          {`${today.substring(5, 7)}/${today.substring(8, 10)}`}
+        </p>
+        <p>{today.substring(11, 14)}</p>
       </DateBox>
       <ScheduleList />
     </Wrapper>
