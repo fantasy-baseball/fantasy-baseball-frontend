@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
-import { saveUser } from "../../reducers";
-import { failLogin } from "../../actions/user";
+import { saveUser } from "../../actions/user";
+import { LOGIN_FAILURE } from "../../constants/actionTypes";
 
 function Login() {
   const history = useHistory();
@@ -14,7 +14,7 @@ function Login() {
   };
 
   const onGoogleFailure = () => {
-    dispatch(failLogin());
+    dispatch({ type: LOGIN_FAILURE });
     history.push("/login");
   };
 
