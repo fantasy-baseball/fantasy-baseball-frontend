@@ -18,6 +18,13 @@
         "functions": "never"
       }
     ],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["draft"]
+      }
+    ]
   }
 }
