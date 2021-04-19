@@ -55,6 +55,12 @@ const GlobalStyles = createGlobalStyle`
     border-spacing: 0;
   }
 
+  input,
+  textarea,
+  button {
+    box-sizing: border-box;
+  }
+
   body {
     width: 100vw;
     height: 100vh;
