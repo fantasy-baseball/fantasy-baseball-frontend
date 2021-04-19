@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import playerImage from "../../../assets/images/player_image.jpg";
 
@@ -23,14 +24,14 @@ const TitleInfo = styled.span`
   color: ${({ theme }) => theme.color.lightgrey};
 `;
 
-const FirstPlayer = styled.div`
+const FirstRank = styled.div`
   width: 100%;
   margin: 1rem 0 0 0;
   display: flex;
   align-items: center;
 `;
 
-const Info = styled.ul`
+const FirstRankInfo = styled.ul`
   width: 100%;
   margin: 0 0 0 1rem;
 
@@ -61,17 +62,17 @@ const Info = styled.ul`
   }
 `;
 
-const PlayerImage = styled.img`
+const Image = styled.img`
   width: 90px;
   height: 115px;
   border: 1px solid ${({ theme }) => theme.color.lightgrey};
 `;
 
-const OtherPlayers = styled.ul`
+const Others = styled.ul`
   margin: 1rem 0 0 0;
 `;
 
-const Player = styled.li`
+const Rank = styled.li`
   display: flex;
   line-height: 1.9rem;
 
@@ -88,50 +89,46 @@ const Player = styled.li`
   }
 `;
 
-function PlayersRankingList() {
+const renderLowerRanks = (list) => {
+  const players = [];
+  for (let i = 1; i < list.length; i += 1) {
+    players.push(
+      <Rank key={`rank-${i}`}>
+        <span>{i + 1}</span>
+        <span>{list[i].name}</span>
+        <span>{list[i]?.team}</span>
+        <span>{list[i]?.users}</span>
+      </Rank>
+    );
+  }
+  return players;
+};
+
+function RankingList({ data }) {
   return (
     <Wrapper>
       <Title>
-        유저들이 선택한 TOP 5
+        {data.title}
         <TitleInfo>* 어제자 기준</TitleInfo>
       </Title>
-      <FirstPlayer>
-        <PlayerImage src={playerImage} />
-        <Info>
+      <FirstRank>
+        <Image src={playerImage} />
+        <FirstRankInfo>
           <li>1</li>
-          <li>강동연</li>
-          <li>NC 다이노스</li>
+          <li>{data.list[0].name}</li>
+          <li>{data.list[0]?.teamName}</li>
           <li>431 명</li>
-        </Info>
-      </FirstPlayer>
-      <OtherPlayers>
-        <Player>
-          <span>1</span>
-          <span>수아레즈</span>
-          <span>LG</span>
-          <span>425 명</span>
-        </Player>
-        <Player>
-          <span>1</span>
-          <span>수아레즈</span>
-          <span>LG</span>
-          <span>420 명</span>
-        </Player>
-        <Player>
-          <span>1</span>
-          <span>수아레즈</span>
-          <span>LG</span>
-          <span>150 명</span>
-        </Player>
-        <Player>
-          <span>1</span>
-          <span>수아레즈</span>
-          <span>LG</span>
-          <span>110 명</span>
-        </Player>
-      </OtherPlayers>
+        </FirstRankInfo>
+      </FirstRank>
+      <Others>
+        {renderLowerRanks(data.list)}
+      </Others>
     </Wrapper>
   );
 }
 
-export default PlayersRankingList;
+RankingList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default RankingList;
