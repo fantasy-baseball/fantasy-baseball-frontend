@@ -7,7 +7,9 @@
     "email": "eluka22@gmail.com"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "cross-env": "^7.0.3",
     "date-fns": "^2.21.1",
     "immer": "^9.0.1",
@@ -17,6 +19,7 @@
     "react-google-login": "^5.2.2",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
+    "react-table": "^7.6.3",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",

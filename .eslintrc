@@ -9,12 +9,17 @@
   "rules": {
     "react/jsx-filename-extension": 0,
     "react/no-array-index-key": 0,
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-boolean-value": 0,
     "quotes": ["error", "double"],
+    "no-unused-vars": "warn",
+    "no-nested-ternary": 0,
     "comma-dangle": [
       "error",
       {
         "arrays": "only-multiline",
         "objects": "only-multiline",
+        "imports": "only-multiline",
         "functions": "never"
       }
     ],
