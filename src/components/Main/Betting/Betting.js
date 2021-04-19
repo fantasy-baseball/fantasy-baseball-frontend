@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import dateUtil from "../../../utils/date";
 import Button from "../../Shared/Button";
 
 const Wrapper = styled.article`
@@ -37,15 +38,74 @@ const Timer = styled.span`
   margin: 0 0 0 1rem;
 `;
 
+const GAME_START_TIME = {
+  weekdays: "17:30:00",
+  saturday: "16:00:00",
+  sunday: "13:00:00",
+};
+
 function Betting() {
+  const [today, setToday] = useState(new Date());
+  const [isBettingOpened, setIsBettingOpened] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      setToday(now);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const renderTime = () => {
+    let todayStartTime;
+
+    switch (today.getDay()) {
+      case 5:
+        todayStartTime = GAME_START_TIME.saturday;
+        break;
+      case 6:
+        todayStartTime = GAME_START_TIME.sunday;
+        break;
+      default:
+        todayStartTime = GAME_START_TIME.weekdays;
+    }
+
+    if (isBettingOpened === false) {
+      return (
+        <Timer>
+          00:00:00
+        </Timer>
+      );
+    }
+
+    const formatToday = dateUtil.formatDate(today, "MMMM d, yyyy");
+    const {
+      hours,
+      minutes,
+      seconds,
+    } = dateUtil.countTime(
+      new Date(today),
+      new Date(`${formatToday} ${todayStartTime}`)
+    );
+
+    if (hours === "00" && minutes === "00" && seconds === "00") {
+      setIsBettingOpened(false);
+    }
+
+    return (
+      <Timer>
+        {`${hours}:${minutes}:${seconds}`}
+      </Timer>
+    );
+  };
+
   return (
     <Wrapper>
       <h2 className="hidden">BETTING COUNTDOWN</h2>
       <Countdown>
         GAME START COUNTDOWN
-        <Timer>
-          09:15:45
-        </Timer>
+        {renderTime()}
       </Countdown>
       <Button
         type="button"
