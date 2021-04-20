@@ -11,6 +11,7 @@ function Login() {
 
   const onGoogleSuccess = ({ tokenId }) => {
     dispatch(saveUser(tokenId));
+    history.push("/");
   };
 
   const onGoogleFailure = () => {
