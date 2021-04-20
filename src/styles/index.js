@@ -57,13 +57,16 @@ const GlobalStyles = createGlobalStyle`
 
   input,
   textarea,
-  button {
+  button,
+  section,
+  main,
+  div {
     box-sizing: border-box;
   }
 
   body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: auto;
     background: ${({ theme }) => theme.color.black};
     font-family: "Nanum Barun Gothic", "Bebas Neue", sans-serif;
     font-size: 16px;
