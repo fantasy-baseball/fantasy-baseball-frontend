@@ -1,7 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import styled, { keyframes } from "styled-components";
+import { saveUser } from "../../actions/user";
+import { LOGIN_FAILURE } from "../../constants/actionTypes";
 import BaseballImage from "../../assets/images/login_bg.png";
 import Button from "../Shared/Button";
 
@@ -131,24 +134,16 @@ const BlueText = styled.span`
 
 function Login() {
   const history = useHistory();
-  const onGoogleSuccess = async ({ tokenId }) => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_ADDRESS}/users/login`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenId}`,
-        },
-        credentials: "include",
-      });
-      const { data } = await res.json();
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
+  const dispatch = useDispatch();
+
+  const onGoogleSuccess = ({ tokenId }) => {
+    dispatch(saveUser(tokenId));
+    history.push("/");
   };
 
   const onGoogleFailure = () => {
-    history.push("/");
+    dispatch({ type: LOGIN_FAILURE });
+    history.push("/login");
   };
 
   return (

@@ -5,6 +5,8 @@ import GlobalStyles from "../../styles";
 import GlobalFonts from "../../styles/fonts";
 import theme from "../../styles/theme";
 import Main from "../Main";
+import Login from "../Login";
+import Header from "../Header";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -23,7 +25,9 @@ function App() {
         <GlobalStyles />
         <GlobalFonts />
         <Layout>
-          <Route path="/" component={Main} />
+          <Header />
+          <Route exact path="/" component={Main} />
+          <Route path="/login" component={Login} />
         </Layout>
       </ThemeProvider>
     </Wrapper>
