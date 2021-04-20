@@ -128,7 +128,12 @@ function RankingList({ data }) {
 }
 
 RankingList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes
+    .shape({
+      title: PropTypes.string.isRequired,
+      list: PropTypes.arrayOf(PropTypes.object).isRequired,
+    })
+    .isRequired,
 };
 
 export default RankingList;
