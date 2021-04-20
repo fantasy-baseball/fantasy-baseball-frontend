@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { fetchPlayers } from "../../api";
 import Table from "../Shared/Table";
 
 // TODO: 삭제 예정
@@ -14,189 +17,11 @@ const bettingColumns = [
   },
   {
     Header: "INFO",
-    accessor: "info",
+    accessor: "link",
   },
   {
     Header: "ADD",
     accessor: "add",
-  },
-];
-
-const bettingData = [
-  {
-    name: "김현수",
-    teamName: "LG",
-    position: "좌익수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박주홍",
-    teamName: "한화",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "수아레즈",
-    teamName: "LG",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "정수빈",
-    teamName: "두산",
-    position: "중견수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박찬호",
-    teamName: "LA 다저스",
-    position: "투수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "김현수",
-    teamName: "LG",
-    position: "좌익수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박주홍",
-    teamName: "한화",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "수아레즈",
-    teamName: "LG",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "정수빈",
-    teamName: "두산",
-    position: "중견수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박찬호",
-    teamName: "LA 다저스",
-    position: "투수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "김현수",
-    teamName: "LG",
-    position: "좌익수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박주홍",
-    teamName: "한화",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "수아레즈",
-    teamName: "LG",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "정수빈",
-    teamName: "두산",
-    position: "중견수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박찬호",
-    teamName: "LA 다저스",
-    position: "투수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "김현수",
-    teamName: "LG",
-    position: "좌익수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박주홍",
-    teamName: "한화",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "수아레즈",
-    teamName: "LG",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "정수빈",
-    teamName: "두산",
-    position: "중견수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박찬호",
-    teamName: "LA 다저스",
-    position: "투수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "김현수",
-    teamName: "LG",
-    position: "좌익수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박주홍",
-    teamName: "한화",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "수아레즈",
-    teamName: "LG",
-    position: "투수(좌투좌타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "정수빈",
-    teamName: "두산",
-    position: "중견수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
-  },
-  {
-    name: "박찬호",
-    teamName: "LA 다저스",
-    position: "투수(우투우타)",
-    kbo_id: 68703,
-    photo_url: "http://example_image.jpg",
   },
 ];
 
@@ -205,18 +30,59 @@ const Wrapper = styled.article`
   flex: auto;
 `;
 
+const PlayerLink = styled.a`
+  color: ${({ theme }) => theme.color.white};
+`;
+
+const AddIcon = styled.span`
+  color: ${({ theme }) => theme.color.white};
+  cursor: pointer;
+`;
+
 function SearchEntry() {
+  const [players, setPlayers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const getPlayers = async () => {
+      setIsLoading(true);
+
+      const entryPlayers = await fetchPlayers();
+      const filteredEntryPlayers = entryPlayers.map((player) => {
+        const currentPlayer = { ...player };
+        const { link } = currentPlayer;
+
+        currentPlayer.link = (
+          <PlayerLink href={link} target="_blank">
+            <FontAwesomeIcon icon={faExternalLinkAlt} />
+          </PlayerLink>
+        );
+        currentPlayer.add = (<FontAwesomeIcon icon={faUserPlus} />);
+        return currentPlayer;
+      });
+
+      setPlayers(filteredEntryPlayers);
+      setIsLoading(false);
+    };
+
+    getPlayers();
+  }, []);
+
   return (
     <Wrapper>
       <h2 className="hidden">1군 엔트리 선수 검색하기</h2>
-      <Table
-        tableColumns={bettingColumns}
-        tableData={bettingData}
-        search={true}
-        colWidths={["300px", "auto", "80px", "80px"]}
-        tableHeight="400px"
-        placeholder="선수 정보를 검색해주세요 (ex: 김현수, 좌익수, 좌투좌타 등)"
-      />
+      {isLoading
+        ? <p>로딩중</p>
+        : (
+          <Table
+            tableColumns={bettingColumns}
+            tableData={players}
+            search={true}
+            colWidths={["300px", "auto", "80px", "80px"]}
+            tableHeight="400px"
+            placeholder="선수 정보를 검색해주세요 (ex: 김현수, 좌익수, 좌투좌타 등)"
+          />
+        )}
     </Wrapper>
   );
 }
