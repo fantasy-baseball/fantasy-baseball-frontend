@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import formatDate from "../../../utils/date";
+import { getSchedule } from "../../../actions/todayGame";
+import { formatDate } from "../../../utils/date";
 import ScheduleList from "./ScheduleList";
 
 const Wrapper = styled.article`
@@ -32,19 +34,57 @@ const DateBox = styled.div`
   color: ${({ theme }) => theme.color.white};
 `;
 
+const LoadingTest = styled.div`
+  width: 100%;
+  height: 150px;
+  background: yellow;
+  color: blue;
+`;
+
 export default function Schedule() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const schedule = useSelector((state) => state.todayGame.schedule);
+  const dispatch = useDispatch();
+
   const today = formatDate(new Date(), "yyyy-MM-dd-eee");
+
+  useEffect(() => {
+    if (schedule.result === "failure") {
+      setError(schedule.message);
+      setIsLoading(false);
+      return;
+    }
+
+    if (schedule.length < 1) {
+      setIsLoading(true);
+      dispatch(getSchedule());
+      return;
+    }
+
+    setIsLoading(false);
+  }, [schedule]);
 
   return (
     <Wrapper>
-      <DateBox>
-        <p>{today.substring(0, 4)}</p>
-        <p>
-          {`${today.substring(5, 7)}/${today.substring(8, 10)}`}
-        </p>
-        <p>{today.substring(11, 14)}</p>
-      </DateBox>
-      <ScheduleList />
+      {isLoading
+        ? <LoadingTest>로딩중입니다.</LoadingTest>
+        : (
+          <>
+            <DateBox>
+              <p>{today.substring(0, 4)}</p>
+              <p>
+                {`${today.substring(5, 7)}/${today.substring(8, 10)}`}
+              </p>
+              <p>{today.substring(11, 14)}</p>
+            </DateBox>
+            <ScheduleList
+              schedule={schedule}
+              error={error}
+            />
+          </>
+        )}
     </Wrapper>
   );
 }
