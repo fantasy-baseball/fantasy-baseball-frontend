@@ -161,13 +161,17 @@ function Ranking() {
     setTabList((prevTabList) => {
       const selectedIndex = prevTabList.findIndex((tab) => tab.name === tabName);
       const newTabList = prevTabList.map((tab, index) => {
+        const currentTab = { ...tab };
+
         if (index === selectedIndex) {
-          tab.isActive = true;
+          currentTab.isActive = true;
         } else {
-          tab.isActive = false;
+          currentTab.isActive = false;
         }
-        return tab;
+
+        return currentTab;
       });
+
       return newTabList;
     });
 
