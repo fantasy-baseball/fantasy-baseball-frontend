@@ -1,8 +1,8 @@
-const API_ADDRESS = process.env.REACT_APP_API_ADDRESS;
+const API_URL = process.env.REACT_APP_API_ADDRESS;
 
 export const fetchUser = async (tokenId) => {
   try {
-    const res = await fetch(`${API_ADDRESS}/users/login`, {
+    const res = await fetch(`${API_URL}/users/login`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${tokenId}`,
@@ -19,7 +19,7 @@ export const fetchUser = async (tokenId) => {
 
 export const deleteUser = async () => {
   try {
-    const res = await fetch(`${API_ADDRESS}/users/logout`, {
+    const res = await fetch(`${API_URL}/users/logout`, {
       headers: {
         "Content-Type": "application/json",
       },
