@@ -31,7 +31,7 @@ const ButtonList = styled.ul`
   font-size: ${({ theme }) => theme.fontSize.middle};
   color: ${({ theme }) => theme.color.grey};
 
-  li:hover{
+  li:hover {
     color: ${({ theme }) => theme.color.white};
   }
 `;
