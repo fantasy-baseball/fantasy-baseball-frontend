@@ -1,6 +1,8 @@
-import { format, intervalToDuration } from "date-fns";
+import { format, intervalToDuration, parse } from "date-fns";
 
-const formatDate = (date, setting) => format(date, setting);
+export const formatDate = (date, setting) => format(date, setting);
+
+export const parseDate = (date, setting) => parse(date, setting, new Date());
 
 export const countTime = (now, endTime) => {
   const duration = intervalToDuration({
@@ -20,5 +22,3 @@ export const countTime = (now, endTime) => {
     seconds,
   };
 };
-
-export default formatDate;
