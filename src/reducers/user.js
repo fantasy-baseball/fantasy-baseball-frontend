@@ -3,7 +3,7 @@ import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT
+  LOGOUT,
 } from "../constants/actionTypes";
 
 const initialState = {
