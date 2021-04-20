@@ -26,7 +26,7 @@ const Position = styled.div`
   justify-content: center;
   grid-row: ${(props) => props.rowStart};
   grid-column-start: ${(props) => props.columnStart};
-  grid-column-end: span 4;
+  grid-column-end: span 5;
 
   p {
     font-family: "Bebas Neue";
@@ -44,7 +44,7 @@ const PlayerImage = styled.img`
 const PlayerInfo = styled.div`
   grid-row: ${(props) => props.rowStart};
   grid-column-start: ${(props) => props.columnStart};
-  grid-column-end: span 6;
+  grid-column-end: span 5;
 
   p {
     padding: 0.5em;
@@ -72,7 +72,7 @@ function Entry({ entryPosition }) {
       <EntryCard cardGridArea={cardGridArea}>
         <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />
       </EntryCard>
-      <PlayerInfo rowStart={rowStart + 5} columnStart={columnStart - 1}>
+      <PlayerInfo rowStart={rowStart + 6} columnStart={columnStart}>
         <p>스트레일리 / 투수</p>
       </PlayerInfo>
     </EntryWrapper>
