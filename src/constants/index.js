@@ -7,7 +7,7 @@ const ENTRY_POSITIONS = [
     columnStart: 4,
   },
   {
-    playerPosition: "Middle Fielder",
+    playerPosition: "Center Fielder",
     wrapperGridArea: "2 / 5 / span 4 / span 4",
     cardGridArea: "2 / 6 / span 4 / span 4",
     rowStart: 1,
