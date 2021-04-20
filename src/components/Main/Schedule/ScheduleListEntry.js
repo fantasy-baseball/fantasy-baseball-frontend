@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import logo from "../../../assets/images/lg_twins_logo.png";
+import Logo from "../../Shared/Logo";
 
 const Entry = styled.div`
   width: 20%;
@@ -28,11 +29,6 @@ const Team = styled.div`
   text-align: center;
 `;
 
-const Logo = styled.img`
-  width: auto;
-  height: 50px;
-`;
-
 const TeamName = styled.p`
   margin: ${({ theme }) => theme.margin.small};
   font-size: ${({ theme }) => theme.fontSize.base};
@@ -56,25 +52,47 @@ const Time = styled.p`
   font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
-function ScheduleListEntry() {
+function ScheduleListEntry(props) {
+  const {
+    homeTeam,
+    homePitcher,
+    awayTeam,
+    awayPitcher,
+    time
+  } = props;
+
   return (
     <Entry>
       <Team>
-        <Logo src={logo} />
-        <TeamName>LG</TeamName>
-        <Pitcher>수아레즈</Pitcher>
+        <Logo
+          teamName={homeTeam}
+          height="50px"
+        />
+        <TeamName>{homeTeam}</TeamName>
+        <Pitcher>{homePitcher}</Pitcher>
       </Team>
       <Info>
         <Versus>VS</Versus>
-        <Time>18:30</Time>
+        <Time>{time}</Time>
       </Info>
       <Team>
-        <Logo src={logo} />
-        <TeamName>LG</TeamName>
-        <Pitcher>수아레즈</Pitcher>
+        <Logo
+          teamName={awayTeam}
+          height="50px"
+        />
+        <TeamName>{awayTeam}</TeamName>
+        <Pitcher>{awayPitcher}</Pitcher>
       </Team>
     </Entry>
   );
 }
+
+ScheduleListEntry.propTypes = {
+  homeTeam: PropTypes.string.isRequired,
+  homePitcher: PropTypes.string.isRequired,
+  awayTeam: PropTypes.string.isRequired,
+  awayPitcher: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+};
 
 export default ScheduleListEntry;
