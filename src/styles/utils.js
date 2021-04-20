@@ -4,6 +4,8 @@ const selectColor = (props) => {
       return props.theme.color.white;
     case "black":
       return props.theme.color.black;
+    case "blue":
+      return props.theme.color.blue;
     default:
       return props.theme.color.black;
   }
