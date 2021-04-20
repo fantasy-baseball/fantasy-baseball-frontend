@@ -10,7 +10,6 @@ export const fetchUser = async (tokenId) => {
       credentials: "include",
     });
     const { result, data: user } = await res.json();
-    console.log(user);
     return { result, user };
   } catch (err) {
     console.error(err);
