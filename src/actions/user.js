@@ -23,12 +23,7 @@ export const saveUser = (tokenId) => async (dispatch) => {
 };
 
 export const clearUser = () => async (dispatch) => {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("token"))
-    .split("=")[1];
-
-  const result = await deleteUser(token);
+  const result = await deleteUser();
 
   if (result === "ok") {
     dispatch({ type: LOGOUT });

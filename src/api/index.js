@@ -18,14 +18,12 @@ export const fetchUser = async (tokenId) => {
   }
 };
 
-export const deleteUser = async (token) => {
+export const deleteUser = async () => {
   try {
     const res = await fetch(`${API_ADDRESS}/users/logout`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
     });
 
     const { result } = await res.json();
