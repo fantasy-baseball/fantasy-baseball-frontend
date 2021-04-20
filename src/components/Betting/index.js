@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SearchEntry from "./SearchEntry";
 import Roaster from "../Roaster";
-import BettingInfo from "../Shared/BettingInfo";
+import BettingInfo from "../BettingInfo";
 import Slider from "../Shared/Slider";
 
 const Wrapper = styled.section`
