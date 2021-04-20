@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import dateUtil from "../../../utils/date";
+import formatDate from "../../../utils/date";
 import ScheduleList from "./ScheduleList";
 
 const Wrapper = styled.article`
@@ -33,7 +33,7 @@ const DateBox = styled.div`
 `;
 
 export default function Schedule() {
-  const today = dateUtil.formatDate(new Date(), "yyyy-MM-dd-eee");
+  const today = formatDate(new Date(), "yyyy-MM-dd-eee");
 
   return (
     <Wrapper>

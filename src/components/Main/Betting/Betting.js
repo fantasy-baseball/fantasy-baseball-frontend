@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import dateUtil from "../../../utils/date";
+import formatDate, { countTime } from "../../../utils/date";
 import Button from "../../Shared/Button";
 
 const Wrapper = styled.article`
@@ -50,8 +50,7 @@ function Betting() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const now = new Date();
-      setToday(now);
+      setToday(new Date());
     }, 1000);
 
     return () => clearInterval(timer);
@@ -79,12 +78,12 @@ function Betting() {
       );
     }
 
-    const formatToday = dateUtil.formatDate(today, "MMMM d, yyyy");
+    const formatToday = formatDate(today, "MMMM d, yyyy");
     const {
       hours,
       minutes,
       seconds,
-    } = dateUtil.countTime(
+    } = countTime(
       new Date(today),
       new Date(`${formatToday} ${todayStartTime}`)
     );
@@ -104,7 +103,7 @@ function Betting() {
     <Wrapper>
       <h2 className="hidden">BETTING COUNTDOWN</h2>
       <Countdown>
-        GAME START COUNTDOWN
+        BETTING START COUNTDOWN
         {renderTime()}
       </Countdown>
       <Button

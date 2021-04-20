@@ -2,7 +2,7 @@ import { format, intervalToDuration } from "date-fns";
 
 const formatDate = (date, setting) => format(date, setting);
 
-const countTime = (now, endTime) => {
+export const countTime = (now, endTime) => {
   const duration = intervalToDuration({
     start: now,
     end: endTime,
@@ -21,9 +21,4 @@ const countTime = (now, endTime) => {
   };
 };
 
-const dateUtil = {
-  formatDate,
-  countTime,
-};
-
-export default dateUtil;
+export default formatDate;
