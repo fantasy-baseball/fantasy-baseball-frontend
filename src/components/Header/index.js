@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { GoogleLogout } from "react-google-login";
 import { clearUser } from "../../actions/user";
@@ -55,8 +55,9 @@ const Button = styled.button`
 function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { name } = useSelector((state) => state.user.user);
 
-  const logout = async () => {
+  const logout = () => {
     dispatch(clearUser());
     history.push("/login");
   };
@@ -66,7 +67,7 @@ function Header() {
       <Title>
         <Link to="/">FANTASY BASEBALL</Link>
       </Title>
-      <User>HELLO, Hansol Yun</User>
+      <User>{`HELLO, ${name}`}</User>
       <ButtonList>
         <li>
           <GoogleLogout
