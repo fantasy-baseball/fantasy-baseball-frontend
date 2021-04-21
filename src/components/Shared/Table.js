@@ -1,4 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, {
+  useState,
+  useMemo,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import {
   useTable,
   useGlobalFilter,
@@ -19,6 +24,10 @@ const TableHeader = styled.div`
   font-family: "Bebas Neue";
   font-size: ${({ theme }) => theme.fontSize.middle};
   color: ${({ theme }) => theme.color.white};
+
+  &.scroll {
+    padding: 0 15px 0 0;
+  }
 
   .tr {
     width: 100%;
@@ -82,10 +91,14 @@ function SharedTable(props) {
     search,
     colWidths,
     tableHeight,
-    placeholder = "",
+    placeholder,
   } = props;
 
   const [keyword, setKeyword] = useState("");
+  const [scrollbar, setScrollbar] = useState(0);
+
+  const tableRef = useRef();
+  const tableBodyRef = useRef();
 
   const columns = useMemo(() => tableColumns, []);
   const data = useMemo(() => tableData, []);
@@ -112,6 +125,16 @@ function SharedTable(props) {
     setGlobalFilter(value);
   };
 
+  useLayoutEffect(() => {
+    const scrollbarWidth = tableRef.current.clientWidth - tableBodyRef.current.clientWidth;
+    if (scrollbarWidth > 0) {
+      setScrollbar(scrollbarWidth);
+      return;
+    }
+
+    setScrollbar(0);
+  }, [tableBodyRef]);
+
   return (
     <>
       {search && (
@@ -123,8 +146,10 @@ function SharedTable(props) {
           handleChange={handleInputChange}
         />
       )}
-      <Table {...getTableProps()}>
-        <TableHeader>
+      <Table ref={tableRef} {...getTableProps()}>
+        <TableHeader
+          className={scrollbar > 0 ? "scroll" : ""}
+        >
           {headerGroups.map((headerGroup) => (
             <div
               {...headerGroup.getHeaderGroupProps()}
@@ -150,6 +175,7 @@ function SharedTable(props) {
         </TableHeader>
         <TableBody
           {...getTableBodyProps()}
+          ref={tableBodyRef}
           height={tableHeight}
         >
           {rows.map((row) => {
@@ -183,7 +209,11 @@ SharedTable.propTypes = {
   search: PropTypes.bool.isRequired,
   colWidths: PropTypes.arrayOf(PropTypes.string).isRequired,
   tableHeight: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+};
+
+SharedTable.defaultProps = {
+  placeholder: "키워드를 입력해주세요.",
 };
 
 export default SharedTable;
