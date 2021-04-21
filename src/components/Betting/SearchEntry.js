@@ -1,29 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import produce from "immer";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { fetchPlayers } from "../../api";
+import styled from "styled-components";
 import Table from "../Shared/Table";
-
-// TODO: 삭제 예정
-const bettingColumns = [
-  {
-    Header: "NAME",
-    accessor: "name"
-  },
-  {
-    Header: "POSITION",
-    accessor: "position",
-  },
-  {
-    Header: "INFO",
-    accessor: "link",
-  },
-  {
-    Header: "ADD",
-    accessor: "add",
-  },
-];
 
 const Wrapper = styled.article`
   padding: 0 0 ${({ theme }) => theme.padding.base} 0;
@@ -35,56 +16,158 @@ const PlayerLink = styled.a`
 `;
 
 const AddIcon = styled.span`
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.grey};
   cursor: pointer;
+
+  &[data-active="true"],
+  &.selected {
+    color: ${({ theme }) => theme.color.white};
+  }
 `;
 
-function SearchEntry() {
-  const [players, setPlayers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+const getPlayerPosition = (position) => {
+  switch (position) {
+    case "좌익수":
+      return "leftFielder";
+    case "중견수":
+      return "centerFielder";
+    case "우익수":
+      return "rightFielder";
+    case "1루수":
+      return "firstBaseman";
+    case "2루수":
+      return "secondBaseman";
+    case "3루수":
+      return "thirdBaseman";
+    case "유격수":
+      return "shortStop";
+    case "투수":
+      return "pitcher";
+    case "포수":
+      return "catcher";
+    case "지명타자":
+      return "designatedHitter";
+    default:
+      return "포지션이 없습니다.";
+  }
+};
 
-  useEffect(() => {
-    const getPlayers = async () => {
-      setIsLoading(true);
+function SearchEntry({ players, setRoaster }) {
+  const [clickCount, setclickCount] = useState(0);
 
-      const entryPlayers = await fetchPlayers();
-      const filteredEntryPlayers = entryPlayers.map((player) => {
-        const currentPlayer = { ...player };
-        const { link } = currentPlayer;
+  const handleAddIcon = (tableProps, event) => {
+    const currentData = tableProps.value;
 
-        currentPlayer.link = (
-          <PlayerLink href={link} target="_blank">
-            <FontAwesomeIcon icon={faExternalLinkAlt} />
-          </PlayerLink>
-        );
-        currentPlayer.add = (<FontAwesomeIcon icon={faUserPlus} />);
-        return currentPlayer;
-      });
+    setclickCount((prev) => {
+      const newCount = prev + 1;
+      return newCount;
+    });
 
-      setPlayers(filteredEntryPlayers);
-      setIsLoading(false);
-    };
+    const currentIcon = event.currentTarget;
+    const kboId = currentIcon.getAttribute("data-kbo-id");
+    const position = currentIcon.getAttribute("data-position");
+    const { isActive } = currentData;
+    const selectedPlayer = players.find((player) => player.kboId === kboId);
 
-    getPlayers();
-  }, []);
+    if (kboId === selectedPlayer.kboId && isActive) {
+      setRoaster(
+        produce((draft) => {
+          draft[position] = { name: null };
+        })
+      );
+      currentData.isActive = false;
+      return;
+    }
+
+    const iconList = tableProps.rows;
+    const selectedDataIndex = iconList.findIndex((icon) => (
+      getPlayerPosition(icon.values.add.position) === position
+        && icon.values.add.isActive
+    ));
+
+    if (selectedDataIndex > -1) {
+      iconList[selectedDataIndex].values.add.isActive = false;
+    }
+
+    currentData.isActive = true;
+    setRoaster(
+      produce((draft) => {
+        draft[position] = selectedPlayer;
+      })
+    );
+  };
+
+  const renderLinkIcon = ({ value }) => (
+    <PlayerLink href={value} target="_blank">
+      <FontAwesomeIcon icon={faExternalLinkAlt} />
+    </PlayerLink>
+  );
+
+  const renderAddIcon = (tableProps) => {
+    const position = getPlayerPosition(tableProps.value.position);
+
+    return (
+      <AddIcon
+        data-kbo-id={tableProps.value.kboId}
+        data-active={tableProps.value.isActive}
+        data-position={position}
+        onClick={(event) => handleAddIcon(tableProps, event)}
+      >
+        <FontAwesomeIcon icon={faUserPlus} />
+      </AddIcon>
+    );
+  };
+
+  const BETTING_COLUMNS = [
+    {
+      Header: "name",
+      accessor: "name"
+    },
+    {
+      Header: "team",
+      accessor: "team"
+    },
+    {
+      Header: "position",
+      accessor: "position",
+    },
+    {
+      Header: "info",
+      accessor: "link",
+      Cell: renderLinkIcon,
+    },
+    {
+      Header: "add",
+      accessor: (row) => ({
+        kboId: row.kboId,
+        position: row.position,
+        isActive: false,
+      }),
+      Cell: renderAddIcon,
+    },
+  ];
 
   return (
     <Wrapper>
-      <h2 className="hidden">1군 엔트리 선수 검색하기</h2>
-      {isLoading
-        ? <p>로딩중</p>
-        : (
-          <Table
-            tableColumns={bettingColumns}
-            tableData={players}
-            search={true}
-            colWidths={["300px", "auto", "80px", "80px"]}
-            tableHeight="400px"
-            placeholder="선수 정보를 검색해주세요 (ex: 김현수, 좌익수, 좌투좌타 등)"
-          />
-        )}
+      <h2 className="hidden">
+        1군 엔트리 선수 검색하기
+        {clickCount}
+      </h2>
+      <Table
+        tableColumns={BETTING_COLUMNS}
+        tableData={players}
+        search={true}
+        colWidths={["200px", "100px", "auto", "80px", "80px"]}
+        tableHeight="400px"
+        placeholder="선수 정보를 검색해주세요 (ex: 김현수, 좌익수, 좌투좌타 등)"
+      />
     </Wrapper>
   );
 }
+
+SearchEntry.propTypes = {
+  players: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setRoaster: PropTypes.func.isRequired,
+};
 
 export default React.memo(SearchEntry);
