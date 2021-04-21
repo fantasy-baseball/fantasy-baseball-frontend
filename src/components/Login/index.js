@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
 import styled, { keyframes } from "styled-components";
 import { saveUser } from "../../actions/user";
@@ -132,12 +133,19 @@ const BlueText = styled.span`
   color: ${({ theme }) => theme.color.blue};
 `;
 
-function Login() {
+function Login({ setIsVisible }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const onGoogleSuccess = ({ tokenId }) => {
-    dispatch(saveUser(tokenId));
+  useEffect(() => {
+    if (document.cookie.indexOf("access_token") !== -1) {
+      history.push("/");
+    }
+  }, []);
+
+  const onGoogleSuccess = async ({ tokenId }) => {
+    const result = await dispatch(saveUser(tokenId));
+    setIsVisible(result);
     history.push("/");
   };
 
@@ -179,5 +187,9 @@ function Login() {
     </Wrapper>
   );
 }
+
+Login.propTypes = {
+  setIsVisible: PropTypes.func.isRequired,
+};
 
 export default Login;
