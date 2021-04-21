@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { fetchPlayers } from "../../api";
 import SearchEntry from "./SearchEntry";
 import Roaster from "../Roaster";
 import BettingInfo from "../BettingInfo";
 import Slider from "../Shared/Slider";
+import { EMPTY_ROASTER } from "../../constants";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -34,31 +36,54 @@ const BettingMoney = styled.article`
 `;
 
 function Betting() {
+  const [players, setPlayers] = useState([]);
+  const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const [bettingMoney, setBettingMoney] = useState(500);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleBettingMoney = (event) => {
     const { value } = event.target;
     setBettingMoney(value);
   };
 
+  useEffect(() => {
+    const getPlayers = async () => {
+      setIsLoading(true);
+      const entryPlayers = await fetchPlayers();
+      setPlayers(entryPlayers);
+      setIsLoading(false);
+    };
+
+    getPlayers();
+  }, []);
+
   return (
     <Wrapper>
       <BettingWrapper>
-        <SearchEntry />
-        <BettingMoney>
-          <Slider
-            minValue={500}
-            maxValue={5000}
-            step={100}
-            value={bettingMoney}
-            handleChange={handleBettingMoney}
-          />
-          <BettingInfo />
-        </BettingMoney>
+        {isLoading
+          ? <p>로딩중</p>
+          : (
+            <>
+              <SearchEntry
+                players={players}
+                setRoaster={setRoaster}
+              />
+              <BettingMoney>
+                <Slider
+                  minValue={500}
+                  maxValue={5000}
+                  step={100}
+                  value={bettingMoney}
+                  handleChange={handleBettingMoney}
+                />
+                <BettingInfo />
+              </BettingMoney>
+            </>
+          )}
       </BettingWrapper>
       <RoasterWrapper>
         <h2 className="hidden">로스터 선택하기</h2>
-        <Roaster />
+        <Roaster roaster={roaster} />
       </RoasterWrapper>
     </Wrapper>
   );
