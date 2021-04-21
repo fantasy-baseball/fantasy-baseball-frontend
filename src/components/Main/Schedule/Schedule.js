@@ -51,15 +51,15 @@ export default function Schedule() {
   const today = formatDate(new Date(), "yyyy-MM-dd-eee");
 
   useEffect(() => {
-    if (schedule.result === "failure") {
-      setError(schedule.message);
-      setIsLoading(false);
-      return;
-    }
-
     if (schedule.length < 1) {
       setIsLoading(true);
       dispatch(getSchedule());
+      return;
+    }
+
+    if (schedule.result === "failure") {
+      setError(schedule.message);
+      setIsLoading(false);
       return;
     }
 
