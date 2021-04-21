@@ -91,6 +91,7 @@ const Rank = styled.li`
 
 const renderLowerRanks = (list) => {
   const players = [];
+
   for (let i = 1; i < list.length; i += 1) {
     players.push(
       <Rank key={`rank-${i}`}>
@@ -101,6 +102,7 @@ const renderLowerRanks = (list) => {
       </Rank>
     );
   }
+
   return players;
 };
 
