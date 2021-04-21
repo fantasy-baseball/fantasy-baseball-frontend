@@ -57,8 +57,16 @@ const GlobalStyles = createGlobalStyle`
 
   input,
   textarea,
-  button {
+  button,
+  main,
+  section,
+  article {
     box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 
   body {
