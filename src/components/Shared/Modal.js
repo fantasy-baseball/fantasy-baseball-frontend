@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import ReactDom from "react-dom";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -78,7 +79,7 @@ function SharedModal(props) {
     contentText,
     hasLinkButton,
     path,
-    linkButtonText
+    linkButtonText,
   } = props;
 
   const modal = useRef();
@@ -92,7 +93,7 @@ function SharedModal(props) {
     closeModal();
   };
 
-  return (
+  return ReactDom.createPortal(
     <Wrapper onClick={clickModalOutside}>
       <Modal ref={modal}>
         <Header>
@@ -107,7 +108,8 @@ function SharedModal(props) {
             && <LinkButton to={path}>{linkButtonText}</LinkButton>}
         </Content>
       </Modal>
-    </Wrapper>
+    </Wrapper>,
+    document.getElementById("portal-modal")
   );
 }
 
@@ -122,7 +124,7 @@ SharedModal.propTypes = {
 
 SharedModal.defaultProps = {
   path: "/",
-  linkButtonText: "GO TO MAIN"
+  linkButtonText: "GO TO MAIN",
 };
 
 export default SharedModal;
