@@ -1,4 +1,4 @@
-const selectColor = (props) => {
+export const selectColor = (props) => {
   switch (props.color) {
     case "white":
       return props.theme.color.white;
@@ -11,8 +11,17 @@ const selectColor = (props) => {
   }
 };
 
-const stylesUtil = {
-  selectColor,
+export const selectSize = (props) => {
+  switch (props.size) {
+    case "small":
+      return props.theme.padding.small;
+    case "base":
+      return props.theme.padding.base;
+    case "middle":
+      return props.theme.padding.middle;
+    case "big":
+      return props.theme.padding.big;
+    default:
+      return props.theme.color.black;
+  }
 };
-
-export default stylesUtil;

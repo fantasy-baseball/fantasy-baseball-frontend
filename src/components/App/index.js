@@ -6,6 +6,7 @@ import GlobalFonts from "../../styles/fonts";
 import theme from "../../styles/theme";
 import Main from "../Main";
 import Login from "../Login";
+import Betting from "../Betting";
 import Header from "../Header";
 
 const Wrapper = styled.div`
@@ -28,6 +29,7 @@ function App() {
           <Header />
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
+          <Route path="/betting" component={Betting} />
         </Layout>
       </ThemeProvider>
     </Wrapper>

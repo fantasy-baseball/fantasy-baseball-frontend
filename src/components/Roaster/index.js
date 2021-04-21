@@ -4,11 +4,11 @@ import Entry from "./Entry/Entry";
 import ENTRY_POSITIONS from "../../constants";
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.color.darkgrey};
   display: grid;
-  grid-template: repeat(14, 8vmin) / repeat(14, 8vmin);
+  grid-template: repeat(12, 7vmin) / repeat(12, 7vmin);
 `;
 
 const Rhombus = styled.div`

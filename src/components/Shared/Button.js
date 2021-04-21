@@ -1,25 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import stylesUtils from "../../styles/utils";
+import { selectColor, selectSize } from "../../styles/utils";
 
 const Button = styled.button`
-  padding: ${({ theme }) => theme.padding.base};
+  padding: ${(props) => selectSize(props)};
   background: transparent;
-  border: 1px solid ${(props) => stylesUtils.selectColor(props)};
+  border: 1px solid ${(props) => selectColor(props)};
   font-family: "Bebas Neue";
   font-size: ${({ theme }) => theme.fontSize.middle};
   letter-spacing: 0.1rem;
-  color: ${(props) => stylesUtils.selectColor(props)};
+  color: ${(props) => selectColor(props)};
   cursor: pointer;
   transition: 0.3s all;
 
   &:hover {
     background: ${({ theme }) => theme.color.blue};
     border: 1px solid ${({ theme }) => theme.color.blue};
+    color: ${({ theme }) => theme.color.white};
 
     & > span {
       width: 70px;
+
+      span {
+        background: ${({ theme }) => theme.color.white};
+      }
     }
   }
 `;
@@ -35,14 +40,14 @@ const Arrow = styled.span`
 const Line = styled.span`
   width: 100%;
   height: 1px;
-  background: ${(props) => stylesUtils.selectColor(props)};
+  background: ${(props) => selectColor(props)};
   display: inline-block;
 `;
 
 const End = styled.span`
   width: 15px;
   height: 1px;
-  background: ${(props) => stylesUtils.selectColor(props)};
+  background: ${(props) => selectColor(props)};
   display: inline-block;
   position: absolute;
   bottom: 8px;
@@ -55,6 +60,7 @@ function SharedButton(props) {
     type,
     title,
     color,
+    size,
     handleClick,
   } = props;
 
@@ -62,6 +68,7 @@ function SharedButton(props) {
     <Button
       type={type}
       color={color}
+      size={size}
       onClick={handleClick}
     >
       {title}
@@ -77,6 +84,7 @@ SharedButton.propTypes = {
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
