@@ -58,7 +58,7 @@ function ScheduleListEntry(props) {
     homePitcher,
     awayTeam,
     awayPitcher,
-    time
+    time,
   } = props;
 
   return (
