@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import formatDate, { countTime } from "../../../utils/date";
+import { formatDate, countTime } from "../../../utils/date";
 import Button from "../../Shared/Button";
 
 const Wrapper = styled.article`
