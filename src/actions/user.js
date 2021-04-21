@@ -5,6 +5,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   CHECK_USER,
+  EXPIRED_TOKEN,
 } from "../constants/actionTypes";
 
 export const saveUser = (tokenId) => async (dispatch) => {
@@ -42,6 +43,9 @@ export const checkUser = (tokenId) => async (dispatch) => {
 
     if (result === "ok") {
       dispatch({ type: CHECK_USER, user });
+    } else {
+      dispatch({ type: EXPIRED_TOKEN });
+      return result;
     }
   } catch (err) {
     console.error(err);

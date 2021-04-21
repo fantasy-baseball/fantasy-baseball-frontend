@@ -5,6 +5,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   CHECK_USER,
+  EXPIRED_TOKEN,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -28,6 +29,10 @@ const user = (state = initialState, action) => {
     case LOGOUT:
       return initialState;
     case CHECK_USER:
+      return produce(state, (draft) => {
+        draft.user = action.user;
+      });
+    case EXPIRED_TOKEN:
       return produce(state, (draft) => {
         draft.user = action.user;
       });
