@@ -45,7 +45,6 @@ export const checkUser = (tokenId) => async (dispatch) => {
       dispatch({ type: CHECK_USER, user });
     } else {
       dispatch({ type: EXPIRED_TOKEN });
-      return result;
     }
   } catch (err) {
     console.error(err);
