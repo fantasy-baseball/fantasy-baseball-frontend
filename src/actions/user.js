@@ -4,28 +4,46 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
+  CHECK_USER,
 } from "../constants/actionTypes";
 
 export const saveUser = (tokenId) => async (dispatch) => {
   dispatch({ type: LOGIN_PENDING });
 
   try {
-    const { result, user } = await fetchUser(tokenId);
+    const { result, user, isInitialLogin } = await fetchUser(tokenId, "login");
 
     if (result === "ok") {
       dispatch({ type: LOGIN_SUCCESS, user });
-    } else {
-      dispatch({ type: LOGIN_FAILURE });
+      return isInitialLogin;
     }
+
+    dispatch({ type: LOGIN_FAILURE });
   } catch {
     dispatch({ type: LOGIN_FAILURE });
   }
 };
 
 export const clearUser = () => async (dispatch) => {
-  const result = await deleteUser();
+  try {
+    const result = await deleteUser();
 
-  if (result === "ok") {
-    dispatch({ type: LOGOUT });
+    if (result === "ok") {
+      dispatch({ type: LOGOUT });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const checkUser = (tokenId) => async (dispatch) => {
+  try {
+    const { result, user } = await fetchUser(tokenId, "checkUser");
+
+    if (result === "ok") {
+      dispatch({ type: CHECK_USER, user });
+    }
+  } catch (err) {
+    console.error(err);
   }
 };
