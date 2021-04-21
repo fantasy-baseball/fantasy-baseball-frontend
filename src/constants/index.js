@@ -1,69 +1,79 @@
-const ENTRY_POSITIONS = [
+export const ENTRY_POSITIONS = [
   {
-    playerPosition: "Left Fielder",
+    position: "leftFielder",
+    title: "Left Fielder",
     wrapperGridArea: "2 / 2 / span 4 / span 4",
     cardGridArea: "4 / 4 / span 5 / span 5",
     rowStart: 3,
     columnStart: 4,
   },
   {
-    playerPosition: "Center Fielder",
+    position: "centerFielder",
+    title: "Center Fielder",
     wrapperGridArea: "2 / 5 / span 4 / span 4",
     cardGridArea: "2 / 6 / span 5 / span 5",
     rowStart: 1,
     columnStart: 6,
   },
   {
-    playerPosition: "Right Fielder",
+    position: "rightFielder",
+    title: "Right Fielder",
     wrapperGridArea: "2 / 9 / span 4 / span 4",
     cardGridArea: "4 / 4 / span 5 / span 5",
     rowStart: 3,
     columnStart: 4,
   },
   {
-    playerPosition: "Short Stop",
+    position: "shortStop",
+    title: "Short Stop",
     wrapperGridArea: "4 / 4 / span 4 / span 4",
     cardGridArea: "3 / 4 / span 5 / span 5",
     rowStart: 2,
     columnStart: 4,
   },
   {
-    playerPosition: "2nd Baseman",
+    position: "secondBaseman",
+    title: "2nd Baseman",
     wrapperGridArea: "4 / 6 / span 4 / span 4",
     cardGridArea: "3 / 8 / span 5 / span 5",
     rowStart: 2,
     columnStart: 8,
   },
   {
-    playerPosition: "3rd Baseman",
+    position: "thirdBaseman",
+    title: "3rd Baseman",
     wrapperGridArea: "6 / 2 / span 4 / span 4",
     cardGridArea: "3 / 4 / span 5 / span 5",
     rowStart: 2,
     columnStart: 4,
   },
   {
-    playerPosition: "Pitcher",
+    position: "pitcher",
+    title: "Pitcher",
     wrapperGridArea: "6 / 5 / span 4 / span 4",
     cardGridArea: "3 / 6 / span 5 / span 5",
     rowStart: 2,
     columnStart: 6,
   },
   {
-    playerPosition: "1st Baseman",
+    position: "firstBaseman",
+    title: "1st Baseman",
     wrapperGridArea: "6 / 9 / span 4 / span 4",
     cardGridArea: "3 / 4 / span 5 / span 5",
     rowStart: 2,
     columnStart: 4,
   },
   {
-    playerPosition: "CATCHER",
+    position: "catcher",
+    title: "CATCHER",
     wrapperGridArea: "9 / 5 / span 4 / span 4",
     cardGridArea: "3 / 6 / span 5 / span 5",
     rowStart: 2,
     columnStart: 6,
   },
   {
-    playerPosition: "DESIGNATED HITTER",
+    position: "designatedHitter",
+    title: "DESIGNATED HITTER",
     wrapperGridArea: "9 / 7 / span 4 / span 4",
     cardGridArea: "3 / 6 / span 5 / span 5",
     rowStart: 2,
@@ -71,4 +81,35 @@ const ENTRY_POSITIONS = [
   },
 ];
 
-export default ENTRY_POSITIONS;
+export const EMPTY_ROASTER = {
+  leftFielder: {
+    name: null,
+  },
+  centerFielder: {
+    name: null,
+  },
+  rightFielder: {
+    name: null,
+  },
+  firstBaseman: {
+    name: null,
+  },
+  secondBaseman: {
+    name: null,
+  },
+  thirdBaseman: {
+    name: null,
+  },
+  shortStop: {
+    name: null,
+  },
+  pitcher: {
+    name: null,
+  },
+  catcher: {
+    name: null,
+  },
+  designatedHitter: {
+    name: null,
+  },
+};
