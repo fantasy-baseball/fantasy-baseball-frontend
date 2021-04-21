@@ -60,8 +60,14 @@ const GlobalStyles = createGlobalStyle`
   button,
   section,
   main,
-  div {
+  div,
+  article {
     box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 
   body {

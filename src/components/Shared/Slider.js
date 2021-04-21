@@ -31,9 +31,8 @@ function SharedSlider(props) {
     maxValue,
     value,
     step,
-    handleChange
+    handleChange,
   } = props;
-  // const ratio = (value - minValue) / (maxValue - minValue);
 
   return (
     <Wrapper>
