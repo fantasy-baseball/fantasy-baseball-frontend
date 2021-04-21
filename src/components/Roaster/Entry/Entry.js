@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import playerImage from "../../../assets/images/player_image.jpg";
 
 const EntryWrapper = styled.div`
   display: grid;
@@ -12,12 +11,12 @@ const EntryWrapper = styled.div`
 `;
 
 const EntryCard = styled.div`
-  background-color: ${({ theme }) => theme.color.white};
+  background: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: ${(props) => props.cardGridArea};
-  opacity: 0.7;
+  position: relative;
 `;
 
 const Position = styled.div`
@@ -30,7 +29,7 @@ const Position = styled.div`
 
   p {
     font-family: "Bebas Neue";
-    font-size: 18px;
+    font-size: ${({ theme }) => theme.fontSize.base};
     text-align: center;
     color: ${({ theme }) => theme.color.white};
   }
@@ -47,33 +46,43 @@ const PlayerInfo = styled.div`
   grid-column-end: span 5;
 
   p {
-    padding: 0.5em;
+    padding: 0.5em 0;
     font-family: "Bebas Neue";
     font-size: 15px;
     text-align: center;
     color: ${({ theme }) => theme.color.white};
+    word-break: break-word;
   }
 `;
 
-function Entry({ entryPosition }) {
+function Entry({ entryPosition, roasterPosition }) {
   const {
-    playerPosition,
+    title,
     wrapperGridArea,
     cardGridArea,
     rowStart,
     columnStart,
   } = entryPosition;
 
+  const {
+    name,
+    playerPhotoUrl,
+    team,
+  } = roasterPosition;
+
   return (
     <EntryWrapper wrapperGridArea={wrapperGridArea}>
       <Position rowStart={rowStart} columnStart={columnStart}>
-        <p>{playerPosition}</p>
+        <p>{title}</p>
       </Position>
       <EntryCard cardGridArea={cardGridArea}>
-        <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />
+        {name
+          ? <PlayerImage src={playerPhotoUrl} />
+          : <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />}
       </EntryCard>
       <PlayerInfo rowStart={rowStart + 6} columnStart={columnStart}>
-        <p>스트레일리 / 투수</p>
+        {name
+          && <p>{`${name} / ${team}`}</p>}
       </PlayerInfo>
     </EntryWrapper>
   );
@@ -81,6 +90,7 @@ function Entry({ entryPosition }) {
 
 Entry.propTypes = {
   entryPosition: PropTypes.instanceOf(Object).isRequired,
+  roasterPosition: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default Entry;
+export default React.memo(Entry);
