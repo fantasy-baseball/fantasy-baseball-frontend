@@ -59,10 +59,25 @@ function App() {
             ? (
               <>
                 <Header />
-                <Route exact path="/" render={() => <Main isModalVisible={isModalVisible} setIsVisible={setIsVisible} />} />
+                <Route
+                  exact
+                  path="/"
+                  render={() => (
+                    <Main
+                      isModalVisible={isModalVisible}
+                      setIsVisible={setIsVisible}
+                    />
+                  )}
+                />
                 <Route path="/betting" component={Betting} />
               </>
-            ) : <Route path="/login" render={() => <Login setIsVisible={setIsVisible} />} />}
+            )
+            : (
+              <Route
+                path="/login"
+                render={() => <Login setIsVisible={setIsVisible} />}
+              />
+            )}
         </Layout>
       </ThemeProvider>
     </Wrapper>
