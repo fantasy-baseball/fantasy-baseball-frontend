@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { fetchPlayers, postBetting } from "../../api/game";
 import checkBettingCondition from "../../utils";
 import { showModal } from "../../actions/modal";
+import { updateMoney } from "../../actions/login";
 import SearchEntry from "./SearchEntry";
 import BettingOption from "./BettingOption";
 import Roaster from "../Roaster";
@@ -64,8 +65,7 @@ function Betting() {
   const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const [bettingMoney, setBettingMoney] = useState(500);
   const [isLoading, setIsLoading] = useState(false);
-  // const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
-  const [bettingCondition, setBettingCondition] = useState("open");
+  const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
 
   const dispatch = useDispatch();
 
@@ -136,6 +136,7 @@ function Betting() {
       "베팅 참가에 성공하였습니다.",
       true
     );
+    dispatch(updateMoney(bettingMoney));
   };
 
   useEffect(() => {
