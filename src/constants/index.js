@@ -126,3 +126,15 @@ export const PLAYER_POSITIONS = {
   포수: "catcher",
   지명타자: "designatedHitter",
 };
+
+export const GAME_START_TIME = {
+  weekdays: "17:30:00",
+  saturday: "16:00:00",
+  sunday: "13:00:00",
+};
+
+export const BETTING_START_TIME = {
+  weekdays: "16:30:00",
+  saturday: "15:00:00",
+  sunday: "12:00:00",
+};
