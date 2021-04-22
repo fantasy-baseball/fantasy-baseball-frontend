@@ -113,3 +113,9 @@ export const EMPTY_ROASTER = {
     name: null,
   },
 };
+
+export const GAME_START_TIME = {
+  weekdays: "17:30:00",
+  saturday: "16:00:00",
+  sunday: "13:00:00",
+};
