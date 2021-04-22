@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Entry from "./Entry/Entry";
-import { ENTRY_POSITIONS } from "../../constants";
+import Slot from "./Slot/Slot";
+import { SLOT_POSITIONS } from "../../constants";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,11 +22,11 @@ function Roaster({ roaster }) {
   return (
     <Wrapper>
       <Rhombus />
-      {ENTRY_POSITIONS.map((entryPostion, index) => (
-        <Entry
+      {SLOT_POSITIONS.map((slotPosition, index) => (
+        <Slot
           key={index}
-          entryPosition={entryPostion}
-          roasterPosition={roaster[entryPostion.position]}
+          slotPosition={slotPosition}
+          roasterPosition={roaster[slotPosition.position]}
         />
       ))}
     </Wrapper>

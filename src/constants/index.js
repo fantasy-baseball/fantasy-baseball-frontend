@@ -1,4 +1,4 @@
-export const ENTRY_POSITIONS = [
+export const SLOT_POSITIONS = [
   {
     position: "leftFielder",
     title: "Left Fielder",

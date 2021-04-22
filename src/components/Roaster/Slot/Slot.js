@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const EntryWrapper = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template: repeat(10, 1fr) / repeat(14, 1fr);
   grid-area: ${(props) => props.wrapperGridArea};
 `;
 
-const EntryCard = styled.div`
+const SlotBox = styled.div`
   background: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
@@ -55,14 +55,14 @@ const PlayerInfo = styled.div`
   }
 `;
 
-function Entry({ entryPosition, roasterPosition }) {
+function Slot({ slotPosition, roasterPosition }) {
   const {
     title,
     wrapperGridArea,
     cardGridArea,
     rowStart,
     columnStart,
-  } = entryPosition;
+  } = slotPosition;
 
   const {
     name,
@@ -71,26 +71,26 @@ function Entry({ entryPosition, roasterPosition }) {
   } = roasterPosition;
 
   return (
-    <EntryWrapper wrapperGridArea={wrapperGridArea}>
+    <Wrapper wrapperGridArea={wrapperGridArea}>
       <Position rowStart={rowStart} columnStart={columnStart}>
         <p>{title}</p>
       </Position>
-      <EntryCard cardGridArea={cardGridArea}>
+      <SlotBox cardGridArea={cardGridArea}>
         {name
           ? <PlayerImage src={playerPhotoUrl} />
           : <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />}
-      </EntryCard>
+      </SlotBox>
       <PlayerInfo rowStart={rowStart + 6} columnStart={columnStart}>
         {name
           && <p>{`${name} / ${team}`}</p>}
       </PlayerInfo>
-    </EntryWrapper>
+    </Wrapper>
   );
 }
 
-Entry.propTypes = {
-  entryPosition: PropTypes.instanceOf(Object).isRequired,
+Slot.propTypes = {
+  slotPosition: PropTypes.instanceOf(Object).isRequired,
   roasterPosition: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default React.memo(Entry);
+export default React.memo(Slot);
