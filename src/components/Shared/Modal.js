@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
+import { hideModal } from "../../actions/modal";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -72,20 +73,20 @@ const LinkButton = styled(Link)`
   }
 `;
 
-function SharedModal(props) {
+function SharedModal() {
   const {
-    setIsModalVisible,
     title,
     contentText,
     hasLinkButton,
     path,
     linkButtonText,
-  } = props;
+  } = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
 
   const modal = useRef();
 
   const closeModal = () => {
-    setIsModalVisible(false);
+    dispatch(hideModal());
   };
 
   const clickModalOutside = (event) => {
@@ -112,19 +113,5 @@ function SharedModal(props) {
     document.getElementById("portal")
   );
 }
-
-SharedModal.propTypes = {
-  setIsModalVisible: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  contentText: PropTypes.string.isRequired,
-  hasLinkButton: PropTypes.bool.isRequired,
-  path: PropTypes.string,
-  linkButtonText: PropTypes.string,
-};
-
-SharedModal.defaultProps = {
-  path: "/",
-  linkButtonText: "GO TO MAIN",
-};
 
 export default SharedModal;
