@@ -1,10 +1,13 @@
+// TO DO: 실서버 연결시 주석 해제 및 testDay를 today로 교체
+// import { formatDate } from "../utils/date";
+
 const API_URL = process.env.REACT_APP_API_ADDRESS;
+
+// const today = formatDate(new Date(), "yyyyMMdd");
+const testDay = "20210418";
 
 export const fetchSchedule = async () => {
   try {
-    // TO DO: 실서버 연결시 주석 해제 및 testDay를 today로 교체
-    // const today = formatDate(new Date(), "yyyyMMdd");
-    const testDay = "20210418";
     const res = await fetch(`${API_URL}/games/${testDay}/schedule`, {
       headers: {
         "Content-Type": "application/json",
@@ -28,9 +31,6 @@ export const fetchSchedule = async () => {
 
 export const fetchPlayers = async () => {
   try {
-    // TO DO: 실서버 연결시 주석 해제 및 testDay를 today로 교체
-    // const today = formatDate(new Date(), "yyyyMMdd");
-    const testDay = "20210418";
     const res = await fetch(`${API_URL}/games/${testDay}/players`, {
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const fetchPlayers = async () => {
 
 export const postBetting = async (bettingData) => {
   try {
-    // const res = await fetch(`${API_URL}/games/${testDay}/betting`);
+    const res = await fetch(`${API_URL}/games/${testDay}/betting`);
   } catch (err) {
     console.error(err);
   }
