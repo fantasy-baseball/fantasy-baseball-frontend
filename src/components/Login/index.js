@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
 import styled, { keyframes } from "styled-components";
-import { saveUser } from "../../actions/user";
+import { saveUser } from "../../actions/login";
 import { LOGIN_FAILURE } from "../../constants/actionTypes";
 import BaseballImage from "../../assets/images/login_bg.png";
 import Button from "../Shared/Button";

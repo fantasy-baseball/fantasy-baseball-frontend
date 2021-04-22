@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import user from "./user";
+import login from "./login";
 import todayGame from "./todayGame";
 
 const reducers = combineReducers({
-  user,
+  login,
   todayGame,
 });
 

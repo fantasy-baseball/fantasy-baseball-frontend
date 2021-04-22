@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { GoogleLogout } from "react-google-login";
-import { clearUser } from "../../actions/user";
+import { clearUser } from "../../actions/login";
 
 const Wrapper = styled.div`
   height: 70px;
@@ -55,7 +55,7 @@ const Button = styled.button`
 function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { name } = useSelector((state) => state.user.user);
+  const { name } = useSelector((state) => state.login.user);
 
   const logout = () => {
     dispatch(clearUser());

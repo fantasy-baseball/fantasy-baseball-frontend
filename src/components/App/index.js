@@ -9,7 +9,7 @@ import Main from "../Main";
 import Login from "../Login";
 import Betting from "../Betting";
 import Header from "../Header";
-import { checkUser } from "../../actions/user";
+import { checkUser } from "../../actions/login";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ const Layout = styled.main`
 
 function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.login);
   const history = useHistory();
   const dispatch = useDispatch();
 
