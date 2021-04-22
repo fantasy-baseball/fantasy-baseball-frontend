@@ -6,6 +6,7 @@ import {
   LOGOUT,
   CHECK_USER,
   EXPIRED_TOKEN,
+  UPDATE_MONEY,
 } from "../constants/actionTypes";
 
 export const saveUser = (tokenId) => async (dispatch) => {
@@ -50,3 +51,5 @@ export const checkUser = (tokenId) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const updateMoney = (bettingMoney) => ({ type: UPDATE_MONEY, bettingMoney });

@@ -6,6 +6,7 @@ import {
   LOGOUT,
   CHECK_USER,
   EXPIRED_TOKEN,
+  UPDATE_MONEY,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -35,6 +36,10 @@ const user = (state = initialState, action) => {
     case EXPIRED_TOKEN:
       return produce(state, (draft) => {
         draft.user = action.user;
+      });
+    case UPDATE_MONEY:
+      return produce(state, (draft) => {
+        draft.user.money -= action.bettingMoney;
       });
     default:
       return state;
