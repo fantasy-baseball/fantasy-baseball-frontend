@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { formatDate, countTime } from "../../../utils/date";
 import LinkButton from "../../Shared/LinkButton";
+import checkBettingCondition from "../../../utils";
+import { GAME_START_TIME } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 100%;
@@ -38,15 +40,15 @@ const Timer = styled.span`
   margin: 0 0 0 1rem;
 `;
 
-const GAME_START_TIME = {
-  weekdays: "17:30:00",
-  saturday: "16:00:00",
-  sunday: "13:00:00",
-};
+const BettingInfo = styled.span`
+  font-family: "Bebas Neue";
+  font-size: 3rem;
+  color: ${({ theme }) => theme.color.white};
+`;
 
 function Betting() {
   const [today, setToday] = useState(new Date());
-  const [isBettingOpened, setIsBettingOpened] = useState(true);
+  const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(today));
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -70,7 +72,7 @@ function Betting() {
         todayStartTime = GAME_START_TIME.weekdays;
     }
 
-    if (isBettingOpened === false) {
+    if (bettingCondition === "close") {
       return (
         <Timer>
           00:00:00
@@ -89,7 +91,7 @@ function Betting() {
     );
 
     if (hours === "00" && minutes === "00" && seconds === "00") {
-      setIsBettingOpened(false);
+      setBettingCondition("close");
     }
 
     return (
@@ -99,6 +101,44 @@ function Betting() {
     );
   };
 
+  const renderBettingButton = () => {
+    if (bettingCondition === "open") {
+      return (
+        <LinkButton
+          path="/betting"
+          type="button"
+          title="BETTING START"
+          color="white"
+          size="base"
+        />
+      );
+    }
+
+    if (bettingCondition === "close") {
+      return (
+        <BettingInfo>GAME STARTED</BettingInfo>
+      );
+    }
+
+    if (bettingCondition === "calculating") {
+      return (
+        <BettingInfo>SCORE CALCULATING</BettingInfo>
+      );
+    }
+
+    if (bettingCondition === "result") {
+      return (
+        <LinkButton
+          path="/result"
+          type="button"
+          title="BETTING RESULT"
+          color="white"
+          size="base"
+        />
+      );
+    }
+  };
+
   return (
     <Wrapper>
       <h2 className="hidden">BETTING COUNTDOWN</h2>
@@ -106,13 +146,7 @@ function Betting() {
         BETTING START COUNTDOWN
         {renderTime()}
       </Countdown>
-      <LinkButton
-        path="/betting"
-        type="button"
-        title="BETTING START"
-        color="white"
-        size="base"
-      />
+      {renderBettingButton()}
     </Wrapper>
   );
 }
