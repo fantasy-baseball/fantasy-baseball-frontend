@@ -47,7 +47,24 @@ export const fetchPlayers = async () => {
 
 export const postBetting = async (bettingData) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/betting`);
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("access_token"))
+      .split("=")[1];
+
+    const res = await fetch(`${API_URL}/games/${testDay}/betting`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        ...bettingData,
+        date: testDay,
+      }),
+    });
+
+    return await res.json();
   } catch (err) {
     console.error(err);
   }
