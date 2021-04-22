@@ -23,6 +23,7 @@ const Modal = styled.div`
   width: 400px;
   height: auto;
   background: ${({ theme }) => theme.color.black};
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: ${({ theme }) => theme.color.white};
 `;
 
