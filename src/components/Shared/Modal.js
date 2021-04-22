@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import ReactDom from "react-dom";
+import { createPortal } from "react-dom";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -74,7 +74,7 @@ const LinkButton = styled(Link)`
 
 function SharedModal(props) {
   const {
-    setIsVisible,
+    setIsModalVisible,
     title,
     contentText,
     hasLinkButton,
@@ -85,7 +85,7 @@ function SharedModal(props) {
   const modal = useRef();
 
   const closeModal = () => {
-    setIsVisible(false);
+    setIsModalVisible(false);
   };
 
   const clickModalOutside = (event) => {
@@ -93,7 +93,7 @@ function SharedModal(props) {
     closeModal();
   };
 
-  return ReactDom.createPortal(
+  return createPortal(
     <Wrapper onClick={clickModalOutside}>
       <Modal ref={modal}>
         <Header>
@@ -114,7 +114,7 @@ function SharedModal(props) {
 }
 
 SharedModal.propTypes = {
-  setIsVisible: PropTypes.func.isRequired,
+  setIsModalVisible: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   contentText: PropTypes.string.isRequired,
   hasLinkButton: PropTypes.bool.isRequired,
