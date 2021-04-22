@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { formatDate, countTime } from "../../../utils/date";
-import Button from "../../Shared/Button";
+import LinkButton from "../../Shared/LinkButton";
 
 const Wrapper = styled.article`
   width: 100%;
@@ -106,10 +106,12 @@ function Betting() {
         BETTING START COUNTDOWN
         {renderTime()}
       </Countdown>
-      <Button
+      <LinkButton
+        path="/betting"
         type="button"
         title="BETTING START"
         color="white"
+        size="base"
       />
     </Wrapper>
   );
