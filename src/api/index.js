@@ -58,3 +58,22 @@ export const fetchSchedule = async () => {
     console.error(err);
   }
 };
+
+export const fetchPlayers = async () => {
+  try {
+    // TO DO: 실서버 연결시 주석 해제 및 testDay를 today로 교체
+    // const today = formatDate(new Date(), "yyyyMMdd");
+    const testDay = "20210418";
+    const res = await fetch(`${API_URL}/games/${testDay}/players`, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};

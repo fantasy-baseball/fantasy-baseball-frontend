@@ -3,21 +3,20 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import playerImage from "../../../assets/images/player_image.jpg";
 
-const EntryWrapper = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template: repeat(10, 1fr) / repeat(14, 1fr);
   grid-area: ${(props) => props.wrapperGridArea};
 `;
 
-const EntryCard = styled.div`
-  background-color: ${({ theme }) => theme.color.white};
+const SlotBox = styled.div`
+  background: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: ${(props) => props.cardGridArea};
-  opacity: 0.7;
+  position: relative;
 `;
 
 const Position = styled.div`
@@ -30,7 +29,7 @@ const Position = styled.div`
 
   p {
     font-family: "Bebas Neue";
-    font-size: 18px;
+    font-size: ${({ theme }) => theme.fontSize.base};
     text-align: center;
     color: ${({ theme }) => theme.color.white};
   }
@@ -47,40 +46,51 @@ const PlayerInfo = styled.div`
   grid-column-end: span 5;
 
   p {
-    padding: 0.5em;
+    padding: 0.5em 0;
     font-family: "Bebas Neue";
     font-size: 15px;
     text-align: center;
     color: ${({ theme }) => theme.color.white};
+    word-break: break-word;
   }
 `;
 
-function Entry({ entryPosition }) {
+function Slot({ slotPosition, roasterPosition }) {
   const {
-    playerPosition,
+    title,
     wrapperGridArea,
     cardGridArea,
     rowStart,
     columnStart,
-  } = entryPosition;
+  } = slotPosition;
+
+  const {
+    name,
+    playerPhotoUrl,
+    team,
+  } = roasterPosition;
 
   return (
-    <EntryWrapper wrapperGridArea={wrapperGridArea}>
+    <Wrapper wrapperGridArea={wrapperGridArea}>
       <Position rowStart={rowStart} columnStart={columnStart}>
-        <p>{playerPosition}</p>
+        <p>{title}</p>
       </Position>
-      <EntryCard cardGridArea={cardGridArea}>
-        <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />
-      </EntryCard>
+      <SlotBox cardGridArea={cardGridArea}>
+        {name
+          ? <PlayerImage src={playerPhotoUrl} />
+          : <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />}
+      </SlotBox>
       <PlayerInfo rowStart={rowStart + 6} columnStart={columnStart}>
-        <p>스트레일리 / 투수</p>
+        {name
+          && <p>{`${name} / ${team}`}</p>}
       </PlayerInfo>
-    </EntryWrapper>
+    </Wrapper>
   );
 }
 
-Entry.propTypes = {
-  entryPosition: PropTypes.instanceOf(Object).isRequired,
+Slot.propTypes = {
+  slotPosition: PropTypes.instanceOf(Object).isRequired,
+  roasterPosition: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default Entry;
+export default React.memo(Slot);

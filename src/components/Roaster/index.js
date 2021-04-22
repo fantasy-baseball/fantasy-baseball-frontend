@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import Entry from "./Entry/Entry";
-import ENTRY_POSITIONS from "../../constants";
+import Slot from "./Slot/Slot";
+import { SLOT_POSITIONS } from "../../constants";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -17,15 +18,23 @@ const Rhombus = styled.div`
   transform: rotate(45deg) skew(-0.15739559rad, -0.15739556rad);
 `;
 
-function Roaster() {
+function Roaster({ roaster }) {
   return (
     <Wrapper>
       <Rhombus />
-      {ENTRY_POSITIONS.map((entryPostion, index) => (
-        <Entry key={index} entryPosition={entryPostion} />
+      {SLOT_POSITIONS.map((slotPosition, index) => (
+        <Slot
+          key={index}
+          slotPosition={slotPosition}
+          roasterPosition={roaster[slotPosition.position]}
+        />
       ))}
     </Wrapper>
   );
 }
 
-export default Roaster;
+Roaster.propTypes = {
+  roaster: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default React.memo(Roaster);

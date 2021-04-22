@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { GoogleLogout } from "react-google-login";
-import { clearUser } from "../../actions/user";
+import { clearUser } from "../../actions/login";
 
 const Wrapper = styled.div`
   height: 70px;
@@ -19,9 +21,16 @@ const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.bigger};
 `;
 
-const User = styled.span`
+const UserInfo = styled.ul`
   margin: 0 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: "Nanum Barun Gothic";
+`;
+
+const Money = styled.span`
+  margin: 0 0 0 0.3rem;
 `;
 
 const ButtonList = styled.ul`
@@ -55,7 +64,7 @@ const Button = styled.button`
 function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { name } = useSelector((state) => state.user.user);
+  const { name, money } = useSelector((state) => state.login.user);
 
   const logout = () => {
     dispatch(clearUser());
@@ -67,7 +76,13 @@ function Header() {
       <Title>
         <Link to="/">FANTASY BASEBALL</Link>
       </Title>
-      <User>{`HELLO, ${name}`}</User>
+      <UserInfo>
+        <li>{`HELLO, ${name}`}</li>
+        <li>
+          <FontAwesomeIcon icon={faCoins} />
+          <Money>{money}</Money>
+        </li>
+      </UserInfo>
       <ButtonList>
         <li>
           <GoogleLogout
