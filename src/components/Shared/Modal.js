@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { createPortal } from "react-dom";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -73,18 +74,18 @@ const LinkButton = styled(Link)`
 
 function SharedModal(props) {
   const {
-    setIsVisible,
+    setIsModalVisible,
     title,
     contentText,
     hasLinkButton,
     path,
-    linkButtonText
+    linkButtonText,
   } = props;
 
   const modal = useRef();
 
   const closeModal = () => {
-    setIsVisible(false);
+    setIsModalVisible(false);
   };
 
   const clickModalOutside = (event) => {
@@ -92,7 +93,7 @@ function SharedModal(props) {
     closeModal();
   };
 
-  return (
+  return createPortal(
     <Wrapper onClick={clickModalOutside}>
       <Modal ref={modal}>
         <Header>
@@ -107,12 +108,13 @@ function SharedModal(props) {
             && <LinkButton to={path}>{linkButtonText}</LinkButton>}
         </Content>
       </Modal>
-    </Wrapper>
+    </Wrapper>,
+    document.getElementById("portal-modal")
   );
 }
 
 SharedModal.propTypes = {
-  setIsVisible: PropTypes.func.isRequired,
+  setIsModalVisible: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   contentText: PropTypes.string.isRequired,
   hasLinkButton: PropTypes.bool.isRequired,
@@ -122,7 +124,7 @@ SharedModal.propTypes = {
 
 SharedModal.defaultProps = {
   path: "/",
-  linkButtonText: "GO TO MAIN"
+  linkButtonText: "GO TO MAIN",
 };
 
 export default SharedModal;
