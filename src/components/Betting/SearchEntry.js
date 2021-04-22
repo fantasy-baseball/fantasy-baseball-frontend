@@ -55,19 +55,18 @@ const getPlayerPosition = (position) => {
 function SearchEntry({ players, setRoaster }) {
   const [clickCount, setclickCount] = useState(0);
 
-  const handleAddIcon = (tableProps, event) => {
+  const handleAddIconClick = (tableProps, event) => {
     const currentData = tableProps.value;
-
-    setclickCount((prev) => {
-      const newCount = prev + 1;
-      return newCount;
-    });
-
     const currentIcon = event.currentTarget;
     const kboId = currentIcon.getAttribute("data-kbo-id");
     const position = currentIcon.getAttribute("data-position");
     const { isActive } = currentData;
     const selectedPlayer = players.find((player) => player.kboId === kboId);
+
+    setclickCount((prev) => {
+      const newCount = prev + 1;
+      return newCount;
+    });
 
     if (kboId === selectedPlayer.kboId && isActive) {
       setRoaster(
@@ -111,7 +110,7 @@ function SearchEntry({ players, setRoaster }) {
         data-kbo-id={tableProps.value.kboId}
         data-active={tableProps.value.isActive}
         data-position={position}
-        onClick={(event) => handleAddIcon(tableProps, event)}
+        onClick={(event) => handleAddIconClick(tableProps, event)}
       >
         <FontAwesomeIcon icon={faUserPlus} />
       </AddIcon>
