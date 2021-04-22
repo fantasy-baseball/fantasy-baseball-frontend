@@ -12,11 +12,11 @@ export const saveUser = (tokenId) => async (dispatch) => {
   dispatch({ type: LOGIN_PENDING });
 
   try {
-    const { result, user, isInitialLogin } = await fetchUser(tokenId, "login");
+    const { result, user, isNewUser } = await fetchUser(tokenId, "login");
 
     if (result === "ok") {
       dispatch({ type: LOGIN_SUCCESS, user });
-      return isInitialLogin;
+      return isNewUser;
     }
 
     dispatch({ type: LOGIN_FAILURE });

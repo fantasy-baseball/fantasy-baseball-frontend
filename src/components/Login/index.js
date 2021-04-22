@@ -144,8 +144,8 @@ function Login({ setIsVisible }) {
   }, []);
 
   const onGoogleSuccess = async ({ tokenId }) => {
-    const isInitialLogin = await dispatch(saveUser(tokenId));
-    setIsVisible(isInitialLogin);
+    const isNewUser = await dispatch(saveUser(tokenId));
+    setIsVisible(isNewUser);
     history.push("/");
   };
 

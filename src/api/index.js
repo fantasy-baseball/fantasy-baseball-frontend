@@ -9,9 +9,9 @@ export const fetchUser = async (tokenId, path) => {
       },
       credentials: "include",
     });
-    const { result, data: user, isInitialLogin } = await res.json();
+    const { result, data: user, isNewUser } = await res.json();
 
-    return { result, user, isInitialLogin };
+    return { result, user, isNewUser };
   } catch (err) {
     console.error(err);
   }
