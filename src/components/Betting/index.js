@@ -5,10 +5,9 @@ import { fetchPlayers, postBetting } from "../../api/game";
 import checkBettingCondition from "../../utils";
 import { showModal } from "../../actions/modal";
 import SearchEntry from "./SearchEntry";
+import BettingOption from "./BettingOption";
 import Roaster from "../Roaster";
-import BettingInfo from "../BettingInfo";
-import Slider from "../Shared/Slider";
-import Button from "../Shared/Button";
+
 import { EMPTY_ROASTER } from "../../constants";
 
 const Wrapper = styled.section`
@@ -29,22 +28,6 @@ const BettingWrapper = styled.section`
 const RoasterWrapper = styled.section`
   width: calc(12 * 7vmin);
   height: calc(100vh - 70px);
-`;
-
-const BettingMoney = styled.article`
-  width: 100%;
-  margin: auto 0 0 0;
-  padding: ${({ theme }) => theme.padding.base};
-  background: ${({ theme }) => theme.color.white};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const InfoList = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
 `;
 
 const Alert = styled.div`
@@ -81,7 +64,8 @@ function Betting() {
   const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const [bettingMoney, setBettingMoney] = useState(500);
   const [isLoading, setIsLoading] = useState(false);
-  const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
+  // const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
+  const [bettingCondition, setBettingCondition] = useState("open");
 
   const dispatch = useDispatch();
 
@@ -179,25 +163,12 @@ function Betting() {
                       players={players}
                       setRoaster={setRoaster}
                     />
-                    <BettingMoney>
-                      <Slider
-                        minValue={500}
-                        maxValue={userMoney}
-                        step={100}
-                        value={bettingMoney}
-                        handleChange={handleBettingMoney}
-                      />
-                      <InfoList>
-                        <BettingInfo />
-                        <Button
-                          type="submit"
-                          title="BETTING"
-                          color="blue"
-                          size="small"
-                          handleClick={submitBetting}
-                        />
-                      </InfoList>
-                    </BettingMoney>
+                    <BettingOption
+                      userMoney={userMoney}
+                      bettingMoney={bettingMoney}
+                      handleBettingMoney={handleBettingMoney}
+                      submitBetting={submitBetting}
+                    />
                   </>
                 )}
             </BettingWrapper>
