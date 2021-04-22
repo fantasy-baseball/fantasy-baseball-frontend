@@ -119,3 +119,9 @@ export const GAME_START_TIME = {
   saturday: "16:00:00",
   sunday: "13:00:00",
 };
+
+export const BETTING_START_TIME = {
+  weekdays: "16:30:00",
+  saturday: "15:00:00",
+  sunday: "12:00:00",
+};
