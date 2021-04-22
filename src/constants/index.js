@@ -113,3 +113,16 @@ export const EMPTY_ROASTER = {
     name: null,
   },
 };
+
+export const PLAYER_POSITIONS = {
+  좌익수: "leftFielder",
+  중견수: "centerFielder",
+  우익수: "rightFielder",
+  "1루수": "firstBaseman",
+  "2루수": "secondBaseman",
+  "3루수": "thirdBaseman",
+  유격수: "shortStop",
+  투수: "pitcher",
+  포수: "catcher",
+  지명타자: "designatedHitter",
+};
