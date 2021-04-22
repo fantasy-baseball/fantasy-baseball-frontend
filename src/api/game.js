@@ -45,6 +45,22 @@ export const fetchPlayers = async () => {
   }
 };
 
+export const fetchBettingData = async () => {
+  try {
+    const res = await fetch(`${API_URL}/games/${testDay}/betting`, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const postBetting = async (bettingData) => {
   try {
     const token = document.cookie
