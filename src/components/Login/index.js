@@ -133,7 +133,7 @@ const BlueText = styled.span`
   color: ${({ theme }) => theme.color.blue};
 `;
 
-function Login({ setIsVisible }) {
+function Login({ setIsModalVisible }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -145,7 +145,7 @@ function Login({ setIsVisible }) {
 
   const onGoogleSuccess = async ({ tokenId }) => {
     const isNewUser = await dispatch(saveUser(tokenId));
-    setIsVisible(isNewUser);
+    setIsModalVisible(isNewUser);
     history.push("/");
   };
 
@@ -189,7 +189,7 @@ function Login({ setIsVisible }) {
 }
 
 Login.propTypes = {
-  setIsVisible: PropTypes.func.isRequired,
+  setIsModalVisible: PropTypes.func.isRequired,
 };
 
 export default Login;

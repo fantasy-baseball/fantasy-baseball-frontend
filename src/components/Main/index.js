@@ -21,13 +21,13 @@ const Section = styled.section`
   min-height: 400px;
 `;
 
-function Main({ isModalVisible, setIsVisible }) {
+function Main({ isModalVisible, setIsModalVisible }) {
   return (
     <Wrapper>
       {isModalVisible
         && (
           <Modal
-            setIsVisible={setIsVisible}
+            setIsModalVisible={setIsModalVisible}
             title="가입 축하"
             contentText="가입축하 포인트 5000!"
           />
@@ -44,7 +44,7 @@ function Main({ isModalVisible, setIsVisible }) {
 
 Main.propTypes = {
   isModalVisible: PropTypes.bool.isRequired,
-  setIsVisible: PropTypes.func.isRequired,
+  setIsModalVisible: PropTypes.func.isRequired,
 };
 
 export default Main;

@@ -41,10 +41,6 @@ function App() {
     dispatch(checkUser(token));
   };
 
-  const setIsVisible = (bool) => {
-    setIsModalVisible(bool);
-  };
-
   useEffect(() => {
     checkUserLogin();
   }, []);
@@ -65,7 +61,7 @@ function App() {
                   render={() => (
                     <Main
                       isModalVisible={isModalVisible}
-                      setIsVisible={setIsVisible}
+                      setIsModalVisible={setIsModalVisible}
                     />
                   )}
                 />
@@ -75,7 +71,7 @@ function App() {
             : (
               <Route
                 path="/login"
-                render={() => <Login setIsVisible={setIsVisible} />}
+                render={() => <Login setIsModalVisible={setIsModalVisible} />}
               />
             )}
         </Layout>
