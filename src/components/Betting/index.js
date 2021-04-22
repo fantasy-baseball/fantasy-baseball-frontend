@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { fetchPlayers } from "../../api";
 import SearchEntry from "./SearchEntry";
@@ -36,6 +37,8 @@ const BettingMoney = styled.article`
 `;
 
 function Betting() {
+  const userMoney = useSelector((state) => state.login.user.money);
+
   const [players, setPlayers] = useState([]);
   const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const [bettingMoney, setBettingMoney] = useState(500);
@@ -71,7 +74,7 @@ function Betting() {
               <BettingMoney>
                 <Slider
                   minValue={500}
-                  maxValue={5000}
+                  maxValue={userMoney}
                   step={100}
                   value={bettingMoney}
                   handleChange={handleBettingMoney}
