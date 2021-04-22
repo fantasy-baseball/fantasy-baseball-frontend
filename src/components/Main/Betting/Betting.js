@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { formatDate, countTime } from "../../../utils/date";
 import LinkButton from "../../Shared/LinkButton";
-import checkBettingStart from "../../../utils";
+import checkBettingCondition from "../../../utils";
 import { GAME_START_TIME } from "../../../constants";
 
 const Wrapper = styled.article`
@@ -48,7 +48,7 @@ const BettingInfo = styled.span`
 
 function Betting() {
   const [today, setToday] = useState(new Date());
-  const [bettingCondition, setBettingCondition] = useState(checkBettingStart(today));
+  const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(today));
 
   useEffect(() => {
     const timer = setInterval(() => {
