@@ -6,6 +6,7 @@ import SearchEntry from "./SearchEntry";
 import Roaster from "../Roaster";
 import BettingInfo from "../BettingInfo";
 import Slider from "../Shared/Slider";
+import Button from "../Shared/Button";
 import { EMPTY_ROASTER } from "../../constants";
 
 const Wrapper = styled.section`
@@ -36,6 +37,12 @@ const BettingMoney = styled.article`
   justify-content: space-between;
 `;
 
+const InfoList = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+
 function Betting() {
   const userMoney = useSelector((state) => state.login.user.money);
 
@@ -48,6 +55,9 @@ function Betting() {
     const { value } = event.target;
     setBettingMoney(value);
   };
+
+  // TODO : 베팅 등록 함수 생성
+  const submitBetting = () => {};
 
   useEffect(() => {
     const getPlayers = async () => {
@@ -79,7 +89,16 @@ function Betting() {
                   value={bettingMoney}
                   handleChange={handleBettingMoney}
                 />
-                <BettingInfo />
+                <InfoList>
+                  <BettingInfo />
+                  <Button
+                    type="submit"
+                    title="BETTING"
+                    color="blue"
+                    size="small"
+                    handleClick={submitBetting}
+                  />
+                </InfoList>
               </BettingMoney>
             </>
           )}

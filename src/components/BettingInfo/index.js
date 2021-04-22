@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCoins } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import Button from "../Shared/Button";
 
 const BettingInfo = styled.div`
   display: flex;
@@ -40,12 +39,6 @@ function SharedBettingInfo() {
           <Value>2,123,456</Value>
         </li>
       </InfoList>
-      <Button
-        type="submit"
-        title="BETTING"
-        color="blue"
-        size="small"
-      />
     </BettingInfo>
   );
 }
