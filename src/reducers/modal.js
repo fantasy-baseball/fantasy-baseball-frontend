@@ -4,7 +4,7 @@ import {
   HIDE_MODAL,
 } from "../constants/actionTypes";
 
-const iniitialState = {
+const initialState = {
   isVisible: false,
   title: "",
   contentText: "",
@@ -13,7 +13,7 @@ const iniitialState = {
   linkButtonText: "",
 };
 
-const modal = (state = false, action) => {
+const modal = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_MODAL:
       return produce(state, () => action.content);
