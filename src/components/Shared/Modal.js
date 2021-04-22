@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import { hideModal } from "../../actions/modal";
 
 const Wrapper = styled.div`
@@ -94,7 +94,7 @@ function SharedModal() {
     closeModal();
   };
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <Wrapper onClick={clickModalOutside}>
       <Modal ref={modal}>
         <Header>
@@ -106,7 +106,14 @@ function SharedModal() {
         <Content>
           <Text>{contentText}</Text>
           {hasLinkButton
-            && <LinkButton to={path}>{linkButtonText}</LinkButton>}
+            && (
+            <LinkButton
+              to={path}
+              onClick={closeModal}
+            >
+              {linkButtonText}
+            </LinkButton>
+            )}
         </Content>
       </Modal>
     </Wrapper>,
