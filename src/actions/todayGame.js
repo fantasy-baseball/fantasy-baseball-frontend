@@ -1,4 +1,4 @@
-import { fetchSchedule } from "../api";
+import { fetchSchedule } from "../api/game";
 import {
   FETCH_TODAY_GAME_SCHEDULE,
   FETCH_TODAY_USERS_RANKING,

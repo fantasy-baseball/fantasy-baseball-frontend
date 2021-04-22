@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { fetchPlayers } from "../../api";
+import { fetchPlayers } from "../../api/game";
 import SearchEntry from "./SearchEntry";
 import Roaster from "../Roaster";
 import BettingInfo from "../BettingInfo";
@@ -56,7 +56,6 @@ function Betting() {
     setBettingMoney(value);
   };
 
-  // TODO : 베팅 등록 함수 생성
   const submitBetting = () => {};
 
   useEffect(() => {

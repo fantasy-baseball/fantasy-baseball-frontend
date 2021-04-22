@@ -1,4 +1,4 @@
-import { fetchUser, deleteUser } from "../api";
+import { fetchUser, deleteUser } from "../api/login";
 import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
