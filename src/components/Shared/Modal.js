@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -93,7 +93,7 @@ function SharedModal(props) {
     closeModal();
   };
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <Wrapper onClick={clickModalOutside}>
       <Modal ref={modal}>
         <Header>

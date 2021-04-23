@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "../../styles";
@@ -9,6 +9,7 @@ import Main from "../Main";
 import Login from "../Login";
 import Betting from "../Betting";
 import Header from "../Header";
+import Notification from "../Notification";
 import { checkUser } from "../../actions/login";
 
 const Wrapper = styled.div`
@@ -55,17 +56,29 @@ function App() {
             ? (
               <>
                 <Header />
-                <Route
-                  exact
-                  path="/"
-                  render={() => (
-                    <Main
-                      isModalVisible={isModalVisible}
-                      setIsModalVisible={setIsModalVisible}
-                    />
-                  )}
-                />
-                <Route path="/betting" component={Betting} />
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={() => (
+                      <Main
+                        isModalVisible={isModalVisible}
+                        setIsModalVisible={setIsModalVisible}
+                      />
+                    )}
+                  />
+                  <Route path="/betting" component={Betting} />
+                  <Route
+                    path="*"
+                    render={() => (
+                      <Notification
+                        icon="🙅"
+                        title="404"
+                        text="페이지를 찾을 수 없습니다"
+                      />
+                    )}
+                  />
+                </Switch>
               </>
             )
             : (
