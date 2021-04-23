@@ -4,7 +4,7 @@
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
 // const today = formatDate(new Date(), "yyyyMMdd");
-const testDay = "20210418";
+const testDay = "20210416";
 
 export const fetchSchedule = async () => {
   try {

@@ -56,16 +56,16 @@ function Betting() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [today]);
 
   const renderTime = () => {
     let todayStartTime;
 
     switch (today.getDay()) {
-      case 5:
+      case 6:
         todayStartTime = GAME_START_TIME.saturday;
         break;
-      case 6:
+      case 0:
         todayStartTime = GAME_START_TIME.sunday;
         break;
       default:
