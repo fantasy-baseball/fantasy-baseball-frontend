@@ -65,69 +65,72 @@ function Betting() {
 
   const submitBetting = async (event) => {
     event.preventDefault();
+    try {
+      const playersByPosition = Object.entries(roaster);
+      const userRoaster = [];
 
-    const playersByPosition = Object.entries(roaster);
-    const userRoaster = [];
-
-    if (bettingMoney <= 0) {
-      setModalMessage(
-        "베팅 금액은 100원 이상이어야 합니다.",
-        false,
-        "",
-        ""
-      );
-      return;
-    }
-
-    for (let i = 0; i < playersByPosition.length; i += 1) {
-      if (playersByPosition[i][1].name === null) {
+      if (bettingMoney <= 0) {
         setModalMessage(
-          "10인 로스터를 모두 채워야합니다.",
+          "베팅 금액은 100원 이상이어야 합니다.",
           false,
           "",
           ""
         );
         return;
       }
-      userRoaster.push(playersByPosition[i][1].kboId);
-    }
 
-    const bettingData = {
-      roaster: userRoaster,
-      bettingMoney,
-    };
+      for (let i = 0; i < playersByPosition.length; i += 1) {
+        if (playersByPosition[i][1].name === null) {
+          setModalMessage(
+            "10인 로스터를 모두 채워야합니다.",
+            false,
+            "",
+            ""
+          );
+          return;
+        }
+        userRoaster.push(playersByPosition[i][1].kboId);
+      }
 
-    const { result } = await postBetting(bettingData);
+      const bettingData = {
+        roaster: userRoaster,
+        bettingMoney,
+      };
 
-    if (result === "duplicate") {
+      const { result } = await postBetting(bettingData);
+
+      if (result === "duplicate") {
+        setModalMessage(
+          "이미 베팅에 참가하셨습니다.",
+          true
+        );
+        return;
+      }
+
+      if (result === "close") {
+        setModalMessage(
+          "지금은 베팅 시간이 아닙니다. 베팅은 경기 시작 한 시간 전에 오픈됩니다.",
+          true
+        );
+        return;
+      }
+
+      if (result === "failure") {
+        setModalMessage(
+          "베팅 참가에 실패하였습니다. 다시 시도해주세요.",
+          true
+        );
+        return;
+      }
+
       setModalMessage(
-        "이미 베팅에 참가하셨습니다.",
+        "베팅 참가에 성공하였습니다.",
         true
       );
-      return;
+      dispatch(updateMoney(bettingMoney));
+    } catch (err) {
+      console.log(err);
     }
-
-    if (result === "close") {
-      setModalMessage(
-        "지금은 베팅 시간이 아닙니다. 베팅은 경기 시작 한 시간 전에 오픈됩니다.",
-        true
-      );
-      return;
-    }
-
-    if (result === "failure") {
-      setModalMessage(
-        "베팅 참가에 실패하였습니다. 다시 시도해주세요.",
-        true
-      );
-      return;
-    }
-
-    setModalMessage(
-      "베팅 참가에 성공하였습니다.",
-      true
-    );
-    dispatch(updateMoney(bettingMoney));
   };
 
   useEffect(() => {
