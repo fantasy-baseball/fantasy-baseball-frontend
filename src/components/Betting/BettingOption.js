@@ -32,7 +32,7 @@ function BettingOption(props) {
   return (
     <Wrapper>
       <Slider
-        minValue={500}
+        minValue={0}
         maxValue={userMoney}
         step={100}
         value={bettingMoney}
