@@ -63,7 +63,7 @@ function Betting() {
 
   const [players, setPlayers] = useState([]);
   const [roaster, setRoaster] = useState(EMPTY_ROASTER);
-  const [bettingMoney, setBettingMoney] = useState(500);
+  const [bettingMoney, setBettingMoney] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
 
@@ -96,6 +96,16 @@ function Betting() {
     const playersByPosition = Object.entries(roaster);
     const userRoaster = [];
 
+    if (bettingMoney <= 0) {
+      setModalMessage(
+        "베팅 금액은 100원 이상이어야 합니다.",
+        false,
+        "",
+        ""
+      );
+      return;
+    }
+
     for (let i = 0; i < playersByPosition.length; i += 1) {
       if (playersByPosition[i][1].name === null) {
         setModalMessage(
@@ -119,6 +129,14 @@ function Betting() {
     if (result === "duplicate") {
       setModalMessage(
         "이미 베팅에 참가하셨습니다.",
+        true
+      );
+      return;
+    }
+
+    if (result === "close") {
+      setModalMessage(
+        "지금은 베팅 시간이 아닙니다. 베팅은 경기 시작 한 시간 전에 오픈됩니다.",
         true
       );
       return;
