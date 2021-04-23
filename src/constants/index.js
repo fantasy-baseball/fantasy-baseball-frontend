@@ -128,13 +128,13 @@ export const PLAYER_POSITIONS = {
 };
 
 export const GAME_START_TIME = {
-  weekdays: "17:30:00",
-  saturday: "16:00:00",
-  sunday: "13:00:00",
+  weekdays: "18:30:00",
+  saturday: "17:00:00",
+  sunday: "14:00:00",
 };
 
 export const BETTING_START_TIME = {
-  weekdays: "16:30:00",
-  saturday: "15:00:00",
-  sunday: "12:00:00",
+  weekdays: "17:30:00",
+  saturday: "16:00:00",
+  sunday: "13:00:00",
 };
