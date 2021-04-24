@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
 import styled, { keyframes } from "styled-components";
 import { saveUser } from "../../actions/login";
 import { LOGIN_FAILURE } from "../../constants/actionTypes";
 import BaseballImage from "../../assets/images/login_bg.png";
 import Button from "../Shared/Button";
+import { showModal } from "../../actions/modal";
 
 const semitransparentBlockAppear = keyframes`
   0% {
@@ -133,7 +133,7 @@ const BlueText = styled.span`
   color: ${({ theme }) => theme.color.blue};
 `;
 
-function Login({ setIsModalVisible }) {
+function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -145,7 +145,14 @@ function Login({ setIsModalVisible }) {
 
   const onGoogleSuccess = async ({ tokenId }) => {
     const isNewUser = await dispatch(saveUser(tokenId));
-    setIsModalVisible(isNewUser);
+    dispatch(showModal({
+      isVisible: isNewUser,
+      title: "가입 축하",
+      contentText: "가입 축하 선물로 5000 포인트를 드립니다!",
+      hasLinkButton: false,
+      path: "",
+      linkButtonText: "",
+    }));
     history.push("/");
   };
 
@@ -174,8 +181,9 @@ function Login({ setIsModalVisible }) {
         render={(renderProps) => (
           <Button
             type="button"
-            title="PLAY BALL"
             color="white"
+            size="middle"
+            title="PLAY BALL"
             handleClick={renderProps.onClick}
             disabled={renderProps.disabled}
           />
@@ -187,9 +195,5 @@ function Login({ setIsModalVisible }) {
     </Wrapper>
   );
 }
-
-Login.propTypes = {
-  setIsModalVisible: PropTypes.func.isRequired,
-};
 
 export default Login;

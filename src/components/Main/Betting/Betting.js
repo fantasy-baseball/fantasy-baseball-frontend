@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { formatDate, countTime } from "../../../utils/date";
 import LinkButton from "../../Shared/LinkButton";
 import checkBettingCondition from "../../../utils";
-import { GAME_START_TIME } from "../../../constants";
+import { BETTING_START_TIME } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 100%;
@@ -56,20 +56,20 @@ function Betting() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [today]);
 
   const renderTime = () => {
     let todayStartTime;
 
     switch (today.getDay()) {
-      case 5:
-        todayStartTime = GAME_START_TIME.saturday;
-        break;
       case 6:
-        todayStartTime = GAME_START_TIME.sunday;
+        todayStartTime = BETTING_START_TIME.saturday;
+        break;
+      case 0:
+        todayStartTime = BETTING_START_TIME.sunday;
         break;
       default:
-        todayStartTime = GAME_START_TIME.weekdays;
+        todayStartTime = BETTING_START_TIME.weekdays;
     }
 
     if (bettingCondition === "close") {

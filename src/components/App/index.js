@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
@@ -9,6 +9,7 @@ import Main from "../Main";
 import Login from "../Login";
 import Betting from "../Betting";
 import Header from "../Header";
+import Modal from "../Shared/Modal";
 import Notification from "../Notification";
 import { checkUser } from "../../actions/login";
 
@@ -23,10 +24,10 @@ const Layout = styled.main`
 `;
 
 function App() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const { user } = useSelector((state) => state.login);
-  const history = useHistory();
+  const modal = useSelector((state) => state.modal);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const checkUserLogin = () => {
     if (document.cookie.indexOf("access_token") === -1) {
@@ -57,16 +58,7 @@ function App() {
               <>
                 <Header />
                 <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={() => (
-                      <Main
-                        isModalVisible={isModalVisible}
-                        setIsModalVisible={setIsModalVisible}
-                      />
-                    )}
-                  />
+                  <Route exact path="/" component={Main} />
                   <Route path="/betting" component={Betting} />
                   <Route
                     path="*"
@@ -82,12 +74,19 @@ function App() {
               </>
             )
             : (
-              <Route
-                path="/login"
-                render={() => <Login setIsModalVisible={setIsModalVisible} />}
-              />
+              <Route path="/login" component={Login} />
             )}
         </Layout>
+        {modal.isVisible
+          && (
+            <Modal
+              title={modal.title}
+              contentText={modal.contentText}
+              hasLinkButton={modal.hasLinkButton}
+              path={modal.path}
+              linkButtonText={modal.linkButtonText}
+            />
+          )}
       </ThemeProvider>
     </Wrapper>
   );

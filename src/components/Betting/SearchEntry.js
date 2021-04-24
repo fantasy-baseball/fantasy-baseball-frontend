@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import Table from "../Shared/Table";
+import { PLAYER_POSITIONS } from "../../constants";
 
 const Wrapper = styled.article`
   padding: 0 0 ${({ theme }) => theme.padding.base} 0;
@@ -24,33 +25,6 @@ const AddIcon = styled.span`
     color: ${({ theme }) => theme.color.white};
   }
 `;
-
-const getPlayerPosition = (position) => {
-  switch (position) {
-    case "좌익수":
-      return "leftFielder";
-    case "중견수":
-      return "centerFielder";
-    case "우익수":
-      return "rightFielder";
-    case "1루수":
-      return "firstBaseman";
-    case "2루수":
-      return "secondBaseman";
-    case "3루수":
-      return "thirdBaseman";
-    case "유격수":
-      return "shortStop";
-    case "투수":
-      return "pitcher";
-    case "포수":
-      return "catcher";
-    case "지명타자":
-      return "designatedHitter";
-    default:
-      return "포지션이 없습니다.";
-  }
-};
 
 function SearchEntry({ players, setRoaster }) {
   const [clickCount, setclickCount] = useState(0);
@@ -80,7 +54,7 @@ function SearchEntry({ players, setRoaster }) {
 
     const iconList = tableProps.rows;
     const selectedDataIndex = iconList.findIndex((icon) => (
-      getPlayerPosition(icon.values.add.position) === position
+      PLAYER_POSITIONS[icon.values.add.position] === position
         && icon.values.add.isActive
     ));
 
@@ -103,7 +77,7 @@ function SearchEntry({ players, setRoaster }) {
   );
 
   const renderAddIcon = (tableProps) => {
-    const position = getPlayerPosition(tableProps.value.position);
+    const position = PLAYER_POSITIONS[tableProps.value.position];
 
     return (
       <AddIcon

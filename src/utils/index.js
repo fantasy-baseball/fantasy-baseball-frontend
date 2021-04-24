@@ -2,11 +2,11 @@ import { formatDate } from "./date";
 import { GAME_START_TIME, BETTING_START_TIME } from "../constants";
 
 const checkDay = (day) => {
-  if (day === 5) {
+  if (day === 6) {
     return "saturday";
   }
 
-  if (day === 6) {
+  if (day === 0) {
     return "sunday";
   }
 
