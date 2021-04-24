@@ -74,9 +74,9 @@ export const postBetting = async (bettingData) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      credentials: "include",
       body: JSON.stringify({
         ...bettingData,
-        date: testDay,
       }),
     });
 
