@@ -26,7 +26,7 @@ function BettingOption(props) {
     userMoney,
     bettingMoney,
     handleBettingMoney,
-    submitBetting
+    submitBetting,
   } = props;
 
   return (
