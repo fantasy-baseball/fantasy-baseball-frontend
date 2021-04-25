@@ -4,7 +4,7 @@
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
 // const today = formatDate(new Date(), "yyyyMMdd");
-const testDay = "20210416";
+const testDay = "20210420";
 
 export const fetchSchedule = async () => {
   try {
@@ -81,6 +81,21 @@ export const postBetting = async (bettingData) => {
     });
 
     return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchUserRankings = async (date) => {
+  try {
+    const res = await fetch(`${API_URL}/games/${date}/rankings/users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const { data } = await res.json();
+    return data;
   } catch (err) {
     console.error(err);
   }
