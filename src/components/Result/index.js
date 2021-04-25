@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { fetchUserRankings } from "../../api/game";
+import { fetchUserRankings, fetchRoaster } from "../../api/game";
 import UserRankings from "./UserRankings";
 import Roaster from "../Roaster";
+import { EMPTY_ROASTER } from "../../constants";
 
 const Wrapper = styled.section`
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 `;
 
 const RankingsWrapper = styled.section`
@@ -29,14 +29,16 @@ const RoasterWrapper = styled.section`
 function Result() {
   const [isLoading, setIsLoading] = useState(false);
   const [userRankings, setUserRankings] = useState([]);
-  const [roaster, setRoaster] = useState([]);
+  const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const { gameDate } = useParams();
 
   useEffect(() => {
     const getUserRankings = async () => {
       setIsLoading(true);
-      const rankings = await fetchUserRankings(gameDate);
-      setUserRankings(rankings);
+      const fetchedRankings = await fetchUserRankings(gameDate);
+      const fetchedRoaster = await fetchRoaster(gameDate);
+      setUserRankings(fetchedRankings);
+      setRoaster(fetchedRoaster);
       setIsLoading(false);
     };
 
@@ -51,8 +53,14 @@ function Result() {
           : <UserRankings userRankings={userRankings} />}
       </RankingsWrapper>
       <RoasterWrapper>
-        {/* <h2 className="hidden">선택한 로스터</h2>
-        <Roaster roaster={roaster} /> */}
+        {isLoading
+          ? <p>로스터 로딩중</p>
+          : (
+            <>
+              <h2 className="hidden">선택한 로스터</h2>
+              <Roaster roaster={roaster} />
+            </>
+          )}
       </RoasterWrapper>
     </Wrapper>
   );
