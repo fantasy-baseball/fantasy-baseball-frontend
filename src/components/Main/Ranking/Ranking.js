@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import RankingList from "./RankingList";
+import LoadingRanking from "./LoadingRanking";
 
 // TODO : test data - 삭제 예정
 const content = {
@@ -154,6 +155,7 @@ const TABS = [
 function Ranking() {
   const [tabList, setTabList] = useState(TABS);
   const [tabContent, setTabContent] = useState(content.users);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTabClick = (event) => {
     const tabName = event.currentTarget.textContent;
@@ -192,7 +194,9 @@ function Ranking() {
           </Tab>
         ))}
       </Tabs>
-      <RankingList data={tabContent} />
+      {isLoading
+        ? <LoadingRanking />
+        : <RankingList data={tabContent} />}
     </Wrapper>
   );
 }
