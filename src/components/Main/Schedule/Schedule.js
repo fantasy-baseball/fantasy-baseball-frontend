@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { getSchedule } from "../../../actions/todayGame";
 import { formatDate } from "../../../utils/date";
 import ScheduleList from "./ScheduleList";
+import LoadingSchedule from "../../Shared/Loading/LoadingScheduleList";
 
 const Wrapper = styled.article`
   width: 100%;
@@ -34,13 +35,6 @@ const DateBox = styled.div`
   color: ${({ theme }) => theme.color.white};
 `;
 
-const LoadingTest = styled.div`
-  width: 100%;
-  height: 150px;
-  background: yellow;
-  color: blue;
-`;
-
 export default function Schedule() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -69,7 +63,7 @@ export default function Schedule() {
   return (
     <Wrapper>
       {isLoading
-        ? <LoadingTest>로딩중입니다.</LoadingTest>
+        ? <LoadingSchedule />
         : (
           <>
             <DateBox>
