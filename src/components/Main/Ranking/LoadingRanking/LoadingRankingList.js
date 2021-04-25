@@ -12,8 +12,8 @@ const Wrapper = styled.div`
 const LoadingFirstRankInfo = styled.div`
   width: 90px;
   height: 115px;
-  padding-bottom: 1rem;
   margin: 0 0 0 1rem;
+  padding-bottom: 1rem;
   display: flex;
   align-items: flex-end;
   line-height: 30px;
