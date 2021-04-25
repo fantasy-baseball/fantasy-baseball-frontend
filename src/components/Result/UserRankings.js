@@ -103,7 +103,7 @@ function UserRankings({ userRankings }) {
           <LinkButton
             path="/"
             type="button"
-            title="BETTING"
+            title="GO TO MAIN"
             color="blue"
             size="small"
           />
