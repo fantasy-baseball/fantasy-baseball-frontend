@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getSchedule } from "../../../actions/todayGame";
 import { formatDate } from "../../../utils/date";
 import ScheduleList from "./ScheduleList";
-import LoadingSchedule from "../../Shared/Loading/LoadingScheduleList";
+import LoadingSchedule from "./LoadingScheduleList";
 
 const Wrapper = styled.article`
   width: 100%;

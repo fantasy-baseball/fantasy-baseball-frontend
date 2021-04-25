@@ -5,7 +5,7 @@ import LoadingTeam from "./LoadingTeam";
 const Wrapper = styled.div`
   width: 19%;
   height: 160px;
-  background-color: #e0e0e0;
+  background-color: ${({ theme }) => theme.skeletonColor.box};
   display: flex;
   justify-content: space-evenly;
   align-items: center;
