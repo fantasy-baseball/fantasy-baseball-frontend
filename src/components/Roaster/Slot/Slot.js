@@ -46,7 +46,7 @@ const PlayerInfo = styled.div`
   grid-column-end: span 5;
 
   p {
-    padding: 0.5em 0;
+    padding: 0.2em 0;
     font-family: "Bebas Neue";
     font-size: 15px;
     text-align: center;
@@ -68,6 +68,8 @@ function Slot({ slotPosition, roasterPosition }) {
     name,
     playerPhotoUrl,
     team,
+    score,
+    totalBettingMoney,
   } = roasterPosition;
 
   return (
@@ -83,6 +85,8 @@ function Slot({ slotPosition, roasterPosition }) {
       <PlayerInfo rowStart={rowStart + 6} columnStart={columnStart}>
         {name
           && <p>{`${name} / ${team}`}</p>}
+        {score
+        && <p>{`${score} / ${totalBettingMoney}`}</p>}
       </PlayerInfo>
     </Wrapper>
   );
