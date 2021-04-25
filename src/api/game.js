@@ -100,3 +100,25 @@ export const fetchUserRankings = async (date) => {
     console.error(err);
   }
 };
+
+export const fetchRoaster = async (date) => {
+  try {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("access_token"))
+      .split("=")[1];
+
+    const res = await fetch(`${API_URL}/games/${date}/roaster`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
+
+    const { data } = await res.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
