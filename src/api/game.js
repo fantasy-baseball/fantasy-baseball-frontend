@@ -3,12 +3,9 @@
 
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
-// const today = formatDate(new Date(), "yyyyMMdd");
-const testDay = "20210420";
-
-export const fetchSchedule = async () => {
+export const fetchSchedule = async (date) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/schedule`, {
+    const res = await fetch(`${API_URL}/games/${date}/schedule`, {
       headers: {
         "Content-Type": "application/json",
       }
@@ -29,9 +26,9 @@ export const fetchSchedule = async () => {
   }
 };
 
-export const fetchPlayers = async () => {
+export const fetchPlayers = async (date) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/players`, {
+    const res = await fetch(`${API_URL}/games/${date}/players`, {
       headers: {
         "Content-Type": "application/json",
       }
@@ -45,9 +42,9 @@ export const fetchPlayers = async () => {
   }
 };
 
-export const fetchBettingData = async () => {
+export const fetchBettingData = async (date) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/betting`, {
+    const res = await fetch(`${API_URL}/games/${date}/betting`, {
       headers: {
         "Content-Type": "application/json",
       }
@@ -61,14 +58,14 @@ export const fetchBettingData = async () => {
   }
 };
 
-export const postBetting = async (bettingData) => {
+export const postBetting = async (date, bettingData) => {
   try {
     const token = document.cookie
       .split("; ")
       .find((row) => row.startsWith("access_token"))
       .split("=")[1];
 
-    const res = await fetch(`${API_URL}/games/${testDay}/betting`, {
+    const res = await fetch(`${API_URL}/games/${date}/betting`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
