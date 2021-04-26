@@ -82,7 +82,12 @@ function Result() {
               {isLoading
                 ? <p>로딩중</p>
                 : (userRankings.length > 0
-                  && <UserRankings userRankings={userRankings} />
+                  && (
+                    <UserRankings
+                      userRankings={userRankings}
+                      gameDate={gameDate}
+                    />
+                  )
                 )}
             </RankingsWrapper>
             <RoasterWrapper>

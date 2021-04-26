@@ -5,7 +5,6 @@ import styled from "styled-components";
 import LinkButton from "../Shared/LinkButton";
 import BettingInfo from "../BettingInfo";
 import RankingTable from "./RankingTable";
-import Ranking from "../Main/Ranking/Ranking";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -63,7 +62,7 @@ const getUserBettingInfo = (email, rankings) => {
   };
 };
 
-function UserRankings({ userRankings }) {
+function UserRankings({ userRankings, gameDate }) {
   const user = useSelector((state) => state.login.user);
   const [topRankers, setTopRankers] = useState(userRankings.slice(0, 3));
   const [myRanking, setMyRanking] = useState(
@@ -102,6 +101,13 @@ function UserRankings({ userRankings }) {
         title="MY RANKING"
         rankings={myRanking}
       />
+      <LinkButton
+        path={`/statistics/${gameDate}`}
+        type="button"
+        title="CHECK PLAYERS STATISTICS"
+        color="white"
+        size="small"
+      />
       <InfoBox>
         {bettingResult
           && renderBettingResult()}
@@ -122,6 +128,7 @@ function UserRankings({ userRankings }) {
 
 UserRankings.propTypes = {
   userRankings: PropTypes.arrayOf(PropTypes.object).isRequired,
+  gameDate: PropTypes.string.isRequired,
 };
 
 export default UserRankings;
