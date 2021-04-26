@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import playerImage from "../../../assets/images/player_image.jpg";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -63,8 +62,8 @@ const FirstRankInfo = styled.ul`
 `;
 
 const Image = styled.img`
-  width: 90px;
-  height: 115px;
+  width: 115px;
+  height: auto;
   border: 1px solid ${({ theme }) => theme.color.lightgrey};
 `;
 
@@ -89,6 +88,14 @@ const Rank = styled.li`
   }
 `;
 
+const Error = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const renderLowerRanks = (list) => {
   const players = [];
 
@@ -99,6 +106,11 @@ const renderLowerRanks = (list) => {
         <span>{list[i].name}</span>
         <span>{list[i]?.team}</span>
         <span>{list[i]?.users}</span>
+        <span>
+          {list[i].earnedMoney
+            ? list[i].earnedMoney
+            : list[i].score}
+        </span>
       </Rank>
     );
   }
@@ -113,29 +125,37 @@ function RankingList({ data }) {
         {data.title}
         <TitleInfo>* 어제자 기준</TitleInfo>
       </Title>
-      <FirstRank>
-        <Image src={playerImage} />
-        <FirstRankInfo>
-          <li>1</li>
-          <li>{data.list[0].name}</li>
-          <li>{data.list[0]?.teamName}</li>
-          <li>431 명</li>
-        </FirstRankInfo>
-      </FirstRank>
-      <Others>
-        {renderLowerRanks(data.list)}
-      </Others>
+      {data.error
+        ? <Error>{data.error}</Error>
+        : (
+          data.list.length > 0
+            && (
+              <>
+                <FirstRank>
+                  <Image src={data.list[0].imageUrl} />
+                  <FirstRankInfo>
+                    <li>1</li>
+                    <li>{data.list[0].name}</li>
+                    <li>{data.list[0]?.team}</li>
+                    <li>
+                      {data.list[0].earnedMoney
+                        ? data.list[0].earnedMoney
+                        : data.list[0].score}
+                    </li>
+                  </FirstRankInfo>
+                </FirstRank>
+                <Others>
+                  {renderLowerRanks(data.list)}
+                </Others>
+              </>
+            )
+        )}
     </Wrapper>
   );
 }
 
 RankingList.propTypes = {
-  data: PropTypes
-    .shape({
-      title: PropTypes.string.isRequired,
-      list: PropTypes.arrayOf(PropTypes.object).isRequired,
-    })
-    .isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default RankingList;
