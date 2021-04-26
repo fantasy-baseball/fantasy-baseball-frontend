@@ -11,6 +11,8 @@ import Betting from "../Betting";
 import Header from "../Header";
 import Modal from "../Shared/Modal";
 import Notification from "../Notification";
+import Result from "../Result";
+import History from "../History";
 import { checkUser } from "../../actions/login";
 
 const Wrapper = styled.div`
@@ -60,6 +62,8 @@ function App() {
                 <Switch>
                   <Route exact path="/" component={Main} />
                   <Route path="/betting" component={Betting} />
+                  <Route path="/result/:gameDate" component={Result} />
+                  <Route path="/history" component={History} />
                   <Route
                     path="*"
                     render={() => (
