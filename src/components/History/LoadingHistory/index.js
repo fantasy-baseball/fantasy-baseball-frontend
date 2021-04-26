@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { SkeletonTheme } from "react-loading-skeleton";
+import LoadingTable from "../../Shared/Loading/LoadingTable";
 
 const Wrapper = styled.div`
   width: calc(100vw - 332px);
@@ -39,17 +40,7 @@ function LoadingHistory() {
         highlightColor={theme.skeletonColor.highlight}
       >
         <LoadingHistoryWrapper>
-          <Skeleton
-            width="100%"
-            height={40}
-          />
-          <LoadingHistoryTable>
-            <Skeleton
-              width="100%"
-              height={30}
-              count={10}
-            />
-          </LoadingHistoryTable>
+          <LoadingTable />
         </LoadingHistoryWrapper>
       </SkeletonTheme>
     </Wrapper>
