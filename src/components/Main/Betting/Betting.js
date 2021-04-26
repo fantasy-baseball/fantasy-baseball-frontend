@@ -72,7 +72,7 @@ function Betting() {
         todayStartTime = BETTING_START_TIME.weekdays;
     }
 
-    if (bettingCondition === "close") {
+    if (bettingCondition === "close" || bettingCondition === "monday") {
       return (
         <Timer>
           00:00:00
@@ -111,6 +111,12 @@ function Betting() {
           color="white"
           size="base"
         />
+      );
+    }
+
+    if (bettingCondition === "monday") {
+      return (
+        <BettingInfo>NO SCHEDULE</BettingInfo>
       );
     }
 
