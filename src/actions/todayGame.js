@@ -1,10 +1,14 @@
-import { fetchSchedule } from "../api/game";
+import {
+  fetchPlayerRankings,
+  fetchSchedule,
+  fetchUserRankings,
+} from "../api/game";
 import {
   FETCH_TODAY_GAME_SCHEDULE,
-  FETCH_TODAY_USERS_RANKING,
-  FETCH_TODAY_PITCHERS_RANKING,
-  FETCH_TODAY_HITTERS_RANKING,
+  FETCH_USER_RANKINGS,
+  FETCH_PLAYER_RANKINGS,
 } from "../constants/actionTypes";
+import { refinePlayerRankings } from "../utils";
 
 export const getSchedule = () => async (dispatch) => {
   try {
@@ -15,5 +19,58 @@ export const getSchedule = () => async (dispatch) => {
   }
 };
 
-// TODO: ESLint 에러 방지를 위해 추가한 코드. 데이터 연결 시 사용 예정
-export const getUsersRanking = () => async (dispatch) => {};
+export const getUserRankings = (date) => async (dispatch) => {
+  try {
+    const fetchedUserRankings = await fetchUserRankings(date);
+
+    if (fetchedUserRankings.result === "none") {
+      const userRankings = fetchedUserRankings;
+      dispatch({ type: FETCH_USER_RANKINGS, userRankings });
+      return;
+    }
+
+    const userRankings = fetchedUserRankings
+      .map((ranking) => {
+        const { name, imageUrl } = ranking.user;
+        return {
+          name,
+          earnedMoney: ranking.earnedMoney,
+          imageUrl,
+          rank: ranking.rank,
+        };
+      })
+      .slice(0, 5);
+
+    dispatch({ type: FETCH_USER_RANKINGS, userRankings });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getPlayerRankings = (date) => async (dispatch) => {
+  try {
+    const fetchedPlayerRankings = await fetchPlayerRankings(date);
+
+    if (fetchedPlayerRankings.result === "none") {
+      const pitcherRankings = { result: "none" };
+      const hitterRankings = { result: "none" };
+      dispatch({
+        type: FETCH_PLAYER_RANKINGS,
+        pitcherRankings,
+        hitterRankings,
+      });
+      return;
+    }
+
+    const pitcherRankings = refinePlayerRankings(fetchedPlayerRankings.pitchers).slice(0, 5);
+    const hitterRankings = refinePlayerRankings(fetchedPlayerRankings.hitters).slice(0, 5);
+
+    dispatch({
+      type: FETCH_PLAYER_RANKINGS,
+      pitcherRankings,
+      hitterRankings
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
