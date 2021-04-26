@@ -138,3 +138,36 @@ export const BETTING_START_TIME = {
   saturday: "16:00:00",
   sunday: "13:00:00",
 };
+
+export const TAB_CONTENT = {
+  users: {
+    title: "유저 랭킹 TOP5",
+    list: [],
+    error: null,
+  },
+  pitchers: {
+    title: "투수 랭킹 TOP5",
+    list: [],
+    error: null,
+  },
+  hitters: {
+    title: "타자 랭킹 TOP5",
+    list: [],
+    error: null,
+  },
+};
+
+export const TABS = [
+  {
+    name: "users",
+    isActive: true,
+  },
+  {
+    name: "pitchers",
+    isActive: false,
+  },
+  {
+    name: "hitters",
+    isActive: false,
+  },
+];
