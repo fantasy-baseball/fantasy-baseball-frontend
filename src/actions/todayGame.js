@@ -10,9 +10,9 @@ import {
 } from "../constants/actionTypes";
 import { refinePlayerRankings } from "../utils";
 
-export const getSchedule = () => async (dispatch) => {
+export const getSchedule = (date) => async (dispatch) => {
   try {
-    const schedule = await fetchSchedule();
+    const schedule = await fetchSchedule(date);
     dispatch({ type: FETCH_TODAY_GAME_SCHEDULE, schedule });
   } catch (err) {
     console.error(err);
