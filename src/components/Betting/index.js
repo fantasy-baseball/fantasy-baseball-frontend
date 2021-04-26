@@ -10,6 +10,7 @@ import BettingOption from "./BettingOption";
 import Roaster from "../Roaster";
 import Notification from "../Notification";
 import { EMPTY_ROASTER } from "../../constants";
+import LoadingEntry from "./LoadingEntry";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -151,7 +152,7 @@ function Betting() {
           <Wrapper>
             <BettingWrapper>
               {isLoading
-                ? <p>로딩중</p>
+                ? <LoadingEntry />
                 : (
                   <>
                     <SearchEntry
