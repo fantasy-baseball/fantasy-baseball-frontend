@@ -56,9 +56,6 @@ const findUserRanking = (email, rankings) => {
 
 const getUserBettingInfo = (email, rankings) => {
   const userBetting = rankings.find((ranking) => ranking.user.email === email);
-
-  if (userBetting === undefined) return null;
-
   return {
     earnedMoney: userBetting.earnedMoney,
     bettingMoney: userBetting.bettingMoney,
