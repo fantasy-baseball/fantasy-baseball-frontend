@@ -5,6 +5,7 @@ import { fetchBettingHistory } from "../../api/game";
 import Profile from "./Profile";
 import HistoryTable from "./HistoryTable";
 import Notification from "../Notification";
+import LoadingHistory from "./LoadingHistory";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -72,7 +73,7 @@ function History() {
             />
             <HistoryWrapper>
               {isLoading
-                ? <div>로딩중</div>
+                ? <LoadingHistory />
                 : bettingHistory.length
                   ? (
                     <HistoryTable
