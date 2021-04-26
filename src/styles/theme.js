@@ -9,6 +9,13 @@ const color = {
   lightgrey: "#ddddde",
 };
 
+const skeletonColor = {
+  background: "#eeeeee",
+  box: "#e0e0e0",
+  skeleton: "#c7c7c7",
+  highlight: "#d4d4d4",
+};
+
 const fontSize = {
   small: calcRem(8),
   base: calcRem(16),
@@ -38,6 +45,7 @@ const padding = {
 
 const theme = {
   color,
+  skeletonColor,
   fontSize,
   margin,
   padding,
