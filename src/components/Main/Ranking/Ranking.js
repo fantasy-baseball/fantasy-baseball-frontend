@@ -7,7 +7,7 @@ import { formatDate, subDate } from "../../../utils/date";
 import { handleTabClick } from "../../../utils";
 import RankingList from "./RankingList";
 import LoadingRanking from "./LoadingRanking";
-import { TAB_CONTENT, TABS } from "../../../constants";
+import { RANKING_TAB_CONTENT, RANKING_TABS } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 450px;
@@ -49,9 +49,9 @@ const Error = styled.div`
 `;
 
 function Ranking() {
-  const [tabList, setTabList] = useState(TABS);
+  const [tabList, setTabList] = useState(RANKING_TABS);
   const [tabName, setTabName] = useState("users");
-  const [tabContent, setTabContent] = useState(TAB_CONTENT);
+  const [tabContent, setTabContent] = useState(RANKING_TAB_CONTENT);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -138,6 +138,7 @@ function Ranking() {
         {tabList.map((tab, index) => (
           <Tab
             key={index}
+            data-tab={tab.name}
             onClick={(event) => handleTabClick(event, setTabList, setTabName)}
             className={tab.isActive ? "active" : ""}
           >

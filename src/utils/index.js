@@ -58,7 +58,7 @@ export const refinePlayerRankings = (playerRankings) => (
 );
 
 export const handleTabClick = (event, setTabList, setTabName) => {
-  const currentTabName = event.currentTarget.textContent;
+  const currentTabName = event.currentTarget.getAttribute("data-tab");
 
   setTabList((prevTabList) => {
     const selectedIndex = prevTabList.findIndex((tab) => tab.name === currentTabName);
