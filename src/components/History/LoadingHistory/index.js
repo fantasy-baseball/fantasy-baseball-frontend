@@ -29,7 +29,7 @@ const LoadingHistoryTable = styled.div`
   flex-flow: column;
 `;
 
-function index() {
+function LoadingHistory() {
   const theme = useTheme();
 
   return (
@@ -56,4 +56,4 @@ function index() {
   );
 }
 
-export default index;
+export default LoadingHistory;
