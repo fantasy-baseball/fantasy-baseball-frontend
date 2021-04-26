@@ -10,12 +10,20 @@ const checkDay = (day) => {
     return "sunday";
   }
 
+  if (day === 1) {
+    return "monday";
+  }
+
   return "weekdays";
 };
 
 const checkBettingCondition = (date) => {
   const today = checkDay(date.getDay());
   const now = formatDate(date, "kk:mm:ss");
+
+  if (today === "monday") {
+    return "monday";
+  }
 
   if (now > GAME_START_TIME[today]) {
     return "close";
