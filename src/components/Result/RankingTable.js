@@ -16,11 +16,11 @@ const Title = styled.h2`
 const RANKING_COLUMNS = [
   {
     Header: "RANK",
-    accessor: "rank"
+    accessor: "rank",
   },
   {
     Header: "NAME",
-    accessor: "user.name"
+    accessor: "user.name",
   },
   {
     Header: "EARNED MONEY",
