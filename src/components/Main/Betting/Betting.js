@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { formatDate, countTime } from "../../../utils/date";
+import { formatDate, countTime, subDate } from "../../../utils/date";
 import LinkButton from "../../Shared/LinkButton";
 import checkBettingCondition from "../../../utils";
 import { BETTING_START_TIME } from "../../../constants";
@@ -129,7 +129,7 @@ function Betting() {
     if (bettingCondition === "result") {
       return (
         <LinkButton
-          path="/result"
+          path={`/result/${formatDate(subDate(today, 1), "yyyyMMdd")}`}
           type="button"
           title="BETTING RESULT"
           color="white"
