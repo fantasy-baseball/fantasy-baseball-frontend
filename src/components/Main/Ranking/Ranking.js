@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import produce from "immer";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserRankings, getPlayerRankings } from "../../../actions/todayGame";
 import { fetchUserRankings, fetchPlayerRankings } from "../../../api/game";
 import { formatDate, subDate } from "../../../utils/date";
 import RankingList from "./RankingList";
 import LoadingRanking from "./LoadingRanking";
+import { TAB_CONTENT, TABS } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 450px;
@@ -45,70 +48,19 @@ const Error = styled.div`
   align-items: center;
 `;
 
-const TAB_CONTENT = {
-  users: {
-    title: "유저 랭킹 TOP5",
-    list: [],
-    error: null,
-  },
-  pitchers: {
-    title: "투수 랭킹 TOP5",
-    list: [],
-    error: null,
-  },
-  hitters: {
-    title: "타자 랭킹 TOP5",
-    list: [],
-    error: null,
-  },
-};
-
-const TABS = [
-  {
-    name: "users",
-    isActive: true,
-  },
-  {
-    name: "pitchers",
-    isActive: false,
-  },
-  {
-    name: "hitters",
-    isActive: false,
-  },
-];
-
-const refineUserRankings = (userRankings) => {
-  userRankings.map((ranking) => {
-    const { name, imageUrl } = ranking.user;
-    return {
-      name,
-      earnedMoney: ranking.earnedMoney,
-      imageUrl,
-      rank: ranking.rank,
-    };
-  });
-};
-
-const refinePlayerRankings = (playerRankings) => (
-  playerRankings.map((player) => {
-    const { name, team, score } = player;
-    const imageUrl = player.playerInfo[0].playerPhotoUrl;
-    return {
-      name,
-      team,
-      score,
-      imageUrl,
-    };
-  })
-);
-
 function Ranking() {
   const [tabList, setTabList] = useState(TABS);
   const [tabName, setTabName] = useState("users");
   const [tabContent, setTabContent] = useState(TAB_CONTENT);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const {
+    userRankings,
+    hitterRankings,
+    pitcherRankings,
+  } = useSelector((state) => state.todayGame);
+  const dispatch = useDispatch();
   const today = new Date();
 
   const handleTabClick = (event) => {
@@ -135,79 +87,72 @@ function Ranking() {
   };
 
   useEffect(() => {
-    const getUserRankings = async () => {
+    if (userRankings.length < 1) {
       setIsLoading(true);
+      dispatch(getUserRankings(formatDate(subDate(today, 1), "yyyyMMdd")));
+    }
 
-      try {
-        const fetchedUserRankings = await fetchUserRankings(
-          formatDate(subDate(today, 1), "yyyyMMdd")
-        );
+    if (userRankings?.result === "none") {
+      setTabContent(
+        produce((draft) => {
+          draft.users.error = "유저 랭킹 정보가 존재하지 않습니다.";
+        })
+      );
+      setIsLoading(false);
+      return;
+    }
 
-        if (fetchedUserRankings.result === "none") {
-          setTabContent(
-            produce((draft) => {
-              draft.users.error = "유저 랭킹 정보가 존재하지 않습니다.";
-            })
-          );
-          setIsLoading(false);
-          return;
-        }
+    if (userRankings === undefined) {
+      setError("데이터 로드에 실패하였습니다.");
+      setIsLoading(false);
+    }
 
-        setTabContent(
-          produce((draft) => {
-            draft.users.list = refineUserRankings(
-              fetchedUserRankings
-            ).slice(0, 5);
-          })
-        );
-        setIsLoading(false);
-      } catch (err) {
-        setError("데이터를 로드에 실패하였습니다.");
-        setIsLoading(false);
-      }
-    };
+    setTabContent(
+      produce((draft) => {
+        draft.users.list = userRankings;
+      })
+    );
 
-    const getPlayerRankings = async () => {
+    setIsLoading(false);
+  }, [userRankings]);
+
+  useEffect(() => {
+    if (hitterRankings.length < 1 || pitcherRankings.length < 1) {
       setIsLoading(true);
+      dispatch(getPlayerRankings(formatDate(subDate(today, 1), "yyyyMMdd")));
+    }
 
-      try {
-        const fetchedPlayerRankings = await fetchPlayerRankings(
-          formatDate(subDate(today, 1), "yyyyMMdd")
-        );
+    if (hitterRankings?.result === "none") {
+      setTabContent(
+        produce((draft) => {
+          draft.hitters.error = "타자 랭킹 정보가 존재하지 않습니다.";
+        })
+      );
+    }
 
-        if (fetchedPlayerRankings.result === "none") {
-          setTabContent(
-            produce((draft) => {
-              draft.pitchers.error = "투수 랭킹 정보가 존재하지 않습니다.";
-              draft.hitters.error = "타자 랭킹 정보가 존재하지 않습니다.";
-            })
-          );
+    if (pitcherRankings?.result === "none") {
+      setTabContent(
+        produce((draft) => {
+          draft.pitchers.error = "투수 랭킹 정보가 존재하지 않습니다.";
+        })
+      );
+    }
 
-          setIsLoading(false);
-          return;
-        }
+    if (!hitterRankings || !pitcherRankings) {
+      setError("데이터 로드에 실패하였습니다.");
+      setIsLoading(false);
+      return;
+    }
 
-        setTabContent(
-          produce((draft) => {
-            draft.pitchers.list = refinePlayerRankings(
-              fetchedPlayerRankings.pitchers
-            ).slice(0, 5);
-            draft.hitters.list = refinePlayerRankings(
-              fetchedPlayerRankings.hitters
-            ).slice(0, 5);
-          })
-        );
+    setTabContent(
+      produce((draft) => {
+        draft.hitters.list = hitterRankings;
+        draft.pitchers.list = pitcherRankings;
+      })
+    );
 
-        setIsLoading(false);
-      } catch (err) {
-        setError("데이터를 로드에 실패하였습니다.");
-        setIsLoading(false);
-      }
-    };
-
-    getUserRankings();
-    getPlayerRankings();
-  }, []);
+    setIsLoading(false);
+  }, [pitcherRankings, hitterRankings]);
 
   return (
     <Wrapper>
