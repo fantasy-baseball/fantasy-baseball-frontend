@@ -25,7 +25,7 @@ function LoadingTable() {
       <LoadingTableContent>
         <Skeleton
           width="100%"
-          height={31}
+          height={30}
           count={10}
         />
       </LoadingTableContent>
