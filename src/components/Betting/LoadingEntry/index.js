@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 import { SkeletonTheme } from "react-loading-skeleton";
-import LoadingTable from "./LoadingTable";
-import LoadingBettingOption from "./LoadingBettingOption";
+import LoadingTable from "../../Shared/Loading/LoadingTable";
+import LoadingBettingOption from "../../Shared/Loading/LoadingBettingOption";
 
 const Wrapper = styled.div`
   width: 100%;
