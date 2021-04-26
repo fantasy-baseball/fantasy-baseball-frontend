@@ -66,8 +66,6 @@ function Result() {
     getUserRankings();
   }, []);
 
-  console.log(error);
-
   return (
     <Wrapper>
       {error
@@ -83,7 +81,9 @@ function Result() {
             <RankingsWrapper>
               {isLoading
                 ? <p>로딩중</p>
-                : <UserRankings userRankings={userRankings} />}
+                : (userRankings.length > 0
+                  && <UserRankings userRankings={userRankings} />
+                )}
             </RankingsWrapper>
             <RoasterWrapper>
               {isLoading
