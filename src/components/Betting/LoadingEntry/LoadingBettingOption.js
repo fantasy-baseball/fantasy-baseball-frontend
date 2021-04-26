@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   padding: 10px;
   background-color: ${({ theme }) => theme.skeletonColor.box};
   border-radius: 5px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
 `;
