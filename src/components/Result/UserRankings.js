@@ -76,6 +76,25 @@ function UserRankings({ userRankings }) {
     getUserBettingInfo(user.email, userRankings)
   );
 
+  const renderBettingResult = () => {
+    const { earnedMoney } = bettingResult;
+    const { bettingMoney } = bettingResult;
+    const difference = bettingResult.earnedMoney - bettingResult.bettingMoney;
+    const resultMessage = (difference > 0) ? "🎉 축하합니다!" : "😢 돈을 잃으셨네요..";
+
+    return (
+      <BettingResult>
+        <strong>RESULT</strong>
+        {earnedMoney}
+        <span>-</span>
+        {bettingMoney}
+        <spang>=</spang>
+        {difference}
+        <span>{resultMessage}</span>
+      </BettingResult>
+    );
+  };
+
   return (
     <Wrapper>
       <RankingTable
@@ -88,16 +107,7 @@ function UserRankings({ userRankings }) {
       />
       <InfoBox>
         {bettingResult
-          && (
-            <BettingResult>
-              <strong>RESULT</strong>
-              {bettingResult.earnedMoney}
-              <span>-</span>
-              {bettingResult.bettingMoney}
-              <span>=</span>
-              {bettingResult.earnedMoney - bettingResult.bettingMoney}
-            </BettingResult>
-          )}
+          && renderBettingResult()}
         <InfoBottom>
           <BettingInfo />
           <LinkButton
