@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { fetchPlayers, postBetting } from "../../api/game";
 import checkBettingCondition from "../../utils";
+import { formatDate } from "../../utils/date";
 import { showModal } from "../../actions/modal";
 import { updateMoney } from "../../actions/login";
 import SearchEntry from "./SearchEntry";
@@ -98,7 +99,7 @@ function Betting() {
         bettingMoney,
       };
 
-      const { result } = await postBetting(bettingData);
+      const { result } = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
 
       if (result === "duplicate") {
         setModalMessage(

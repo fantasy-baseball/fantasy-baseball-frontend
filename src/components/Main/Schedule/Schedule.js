@@ -47,7 +47,7 @@ export default function Schedule() {
   useEffect(() => {
     if (schedule.length < 1) {
       setIsLoading(true);
-      dispatch(getSchedule());
+      dispatch(getSchedule(formatDate(new Date(), "yyyyMMdd")));
       return;
     }
 
