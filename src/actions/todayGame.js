@@ -68,7 +68,7 @@ export const getPlayerRankings = (date) => async (dispatch) => {
     dispatch({
       type: FETCH_PLAYER_RANKINGS,
       pitcherRankings,
-      hitterRankings
+      hitterRankings,
     });
   } catch (err) {
     console.error(err);
