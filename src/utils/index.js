@@ -36,4 +36,17 @@ const checkBettingCondition = (date) => {
   return "close";
 };
 
+export const refinePlayerRankings = (playerRankings) => (
+  playerRankings.map((player) => {
+    const { name, team, score } = player;
+    const imageUrl = player.playerInfo[0].playerPhotoUrl;
+    return {
+      name,
+      team,
+      score,
+      imageUrl,
+    };
+  })
+);
+
 export default checkBettingCondition;
