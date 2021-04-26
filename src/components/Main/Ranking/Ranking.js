@@ -3,8 +3,8 @@ import produce from "immer";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserRankings, getPlayerRankings } from "../../../actions/todayGame";
-import { fetchUserRankings, fetchPlayerRankings } from "../../../api/game";
 import { formatDate, subDate } from "../../../utils/date";
+import { handleTabClick } from "../../../utils";
 import RankingList from "./RankingList";
 import LoadingRanking from "./LoadingRanking";
 import { TAB_CONTENT, TABS } from "../../../constants";
@@ -62,29 +62,6 @@ function Ranking() {
   } = useSelector((state) => state.todayGame);
   const dispatch = useDispatch();
   const today = new Date();
-
-  const handleTabClick = (event) => {
-    const currentTabName = event.currentTarget.textContent;
-
-    setTabList((prevTabList) => {
-      const selectedIndex = prevTabList.findIndex((tab) => tab.name === currentTabName);
-      const newTabList = prevTabList.map((tab, index) => {
-        const currentTab = { ...tab };
-
-        if (index === selectedIndex) {
-          currentTab.isActive = true;
-        } else {
-          currentTab.isActive = false;
-        }
-
-        return currentTab;
-      });
-
-      return newTabList;
-    });
-
-    setTabName(currentTabName);
-  };
 
   useEffect(() => {
     if (userRankings.length < 1) {
@@ -161,7 +138,7 @@ function Ranking() {
         {tabList.map((tab, index) => (
           <Tab
             key={index}
-            onClick={handleTabClick}
+            onClick={(event) => handleTabClick(event, setTabList, setTabName)}
             className={tab.isActive ? "active" : ""}
           >
             <span>{tab.name}</span>
