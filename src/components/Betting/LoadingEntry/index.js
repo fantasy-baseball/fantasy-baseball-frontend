@@ -18,7 +18,7 @@ const LoadingEntryWrapper = styled.div`
   justify-content: space-between;
 `;
 
-function index() {
+function LoadingEntry() {
   const theme = useTheme();
 
   return (
@@ -36,4 +36,4 @@ function index() {
   );
 }
 
-export default index;
+export default LoadingEntry;
