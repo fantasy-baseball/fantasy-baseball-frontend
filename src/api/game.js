@@ -94,7 +94,15 @@ export const fetchUserRankings = async (date) => {
       },
     });
 
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 베팅 결과 정보가 없습니다.",
+      };
+    }
+
     const { data } = await res.json();
+
     return data;
   } catch (err) {
     console.error(err);
@@ -116,7 +124,15 @@ export const fetchRoaster = async (date) => {
       credentials: "include",
     });
 
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 로스터 정보가 없습니다.",
+      };
+    }
+
     const { data } = await res.json();
+
     return data;
   } catch (err) {
     console.error(err);
