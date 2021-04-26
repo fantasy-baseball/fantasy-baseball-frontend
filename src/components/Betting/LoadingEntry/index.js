@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.skeletonColor.background};
 `;
 
-const LoadingEntryLayout = styled.div`
+const LoadingEntryWrapper = styled.div`
   width: 100%;
   height: calc(100vh - 120px);
   display: flex;
@@ -27,10 +27,10 @@ function index() {
         color={theme.skeletonColor.skeleton}
         highlightColor={theme.skeletonColor.highlight}
       >
-        <LoadingEntryLayout>
+        <LoadingEntryWrapper>
           <LoadingTable />
           <LoadingBettingOption />
-        </LoadingEntryLayout>
+        </LoadingEntryWrapper>
       </SkeletonTheme>
     </Wrapper>
   );
