@@ -6,6 +6,7 @@ import { fetchPositionRankings } from "../../api/game";
 import { handleTabClick } from "../../utils";
 import Notification from "../Notification";
 import Chart from "./Chart";
+import Loading from "../Shared/Loading";
 import {
   STATISTIC_TAB_CONTENT,
   STATISTIC_TABS,
@@ -21,14 +22,14 @@ const Wrapper = styled.section`
 
 const ChartWrapper = styled.article`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 70px);
   display: flex;
   color: white;
 `;
 
 const ChartTabs = styled.ul`
   width: 150px;
-  height: 100vh;
+  height: 100%;
   padding: ${({ theme }) => theme.padding.base};
   background: rgba(255, 255, 255, 0.1);
   display: flex;
@@ -127,7 +128,7 @@ function Statistic() {
               ))}
             </ChartTabs>
             {isLoading
-              ? <p>로딩중</p>
+              ? <Loading />
               : (tabContent[tabName].length > 0
                 && <Chart positionRankings={tabContent[tabName]} />)}
           </ChartWrapper>
