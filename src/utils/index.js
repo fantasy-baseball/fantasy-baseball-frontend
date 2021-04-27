@@ -1,5 +1,5 @@
 import { formatDate } from "./date";
-import { GAME_START_TIME, BETTING_START_TIME } from "../constants";
+import { GAME_START_TIME, BETTING_END_TIME } from "../constants";
 
 const checkDay = (day) => {
   if (day === 6) {
@@ -21,16 +21,20 @@ const checkBettingCondition = (date) => {
   const today = checkDay(date.getDay());
   const now = formatDate(date, "kk:mm:ss");
 
+  console.log(now);
+  console.log(GAME_START_TIME[today]);
+  console.log(BETTING_END_TIME[today]);
+
   if (today === "monday") {
     return "monday";
   }
 
-  if (now > GAME_START_TIME[today]) {
-    return "close";
+  if (now > GAME_START_TIME[today] && now < BETTING_END_TIME[today]) {
+    return "open";
   }
 
-  if (now < GAME_START_TIME[today] && now > BETTING_START_TIME[today]) {
-    return "open";
+  if (now > BETTING_END_TIME[today]) {
+    return "close";
   }
 
   if (now > "00:30:00" && now < "04:00:00") {
