@@ -7,7 +7,7 @@ import jwtDecode from "jwt-decode";
 import { checkUser } from "../../actions/login";
 
 const Loading = styled.div`
-  color: black;
+  color: ${({ theme }) => theme.color.black};
 `;
 
 function PrivateRoute({
