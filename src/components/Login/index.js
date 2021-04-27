@@ -1,13 +1,15 @@
 import React from "react";
+
+import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
 import styled, { keyframes } from "styled-components";
+
 import { saveUser } from "../../actions/login";
-import { LOGIN_FAILURE } from "../../constants/actionTypes";
-import BaseballImage from "../../assets/images/login_bg.png";
-import Button from "../Shared/Button";
 import { showModal } from "../../actions/modal";
+import BaseballImage from "../../assets/images/login_bg.png";
+import { LOGIN_FAILURE } from "../../constants/actionTypes";
+import Button from "../Shared/Button";
 
 const semitransparentBlockAppear = keyframes`
   0% {

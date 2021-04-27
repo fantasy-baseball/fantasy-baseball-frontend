@@ -1,8 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+
 import LinkButton from "../Shared/LinkButton";
 
 const Wrapper = styled.section`

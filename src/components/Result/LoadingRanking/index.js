@@ -1,6 +1,8 @@
 import React from "react";
-import styled, { useTheme } from "styled-components";
+
 import { SkeletonTheme } from "react-loading-skeleton";
+import styled, { useTheme } from "styled-components";
+
 import LoadingBettingOption from "../../Shared/Loading/LoadingBettingOption";
 import LoadingTable from "../../Shared/Loading/LoadingTable";
 

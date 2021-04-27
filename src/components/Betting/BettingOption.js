@@ -1,9 +1,11 @@
 import React from "react";
+
 import PropTypes from "prop-types";
 import styled from "styled-components";
+
 import BettingInfo from "../BettingInfo";
-import Slider from "../Shared/Slider";
 import Button from "../Shared/Button";
+import Slider from "../Shared/Slider";
 
 const Wrapper = styled.article`
   width: 100%;

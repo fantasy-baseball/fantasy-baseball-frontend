@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import LinkButton from "../Shared/LinkButton";
+
 import BettingInfo from "../BettingInfo";
+import LinkButton from "../Shared/LinkButton";
 import RankingTable from "./RankingTable";
 
 const Wrapper = styled.div`

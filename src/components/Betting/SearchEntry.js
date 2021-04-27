@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+
+import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import produce from "immer";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+
+import { PLAYER_POSITIONS } from "../../constants";
 import { formatDate, subDate } from "../../utils/date";
-import Table from "../Shared/Table";
 import Button from "../Shared/Button";
 import LinkButton from "../Shared/LinkButton";
-import { PLAYER_POSITIONS } from "../../constants";
+import Table from "../Shared/Table";
 
 const Wrapper = styled.article`
   padding: 0 0 ${({ theme }) => theme.padding.base} 0;

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faUsers, faCoins } from "@fortawesome/free-solid-svg-icons";
-import { formatDate } from "../../utils/date";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+
 import { fetchBettingStatus } from "../../api/game";
+import { formatDate } from "../../utils/date";
 
 const BettingInfo = styled.div`
   display: flex;

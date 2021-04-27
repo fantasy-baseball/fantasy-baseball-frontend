@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+
 import styled from "styled-components";
+
+import { BETTING_START_TIME } from "../../../constants";
+import checkBettingCondition from "../../../utils";
 import { formatDate, countTime, subDate } from "../../../utils/date";
 import LinkButton from "../../Shared/LinkButton";
-import checkBettingCondition from "../../../utils";
-import { BETTING_START_TIME } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 100%;

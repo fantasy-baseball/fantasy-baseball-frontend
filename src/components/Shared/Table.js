@@ -4,13 +4,15 @@ import React, {
   useLayoutEffect,
   useRef,
 } from "react";
+
+import PropTypes from "prop-types";
 import {
   useTable,
   useGlobalFilter,
   useSortBy,
 } from "react-table";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+
 import Input from "./Input";
 
 const Table = styled.div`

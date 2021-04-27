@@ -1,5 +1,5 @@
-import { formatDate } from "./date";
 import { GAME_START_TIME, BETTING_START_TIME } from "../constants";
+import { formatDate } from "./date";
 
 const checkDay = (day) => {
   if (day === 6) {

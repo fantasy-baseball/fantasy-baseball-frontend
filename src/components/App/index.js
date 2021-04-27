@@ -1,19 +1,21 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
+
 import GlobalStyles from "../../styles";
 import GlobalFonts from "../../styles/fonts";
 import theme from "../../styles/theme";
-import Main from "../Main";
-import Login from "../Login";
 import Betting from "../Betting";
 import Header from "../Header";
-import Modal from "../Shared/Modal";
+import History from "../History";
+import Login from "../Login";
+import Main from "../Main";
 import Notification from "../Notification";
 import PrivateRoute from "../PrivateRoute";
 import Result from "../Result";
-import History from "../History";
+import Modal from "../Shared/Modal";
 import Statistic from "../Statistic";
 
 const Wrapper = styled.div`

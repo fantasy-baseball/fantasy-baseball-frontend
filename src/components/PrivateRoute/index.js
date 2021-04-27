@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
-import { Redirect, Route, useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
+
 import jwtDecode from "jwt-decode";
+import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect, Route, useHistory } from "react-router-dom";
+import styled from "styled-components";
+
 import { checkUser } from "../../actions/login";
 
 const Loading = styled.div`

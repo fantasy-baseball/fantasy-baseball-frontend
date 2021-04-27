@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
+
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { createPortal } from "react-dom";
+
 import { hideModal } from "../../actions/modal";
 
 const Wrapper = styled.div`
