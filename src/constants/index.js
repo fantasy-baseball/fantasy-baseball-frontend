@@ -139,7 +139,7 @@ export const BETTING_START_TIME = {
   sunday: "13:00:00",
 };
 
-export const TAB_CONTENT = {
+export const RANKING_TAB_CONTENT = {
   users: {
     title: "유저 랭킹 TOP5",
     list: [],
@@ -157,7 +157,7 @@ export const TAB_CONTENT = {
   },
 };
 
-export const TABS = [
+export const RANKING_TABS = [
   {
     name: "users",
     isActive: true,
@@ -168,6 +168,72 @@ export const TABS = [
   },
   {
     name: "hitters",
+    isActive: false,
+  },
+];
+
+export const STATISTIC_TAB_CONTENT = {
+  pitcher: [1],
+  firstBaseman: [2],
+  secondBaseman: [3],
+  thirdBaseman: [4],
+  shortStop: [5],
+  leftFielder: [6],
+  centerFielder: [7],
+  rightFielder: [8],
+  catcher: [9],
+  designatedHitter: [10],
+};
+
+export const STATISTIC_TABS = [
+  {
+    name: "firstBaseman",
+    title: "1루수",
+    isActive: true,
+  },
+  {
+    name: "secondBaseman",
+    title: "2루수",
+    isActive: false,
+  },
+  {
+    name: "thirdBaseman",
+    title: "3루수",
+    isActive: false,
+  },
+  {
+    name: "shortStop",
+    title: "유격수",
+    isActive: false,
+  },
+  {
+    name: "leftFielder",
+    title: "좌익수",
+    isActive: false,
+  },
+  {
+    name: "centerFielder",
+    title: "중견수",
+    isActive: false,
+  },
+  {
+    name: "rightFielder",
+    title: "우익수",
+    isActive: false,
+  },
+  {
+    name: "pitcher",
+    title: "투수",
+    isActive: false,
+  },
+  {
+    name: "catcher",
+    title: "포수",
+    isActive: false,
+  },
+  {
+    name: "designatedHitter",
+    title: "지명타자",
     isActive: false,
   },
 ];
