@@ -62,6 +62,7 @@ function SharedButton(props) {
     color,
     size,
     handleClick,
+    hasArrow,
   } = props;
 
   return (
@@ -72,10 +73,13 @@ function SharedButton(props) {
       onClick={handleClick}
     >
       {title}
-      <Arrow>
-        <Line color={color} />
-        <End color={color} />
-      </Arrow>
+      {hasArrow
+        && (
+          <Arrow>
+            <Line color={color} />
+            <End color={color} />
+          </Arrow>
+        )}
     </Button>
   );
 }
@@ -86,6 +90,11 @@ SharedButton.propTypes = {
   color: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
+  hasArrow: PropTypes.bool,
+};
+
+SharedButton.defaultProps = {
+  hasArrow: true,
 };
 
 export default SharedButton;

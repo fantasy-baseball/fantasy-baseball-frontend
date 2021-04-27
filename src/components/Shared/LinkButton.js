@@ -59,38 +59,41 @@ const End = styled.span`
 function SharedLinkButton(props) {
   const {
     path,
-    type,
     title,
     color,
     size,
+    hasArrow,
   } = props;
 
   return (
     <Button
       to={path}
-      type={type}
       color={color}
       size={size}
     >
       {title}
-      <Arrow>
-        <Line color={color} />
-        <End color={color} />
-      </Arrow>
+      {hasArrow
+        && (
+          <Arrow>
+            <Line color={color} />
+            <End color={color} />
+          </Arrow>
+        )}
     </Button>
   );
 }
 
 SharedLinkButton.propTypes = {
   path: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   size: PropTypes.string,
+  hasArrow: PropTypes.bool,
 };
 
 SharedLinkButton.defaultProps = {
   size: "base",
+  hasArrow: true,
 };
 
 export default SharedLinkButton;

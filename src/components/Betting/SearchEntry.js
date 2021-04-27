@@ -4,16 +4,31 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { formatDate, subDate } from "../../utils/date";
 import Table from "../Shared/Table";
+import Button from "../Shared/Button";
+import LinkButton from "../Shared/LinkButton";
 import { PLAYER_POSITIONS } from "../../constants";
 
 const Wrapper = styled.article`
   padding: 0 0 ${({ theme }) => theme.padding.base} 0;
-  flex: auto;
 `;
 
 const PlayerLink = styled.a`
   color: ${({ theme }) => theme.color.white};
+`;
+
+const ButtonList = styled.div`
+  margin: 1rem 0 0 0;
+  display: flex;
+  gap: 0.5rem;
+
+  & > * {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const AddIcon = styled.span`
@@ -29,7 +44,7 @@ const AddIcon = styled.span`
 function SearchEntry({ players, setRoaster }) {
   const [clickCount, setclickCount] = useState(0);
 
-  const handleAddIconClick = (tableProps, event) => {
+  const handleAddIcon = (tableProps, event) => {
     const currentData = tableProps.value;
     const currentIcon = event.currentTarget;
     const kboId = currentIcon.getAttribute("data-kbo-id");
@@ -84,7 +99,7 @@ function SearchEntry({ players, setRoaster }) {
         data-kbo-id={tableProps.value.kboId}
         data-active={tableProps.value.isActive}
         data-position={position}
-        onClick={(event) => handleAddIconClick(tableProps, event)}
+        onClick={(event) => handleAddIcon(tableProps, event)}
       >
         <FontAwesomeIcon icon={faUserPlus} />
       </AddIcon>
@@ -120,6 +135,35 @@ function SearchEntry({ players, setRoaster }) {
     },
   ];
 
+  const getLatestDate = () => {
+    const latestDate = subDate(new Date(), 1);
+
+    if (latestDate.getDay() === 1) return subDate(new Date(), 2);
+
+    return latestDate;
+  };
+
+  const generatorRandomRoaster = () => {
+    const sortedPlayers = players.sort((a, b) => {
+      if (a.position > b.position) return 1;
+      if (a.position < b.position) return -1;
+      return 0;
+    });
+
+    for (let i = 0; i < 10; i += 1) {
+      const randomNumber = Math.floor(Math.random() * 10).toString();
+      const playerNumber = i + randomNumber;
+      const randomPlayer = sortedPlayers[Number(playerNumber)];
+      const position = PLAYER_POSITIONS[randomPlayer.position];
+
+      setRoaster(
+        produce((draft) => {
+          draft[position] = randomPlayer;
+        })
+      );
+    }
+  };
+
   return (
     <Wrapper>
       <h2 className="hidden">
@@ -134,6 +178,23 @@ function SearchEntry({ players, setRoaster }) {
         tableHeight="400px"
         placeholder="선수 정보를 검색해주세요 (ex: 김현수, 좌익수, 좌투좌타 등)"
       />
+      <ButtonList>
+        <Button
+          type="button"
+          title="RANDOM ROASTER"
+          color="white"
+          size="small"
+          handleClick={generatorRandomRoaster}
+          hasArrow={false}
+        />
+        <LinkButton
+          path={`/statistics/${formatDate(getLatestDate(), "yyyyMMdd")}`}
+          title="CHECK LATEST STATISTICS"
+          color="white"
+          size="small"
+          hasArrow={false}
+        />
+      </ButtonList>
     </Wrapper>
   );
 }

@@ -12,6 +12,7 @@ import Roaster from "../Roaster";
 import Notification from "../Notification";
 import { EMPTY_ROASTER } from "../../constants";
 import LoadingEntry from "./LoadingEntry";
+import Loading from "../Shared/Loading/LoadingFullScreen";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -40,6 +41,8 @@ function Betting() {
   const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const [bettingMoney, setBettingMoney] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
 
   const dispatch = useDispatch();
@@ -67,6 +70,7 @@ function Betting() {
 
   const submitBetting = async (event) => {
     event.preventDefault();
+
     try {
       const playersByPosition = Object.entries(roaster);
       const userRoaster = [];
@@ -99,6 +103,8 @@ function Betting() {
         bettingMoney,
       };
 
+      setSubmitLoading(true);
+
       const { result } = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
 
       if (result === "duplicate") {
@@ -129,18 +135,34 @@ function Betting() {
         "베팅 참가에 성공하였습니다.",
         true
       );
+
       dispatch(updateMoney(bettingMoney));
     } catch (err) {
       console.log(err);
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
   useEffect(() => {
     const getPlayers = async () => {
-      setIsLoading(true);
-      const fetchedPlayers = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
-      setPlayers(fetchedPlayers);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+
+        const fetchedPlayers = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
+
+        if (fetchedPlayers.result === "none") {
+          setError("1군 엔트리가 존재하지 않습니다.");
+          setIsLoading(false);
+          return;
+        }
+
+        setPlayers(fetchedPlayers);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getPlayers();
@@ -148,6 +170,8 @@ function Betting() {
 
   return (
     <>
+      {submitLoading
+        && <Loading isFullScreen={true} />}
       {bettingCondition === "open"
         ? (
           <Wrapper>
@@ -155,18 +179,28 @@ function Betting() {
               {isLoading
                 ? <LoadingEntry />
                 : (
-                  <>
-                    <SearchEntry
-                      players={players}
-                      setRoaster={setRoaster}
-                    />
-                    <BettingOption
-                      userMoney={userMoney}
-                      bettingMoney={bettingMoney}
-                      handleBettingMoney={handleBettingMoney}
-                      submitBetting={submitBetting}
-                    />
-                  </>
+                  error
+                    ? (
+                      <Notification
+                        icon="🧢❌"
+                        title="FAIL TO LOAD ENTRY"
+                        text="아직 1군 엔트리가 발표되지 않았습니다."
+                      />
+                    )
+                    : (
+                      <>
+                        <SearchEntry
+                          players={players}
+                          setRoaster={setRoaster}
+                        />
+                        <BettingOption
+                          userMoney={userMoney}
+                          bettingMoney={bettingMoney}
+                          handleBettingMoney={handleBettingMoney}
+                          submitBetting={submitBetting}
+                        />
+                      </>
+                    )
                 )}
             </BettingWrapper>
             <RoasterWrapper>

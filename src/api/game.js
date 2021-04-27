@@ -34,6 +34,12 @@ export const fetchPlayers = async (date) => {
       }
     });
 
+    if (res.status === 404) {
+      return {
+        result: "none",
+      };
+    }
+
     const { data } = await res.json();
 
     return data;
@@ -49,6 +55,12 @@ export const fetchBettingStatus = async (date) => {
         "Content-Type": "application/json",
       }
     });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+      };
+    }
 
     const { data } = await res.json();
 
