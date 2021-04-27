@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { fetchPlayers, postBetting } from "../../api/game";
 import checkBettingCondition from "../../utils";
+import { formatDate } from "../../utils/date";
 import { showModal } from "../../actions/modal";
 import { updateMoney } from "../../actions/login";
 import SearchEntry from "./SearchEntry";
@@ -10,6 +11,7 @@ import BettingOption from "./BettingOption";
 import Roaster from "../Roaster";
 import Notification from "../Notification";
 import { EMPTY_ROASTER } from "../../constants";
+import LoadingEntry from "./LoadingEntry";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -97,7 +99,7 @@ function Betting() {
         bettingMoney,
       };
 
-      const { result } = await postBetting(bettingData);
+      const { result } = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
 
       if (result === "duplicate") {
         setModalMessage(
@@ -136,7 +138,7 @@ function Betting() {
   useEffect(() => {
     const getPlayers = async () => {
       setIsLoading(true);
-      const fetchedPlayers = await fetchPlayers();
+      const fetchedPlayers = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
       setPlayers(fetchedPlayers);
       setIsLoading(false);
     };
@@ -151,7 +153,7 @@ function Betting() {
           <Wrapper>
             <BettingWrapper>
               {isLoading
-                ? <p>로딩중</p>
+                ? <LoadingEntry />
                 : (
                   <>
                     <SearchEntry

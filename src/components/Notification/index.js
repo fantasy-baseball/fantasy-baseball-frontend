@@ -7,6 +7,7 @@ const Wrapper = styled.section`
   display: flex;
   align-content: center;
   justify-content: center;
+  color: black;
 `;
 
 const Content = styled.div`
@@ -19,6 +20,7 @@ const Alert = styled.div`
   padding: 2rem;
   background: rgba(255, 255, 255, 1);
   text-align: center;
+  box-shadow: 3px 3px 15px -6px #000000;
 `;
 
 const Icon = styled.p`

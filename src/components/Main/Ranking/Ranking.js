@@ -1,110 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import produce from "immer";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserRankings, getPlayerRankings } from "../../../actions/todayGame";
+import { formatDate, subDate } from "../../../utils/date";
+import { handleTabClick } from "../../../utils";
 import RankingList from "./RankingList";
-
-// TODO : test data - 삭제 예정
-const content = {
-  users: {
-    title: "유저 랭킹 TOP5",
-    list: [
-      {
-        name: "유저1",
-        users: 45112345,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "강동연",
-        users: 451321,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "강동연",
-        users: 45132,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "강동연",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "강동연",
-        users: 400,
-        imag_url: "http://example.com",
-      },
-    ],
-  },
-  pitchers: {
-    title: "유저들이 선택한 투수 TOP5",
-    list: [
-      {
-        name: "수아레즈",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "수아레즈",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "수아레즈",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "수아레즈",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "수아레즈",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-    ],
-  },
-  hitters: {
-    title: "유저들이 선택한 타자 TOP5",
-    list: [
-      {
-        name: "김현수",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "김현수",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "김현수",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "김현수",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-      {
-        name: "김현수",
-        teamName: "NC",
-        users: 451,
-        imag_url: "http://example.com",
-      },
-    ],
-  },
-};
+import LoadingRanking from "./LoadingRanking";
+import { RANKING_TAB_CONTENT, RANKING_TABS } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 450px;
@@ -136,47 +39,97 @@ const Tab = styled.li`
   }
 `;
 
-const TABS = [
-  {
-    name: "users",
-    isActive: true,
-  },
-  {
-    name: "pitchers",
-    isActive: false,
-  },
-  {
-    name: "hitters",
-    isActive: false,
-  },
-];
+const Error = styled.div`
+  width: 100%;
+  height: 350px;
+  background: ${({ theme }) => theme.color.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function Ranking() {
-  const [tabList, setTabList] = useState(TABS);
-  const [tabContent, setTabContent] = useState(content.users);
+  const [tabList, setTabList] = useState(RANKING_TABS);
+  const [tabName, setTabName] = useState("users");
+  const [tabContent, setTabContent] = useState(RANKING_TAB_CONTENT);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleTabClick = (event) => {
-    const tabName = event.currentTarget.textContent;
+  const {
+    userRankings,
+    hitterRankings,
+    pitcherRankings,
+  } = useSelector((state) => state.todayGame);
+  const dispatch = useDispatch();
+  const today = new Date();
 
-    setTabList((prevTabList) => {
-      const selectedIndex = prevTabList.findIndex((tab) => tab.name === tabName);
-      const newTabList = prevTabList.map((tab, index) => {
-        const currentTab = { ...tab };
+  useEffect(() => {
+    if (userRankings.length < 1) {
+      setIsLoading(true);
+      dispatch(getUserRankings(formatDate(subDate(today, 1), "yyyyMMdd")));
+    }
 
-        if (index === selectedIndex) {
-          currentTab.isActive = true;
-        } else {
-          currentTab.isActive = false;
-        }
+    if (userRankings?.result === "none") {
+      setTabContent(
+        produce((draft) => {
+          draft.users.error = "유저 랭킹 정보가 존재하지 않습니다.";
+        })
+      );
+      setIsLoading(false);
+      return;
+    }
 
-        return currentTab;
-      });
+    if (userRankings === undefined) {
+      setError("데이터 로드에 실패하였습니다.");
+      setIsLoading(false);
+    }
 
-      return newTabList;
-    });
+    setTabContent(
+      produce((draft) => {
+        draft.users.list = userRankings;
+      })
+    );
 
-    setTabContent(content[tabName]);
-  };
+    setIsLoading(false);
+  }, [userRankings]);
+
+  useEffect(() => {
+    if (hitterRankings.length < 1 || pitcherRankings.length < 1) {
+      setIsLoading(true);
+      dispatch(getPlayerRankings(formatDate(subDate(today, 1), "yyyyMMdd")));
+    }
+
+    if (hitterRankings?.result === "none") {
+      setTabContent(
+        produce((draft) => {
+          draft.hitters.error = "타자 랭킹 정보가 존재하지 않습니다.";
+        })
+      );
+    }
+
+    if (pitcherRankings?.result === "none") {
+      setTabContent(
+        produce((draft) => {
+          draft.pitchers.error = "투수 랭킹 정보가 존재하지 않습니다.";
+        })
+      );
+    }
+
+    if (!hitterRankings || !pitcherRankings) {
+      setError("데이터 로드에 실패하였습니다.");
+      setIsLoading(false);
+      return;
+    }
+
+    setTabContent(
+      produce((draft) => {
+        draft.hitters.list = hitterRankings;
+        draft.pitchers.list = pitcherRankings;
+      })
+    );
+
+    setIsLoading(false);
+  }, [pitcherRankings, hitterRankings]);
 
   return (
     <Wrapper>
@@ -185,14 +138,21 @@ function Ranking() {
         {tabList.map((tab, index) => (
           <Tab
             key={index}
-            onClick={handleTabClick}
+            data-tab={tab.name}
+            onClick={(event) => handleTabClick(event, setTabList, setTabName)}
             className={tab.isActive ? "active" : ""}
           >
             <span>{tab.name}</span>
           </Tab>
         ))}
       </Tabs>
-      <RankingList data={tabContent} />
+      {error
+        ? <Error>{error}</Error>
+        : (
+          isLoading
+            ? <LoadingRanking />
+            : <RankingList data={tabContent[tabName]} />
+        )}
     </Wrapper>
   );
 }

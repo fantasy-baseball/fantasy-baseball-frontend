@@ -3,12 +3,9 @@
 
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
-// const today = formatDate(new Date(), "yyyyMMdd");
-const testDay = "20210416";
-
-export const fetchSchedule = async () => {
+export const fetchSchedule = async (date) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/schedule`, {
+    const res = await fetch(`${API_URL}/games/${date}/schedule`, {
       headers: {
         "Content-Type": "application/json",
       }
@@ -29,9 +26,9 @@ export const fetchSchedule = async () => {
   }
 };
 
-export const fetchPlayers = async () => {
+export const fetchPlayers = async (date) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/players`, {
+    const res = await fetch(`${API_URL}/games/${date}/players`, {
       headers: {
         "Content-Type": "application/json",
       }
@@ -45,9 +42,9 @@ export const fetchPlayers = async () => {
   }
 };
 
-export const fetchBettingData = async () => {
+export const fetchBettingStatus = async (date) => {
   try {
-    const res = await fetch(`${API_URL}/games/${testDay}/betting`, {
+    const res = await fetch(`${API_URL}/games/${date}/betting`, {
       headers: {
         "Content-Type": "application/json",
       }
@@ -61,14 +58,14 @@ export const fetchBettingData = async () => {
   }
 };
 
-export const postBetting = async (bettingData) => {
+export const postBetting = async (date, bettingData) => {
   try {
     const token = document.cookie
       .split("; ")
       .find((row) => row.startsWith("access_token"))
       .split("=")[1];
 
-    const res = await fetch(`${API_URL}/games/${testDay}/betting`, {
+    const res = await fetch(`${API_URL}/games/${date}/betting`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,6 +78,134 @@ export const postBetting = async (bettingData) => {
     });
 
     return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchUserRankings = async (date) => {
+  try {
+    const res = await fetch(`${API_URL}/games/${date}/rankings/users`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 베팅 결과 정보가 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchPlayerRankings = async (date) => {
+  try {
+    const res = await fetch(`${API_URL}/games/${date}/rankings/players`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 랭킹 결과 정보가 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchPositionRankings = async (date) => {
+  try {
+    const res = await fetch(`${API_URL}/games/${date}/rankings/positions`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 포지션 통계 정보가 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchRoaster = async (date) => {
+  try {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("access_token"))
+      .split("=")[1];
+
+    const res = await fetch(`${API_URL}/games/${date}/roaster`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 로스터 정보가 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchBettingHistory = async () => {
+  try {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("access_token"))
+      .split("=")[1];
+    const res = await fetch(`${API_URL}/games/betting-history`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "아직 배팅 이력이 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
   } catch (err) {
     console.error(err);
   }

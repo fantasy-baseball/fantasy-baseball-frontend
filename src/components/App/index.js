@@ -12,6 +12,9 @@ import Header from "../Header";
 import Modal from "../Shared/Modal";
 import Notification from "../Notification";
 import PrivateRoute from "../PrivateRoute";
+import Result from "../Result";
+import History from "../History";
+import Statistic from "../Statistic";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -48,6 +51,18 @@ function App() {
               <PrivateRoute
                 path="/betting"
                 component={Betting}
+              />
+              <PrivateRoute
+                path="/result/:gameDate"
+                component={Result}
+              />
+              <PrivateRoute
+                path="/statistics/:gameDate"
+                component={Statistic}
+              />
+              <PrivateRoute
+                path="/history"
+                component={History}
               />
               <Route
                 path="*"
