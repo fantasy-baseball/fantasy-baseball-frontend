@@ -13,6 +13,7 @@ import Modal from "../Shared/Modal";
 import Notification from "../Notification";
 import Result from "../Result";
 import History from "../History";
+import Statistic from "../Statistic";
 import { checkUser } from "../../actions/login";
 
 const Wrapper = styled.div`
@@ -63,6 +64,7 @@ function App() {
                   <Route exact path="/" component={Main} />
                   <Route path="/betting" component={Betting} />
                   <Route path="/result/:gameDate" component={Result} />
+                  <Route path="/statistics/:gameDate" component={Statistic} />
                   <Route path="/history" component={History} />
                   <Route
                     path="*"

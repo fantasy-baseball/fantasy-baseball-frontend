@@ -57,4 +57,27 @@ export const refinePlayerRankings = (playerRankings) => (
   })
 );
 
+export const handleTabClick = (event, setTabList, setTabName) => {
+  const currentTabName = event.currentTarget.getAttribute("data-tab");
+
+  setTabList((prevTabList) => {
+    const selectedIndex = prevTabList.findIndex((tab) => tab.name === currentTabName);
+    const newTabList = prevTabList.map((tab, index) => {
+      const currentTab = { ...tab };
+
+      if (index === selectedIndex) {
+        currentTab.isActive = true;
+      } else {
+        currentTab.isActive = false;
+      }
+
+      return currentTab;
+    });
+
+    return newTabList;
+  });
+
+  setTabName(currentTabName);
+};
+
 export default checkBettingCondition;

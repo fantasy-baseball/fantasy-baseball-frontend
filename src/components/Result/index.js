@@ -85,7 +85,12 @@ function Result() {
               {isLoading
                 ? <LoadingRanking />
                 : (userRankings.length > 0
-                  && <UserRankings userRankings={userRankings} />
+                  && (
+                    <UserRankings
+                      userRankings={userRankings}
+                      gameDate={gameDate}
+                    />
+                  )
                 )}
             </RankingsWrapper>
             <RoasterWrapper>

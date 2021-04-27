@@ -3,11 +3,11 @@ import produce from "immer";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserRankings, getPlayerRankings } from "../../../actions/todayGame";
-import { fetchUserRankings, fetchPlayerRankings } from "../../../api/game";
 import { formatDate, subDate } from "../../../utils/date";
+import { handleTabClick } from "../../../utils";
 import RankingList from "./RankingList";
 import LoadingRanking from "./LoadingRanking";
-import { TAB_CONTENT, TABS } from "../../../constants";
+import { RANKING_TAB_CONTENT, RANKING_TABS } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 450px;
@@ -49,9 +49,9 @@ const Error = styled.div`
 `;
 
 function Ranking() {
-  const [tabList, setTabList] = useState(TABS);
+  const [tabList, setTabList] = useState(RANKING_TABS);
   const [tabName, setTabName] = useState("users");
-  const [tabContent, setTabContent] = useState(TAB_CONTENT);
+  const [tabContent, setTabContent] = useState(RANKING_TAB_CONTENT);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -62,29 +62,6 @@ function Ranking() {
   } = useSelector((state) => state.todayGame);
   const dispatch = useDispatch();
   const today = new Date();
-
-  const handleTabClick = (event) => {
-    const currentTabName = event.currentTarget.textContent;
-
-    setTabList((prevTabList) => {
-      const selectedIndex = prevTabList.findIndex((tab) => tab.name === currentTabName);
-      const newTabList = prevTabList.map((tab, index) => {
-        const currentTab = { ...tab };
-
-        if (index === selectedIndex) {
-          currentTab.isActive = true;
-        } else {
-          currentTab.isActive = false;
-        }
-
-        return currentTab;
-      });
-
-      return newTabList;
-    });
-
-    setTabName(currentTabName);
-  };
 
   useEffect(() => {
     if (userRankings.length < 1) {
@@ -161,7 +138,8 @@ function Ranking() {
         {tabList.map((tab, index) => (
           <Tab
             key={index}
-            onClick={handleTabClick}
+            data-tab={tab.name}
+            onClick={(event) => handleTabClick(event, setTabList, setTabName)}
             className={tab.isActive ? "active" : ""}
           >
             <span>{tab.name}</span>
