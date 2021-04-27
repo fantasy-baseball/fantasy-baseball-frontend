@@ -129,6 +129,29 @@ export const fetchPlayerRankings = async (date) => {
   }
 };
 
+export const fetchPositionRankings = async (date) => {
+  try {
+    const res = await fetch(`${API_URL}/games/${date}/rankings/positions`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "해당 날짜의 포지션 통계 정보가 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const fetchRoaster = async (date) => {
   try {
     const token = document.cookie
