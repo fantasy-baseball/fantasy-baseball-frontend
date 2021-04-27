@@ -138,7 +138,7 @@ function Betting() {
   useEffect(() => {
     const getPlayers = async () => {
       setIsLoading(true);
-      const fetchedPlayers = await fetchPlayers();
+      const fetchedPlayers = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
       setPlayers(fetchedPlayers);
       setIsLoading(false);
     };
