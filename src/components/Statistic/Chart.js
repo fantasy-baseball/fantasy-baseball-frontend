@@ -8,7 +8,11 @@ defaults.borderColor = "rgba(255, 255, 255, 0.1)";
 
 const Wrapper = styled.div`
   width: calc(100vw - 150px);
-  height: 100vh;
+  height: 100%;
+  padding: 0 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const getFieldList = (rankings, field) => (
@@ -53,7 +57,10 @@ function Chart({ positionRankings }) {
 
   return (
     <Wrapper>
-      <Bar data={data} />
+      <Bar
+        data={data}
+        height={140}
+      />
     </Wrapper>
   );
 }
