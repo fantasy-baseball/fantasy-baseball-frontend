@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
@@ -136,12 +136,6 @@ const BlueText = styled.span`
 function Login() {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (document.cookie.indexOf("access_token") !== -1) {
-      history.push("/");
-    }
-  }, []);
 
   const onGoogleSuccess = async ({ tokenId }) => {
     const isNewUser = await dispatch(saveUser(tokenId));
