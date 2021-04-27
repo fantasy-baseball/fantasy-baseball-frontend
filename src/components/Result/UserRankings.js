@@ -5,10 +5,9 @@ import styled from "styled-components";
 import LinkButton from "../Shared/LinkButton";
 import BettingInfo from "../BettingInfo";
 import RankingTable from "./RankingTable";
-import Ranking from "../Main/Ranking/Ranking";
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height: calc(100vh - 102px);
   display: flex;
   flex-direction: column;
 `;
@@ -85,7 +84,7 @@ function UserRankings({ userRankings }) {
         {earnedMoney}
         <span>-</span>
         {bettingMoney}
-        <spang>=</spang>
+        <span>=</span>
         {difference}
         <span>{resultMessage}</span>
       </BettingResult>

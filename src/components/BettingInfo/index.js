@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCoins } from "@fortawesome/free-solid-svg-icons";
-import { fetchBettingData } from "../../api/game";
+import { fetchBettingStatus } from "../../api/game";
 
 const BettingInfo = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ function SharedBettingInfo() {
 
   useEffect(() => {
     const getBettingData = async () => {
-      const { users, totalMoney } = await fetchBettingData();
+      const { users, totalMoney } = await fetchBettingStatus();
 
       setBettingUsers(users);
       setBettingTotalMoney(totalMoney);

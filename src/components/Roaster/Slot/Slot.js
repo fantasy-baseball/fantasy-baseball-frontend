@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import SlotSkeleton from "./SlotSkeleton";
 
 const Wrapper = styled.div`
   display: grid;
@@ -55,7 +56,7 @@ const PlayerInfo = styled.div`
   }
 `;
 
-function Slot({ slotPosition, roasterPosition }) {
+function Slot({ slotPosition, roasterPosition, isSkeleton }) {
   const {
     title,
     wrapperGridArea,
@@ -74,13 +75,20 @@ function Slot({ slotPosition, roasterPosition }) {
 
   return (
     <Wrapper wrapperGridArea={wrapperGridArea}>
-      <Position rowStart={rowStart} columnStart={columnStart}>
-        <p>{title}</p>
-      </Position>
+      {!isSkeleton
+        && (
+        <Position rowStart={rowStart} columnStart={columnStart}>
+          <p>{title}</p>
+        </Position>
+        )}
       <SlotBox cardGridArea={cardGridArea}>
-        {name
-          ? <PlayerImage src={playerPhotoUrl} />
-          : <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />}
+        {isSkeleton
+          ? <SlotSkeleton />
+          : (
+            name
+              ? <PlayerImage src={playerPhotoUrl} />
+              : <FontAwesomeIcon icon={faPlus} color="#0f4cd9" />
+          )}
       </SlotBox>
       <PlayerInfo rowStart={rowStart + 6} columnStart={columnStart}>
         {name
@@ -95,6 +103,11 @@ function Slot({ slotPosition, roasterPosition }) {
 Slot.propTypes = {
   slotPosition: PropTypes.instanceOf(Object).isRequired,
   roasterPosition: PropTypes.instanceOf(Object).isRequired,
+  isSkeleton: PropTypes.bool,
+};
+
+Slot.defaultProps = {
+  isSkeleton: false,
 };
 
 export default React.memo(Slot);

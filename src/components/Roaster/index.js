@@ -18,23 +18,41 @@ const Rhombus = styled.div`
   transform: rotate(45deg) skew(-0.15739559rad, -0.15739556rad);
 `;
 
-function Roaster({ roaster }) {
+function Roaster({ roaster, isSkeleton }) {
   return (
     <Wrapper>
       <Rhombus />
-      {SLOT_POSITIONS.map((slotPosition, index) => (
-        <Slot
-          key={index}
-          slotPosition={slotPosition}
-          roasterPosition={roaster[slotPosition.position]}
-        />
-      ))}
+      {isSkeleton
+        ? (
+          SLOT_POSITIONS.map((slotPosition, index) => (
+            <Slot
+              key={index}
+              slotPosition={slotPosition}
+              roasterPosition={roaster[slotPosition.position]}
+              isSkeleton={true}
+            />
+          ))
+        )
+        : (
+          SLOT_POSITIONS.map((slotPosition, index) => (
+            <Slot
+              key={index}
+              slotPosition={slotPosition}
+              roasterPosition={roaster[slotPosition.position]}
+            />
+          ))
+        )}
     </Wrapper>
   );
 }
 
+Roaster.defaultProps = {
+  isSkeleton: false,
+};
+
 Roaster.propTypes = {
   roaster: PropTypes.instanceOf(Object).isRequired,
+  isSkeleton: PropTypes.bool,
 };
 
 export default React.memo(Roaster);

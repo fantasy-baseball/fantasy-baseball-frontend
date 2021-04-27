@@ -42,7 +42,7 @@ export const fetchPlayers = async (date) => {
   }
 };
 
-export const fetchBettingData = async (date) => {
+export const fetchBettingStatus = async (date) => {
   try {
     const res = await fetch(`${API_URL}/games/${date}/betting`, {
       headers: {
@@ -148,6 +148,35 @@ export const fetchRoaster = async (date) => {
       return {
         result: "none",
         message: "해당 날짜의 로스터 정보가 없습니다.",
+      };
+    }
+
+    const { data } = await res.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchBettingHistory = async () => {
+  try {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("access_token"))
+      .split("=")[1];
+    const res = await fetch(`${API_URL}/games/betting-history`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
+
+    if (res.status === 404) {
+      return {
+        result: "none",
+        message: "아직 배팅 이력이 없습니다.",
       };
     }
 
