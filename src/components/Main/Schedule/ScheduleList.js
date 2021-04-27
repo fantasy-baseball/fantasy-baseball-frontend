@@ -31,8 +31,8 @@ function ScheduleList({ schedule, error }) {
       <List>
         {error
           ? <Error>{error}</Error>
-          : (
-            schedule.map((game, index) => (
+          : (Array.isArray(schedule)
+            && schedule.map((game, index) => (
               <ScheduleListEntry
                 key={index}
                 homeTeam={game.home}
