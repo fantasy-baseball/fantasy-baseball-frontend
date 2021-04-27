@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyles from "../../styles";
 import GlobalFonts from "../../styles/fonts";
@@ -11,7 +11,7 @@ import Betting from "../Betting";
 import Header from "../Header";
 import Modal from "../Shared/Modal";
 import Notification from "../Notification";
-import { checkUser } from "../../actions/login";
+import PrivateRoute from "../PrivateRoute";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,28 +24,8 @@ const Layout = styled.main`
 `;
 
 function App() {
-  const { user } = useSelector((state) => state.login);
+  const user = useSelector((state) => state.login.user);
   const modal = useSelector((state) => state.modal);
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const checkUserLogin = () => {
-    if (document.cookie.indexOf("access_token") === -1) {
-      history.push("/login");
-      return;
-    }
-
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("access_token"))
-      .split("=")[1];
-
-    dispatch(checkUser(token));
-  };
-
-  useEffect(() => {
-    checkUserLogin();
-  }, []);
 
   return (
     <Wrapper>
@@ -53,29 +33,34 @@ function App() {
         <GlobalStyles />
         <GlobalFonts />
         <Layout>
-          {user
-            ? (
-              <>
-                <Header />
-                <Switch>
-                  <Route exact path="/" component={Main} />
-                  <Route path="/betting" component={Betting} />
-                  <Route
-                    path="*"
-                    render={() => (
-                      <Notification
-                        icon="🙅"
-                        title="404"
-                        text="페이지를 찾을 수 없습니다"
-                      />
-                    )}
+          <>
+            {user && <Header />}
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/"
+                component={Main}
+              />
+              <Route
+                path="/login"
+                component={Login}
+              />
+              <PrivateRoute
+                path="/betting"
+                component={Betting}
+              />
+              <Route
+                path="*"
+                render={() => (
+                  <Notification
+                    icon="🙅"
+                    title="404"
+                    text="페이지를 찾을 수 없습니다"
                   />
-                </Switch>
-              </>
-            )
-            : (
-              <Route path="/login" component={Login} />
-            )}
+                )}
+              />
+            </Switch>
+          </>
         </Layout>
         {modal.isVisible
           && (
