@@ -32,7 +32,7 @@ function History() {
     name,
     email,
     money,
-    imageUrl
+    imageUrl,
   } = useSelector((state) => state.login.user);
 
   useEffect(() => {

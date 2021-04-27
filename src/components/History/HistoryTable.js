@@ -34,7 +34,7 @@ function HistoryTable({ history }) {
     },
     {
       Header: "betting money",
-      accessor: "bettingMoney"
+      accessor: "bettingMoney",
     },
     {
       Header: "calculated",
@@ -43,7 +43,7 @@ function HistoryTable({ history }) {
     },
     {
       Header: "earned money",
-      accessor: "earnedMoney"
+      accessor: "earnedMoney",
     },
     {
       Header: "±",
@@ -53,7 +53,7 @@ function HistoryTable({ history }) {
     },
     {
       Header: "rank",
-      accessor: "rank"
+      accessor: "rank",
     },
     {
       Header: "result",
@@ -76,7 +76,7 @@ function HistoryTable({ history }) {
           "auto",
           "80px",
           "80px",
-          "80px"
+          "80px",
         ]
       }
       tableHeight="auto"
