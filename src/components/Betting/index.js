@@ -12,6 +12,7 @@ import Roaster from "../Roaster";
 import Notification from "../Notification";
 import { EMPTY_ROASTER } from "../../constants";
 import LoadingEntry from "./LoadingEntry";
+import Loading from "../Shared/Loading/LoadingFullScreen";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -40,6 +41,7 @@ function Betting() {
   const [roaster, setRoaster] = useState(EMPTY_ROASTER);
   const [bettingMoney, setBettingMoney] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
 
@@ -101,6 +103,8 @@ function Betting() {
         bettingMoney,
       };
 
+      setSubmitLoading(true);
+
       const { result } = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
 
       if (result === "duplicate") {
@@ -131,9 +135,12 @@ function Betting() {
         "베팅 참가에 성공하였습니다.",
         true
       );
+
       dispatch(updateMoney(bettingMoney));
     } catch (err) {
       console.log(err);
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -163,6 +170,8 @@ function Betting() {
 
   return (
     <>
+      {submitLoading
+        && <Loading isFullScreen={true} />}
       {bettingCondition === "open"
         ? (
           <Wrapper>
