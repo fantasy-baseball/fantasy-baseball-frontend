@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import produce from "immer";
 import styled from "styled-components";
+import { fetchPositionRankings } from "../../api/game";
 import { handleTabClick } from "../../utils";
 import Notification from "../Notification";
 import Chart from "./Chart";
-import { STATISTIC_TAB_CONTENT, STATISTIC_TABS } from "../../constants";
+import {
+  STATISTIC_TAB_CONTENT,
+  STATISTIC_TABS,
+  PLAYER_POSITIONS,
+} from "../../constants";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -66,12 +72,42 @@ function Statistic() {
 
   const { gameDate } = useParams();
 
+  useEffect(() => {
+    const getPositionRankings = async () => {
+      setIsLoading(true);
+      try {
+        const fetchedPositionRankings = await fetchPositionRankings(gameDate);
+
+        if (fetchedPositionRankings?.result === "none") {
+          setError("해당 날짜의 통계가 존재하지 않습니다.");
+          setIsLoading(false);
+          return;
+        }
+
+        setTabContent(
+          produce((draft) => {
+            fetchedPositionRankings.forEach((position) => {
+              draft[PLAYER_POSITIONS[position._id]] = position.players;
+            });
+          })
+        );
+
+        setIsLoading(false);
+      } catch (err) {
+        setError("데이터 로드에 실패하였습니다.");
+        setIsLoading(false);
+      }
+    };
+
+    getPositionRankings();
+  }, []);
+
   return (
     <Wrapper>
       {error
         ? (
           <Notification
-            icon="😢"
+            icon="📊❌"
             title="FAIL TO LOAD DATA"
             text={error}
           />
@@ -92,7 +128,8 @@ function Statistic() {
             </ChartTabs>
             {isLoading
               ? <p>로딩중</p>
-              : <Chart data={tabContent[tabName]} />}
+              : (tabContent[tabName].length > 0
+                && <Chart positionRankings={tabContent[tabName]} />)}
           </ChartWrapper>
         )}
     </Wrapper>
