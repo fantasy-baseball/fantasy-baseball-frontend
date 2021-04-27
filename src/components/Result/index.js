@@ -5,6 +5,8 @@ import { fetchUserRankings, fetchRoaster } from "../../api/game";
 import UserRankings from "./UserRankings";
 import Roaster from "../Roaster";
 import Notification from "../Notification";
+import LoadingRoaster from "./LoadingRoaster";
+import LoadingRanking from "./LoadingRanking";
 import { EMPTY_ROASTER } from "../../constants";
 
 const Wrapper = styled.section`
@@ -81,7 +83,7 @@ function Result() {
           <>
             <RankingsWrapper>
               {isLoading
-                ? <p>로딩중</p>
+                ? <LoadingRanking />
                 : (userRankings.length > 0
                   && (
                     <UserRankings
@@ -93,7 +95,7 @@ function Result() {
             </RankingsWrapper>
             <RoasterWrapper>
               {isLoading
-                ? <p>로스터 로딩중</p>
+                ? <LoadingRoaster />
                 : (
                   <>
                     <h2 className="hidden">선택한 로스터</h2>
