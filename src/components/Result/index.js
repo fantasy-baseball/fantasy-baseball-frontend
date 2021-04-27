@@ -38,8 +38,9 @@ function Result() {
 
   useEffect(() => {
     const getUserRankings = async () => {
+      setIsLoading(true);
+
       try {
-        setIsLoading(true);
         const fetchedRankings = await fetchUserRankings(gameDate);
 
         if (fetchedRankings.result === "none") {
