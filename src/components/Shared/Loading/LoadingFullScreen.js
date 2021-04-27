@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled, { keyframes } from "styled-components";
 
 const loadingAnimation = keyframes`
@@ -22,8 +23,20 @@ const loadingAnimation = keyframes`
 const Loading = styled.div`
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.color.black};
+  background: rgba(0, 0, 0, 0.2);
   color: ${({ theme }) => theme.color.white};
+
+  &.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    & > div {
+      top: calc(50% - 55px);
+      left: calc(50% - 55px);
+    }
+  }
 `;
 
 const Loader = styled.div`
@@ -78,9 +91,11 @@ const LoadingText = styled.div`
   color: ${({ theme }) => theme.color.white};
 `;
 
-function SharedLoading() {
+function SharedLoading({ isFullScreen }) {
   return (
-    <Loading>
+    <Loading
+      className={isFullScreen && "full-screen"}
+    >
       <Loader>
         <LoadingIcon>
           <li />
@@ -98,5 +113,9 @@ function SharedLoading() {
     </Loading>
   );
 }
+
+SharedLoading.propTypes = {
+  isFullScreen: PropTypes.bool.isRequired,
+};
 
 export default SharedLoading;
