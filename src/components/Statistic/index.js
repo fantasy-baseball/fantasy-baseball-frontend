@@ -6,7 +6,7 @@ import { fetchPositionRankings } from "../../api/game";
 import { handleTabClick } from "../../utils";
 import Notification from "../Notification";
 import Chart from "./Chart";
-import Loading from "../Shared/Loading";
+import Loading from "../Shared/Loading/LoadingFullScreen";
 import {
   STATISTIC_TAB_CONTENT,
   STATISTIC_TABS,
@@ -54,15 +54,6 @@ const Tab = styled.li`
   }
 `;
 
-const Error = styled.div`
-  width: 100%;
-  height: 350px;
-  background: ${({ theme }) => theme.color.white};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 function Statistic() {
   const [tabList, setTabList] = useState(STATISTIC_TABS);
   const [tabContent, setTabContent] = useState(STATISTIC_TAB_CONTENT);
@@ -75,8 +66,9 @@ function Statistic() {
 
   useEffect(() => {
     const getPositionRankings = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
+
         const fetchedPositionRankings = await fetchPositionRankings(gameDate);
 
         if (fetchedPositionRankings?.result === "none") {
@@ -92,10 +84,9 @@ function Statistic() {
             });
           })
         );
-
-        setIsLoading(false);
       } catch (err) {
         setError("데이터 로드에 실패하였습니다.");
+      } finally {
         setIsLoading(false);
       }
     };
