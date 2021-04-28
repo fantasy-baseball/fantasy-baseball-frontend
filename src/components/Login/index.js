@@ -7,6 +7,7 @@ import styled, { keyframes } from "styled-components";
 
 import { saveUser } from "../../actions/login";
 import { showModal } from "../../actions/modal";
+import { fetchUser } from "../../api/login";
 import BaseballImage from "../../assets/images/login_bg.png";
 import { LOGIN_FAILURE } from "../../constants/actionTypes";
 import Button from "../Shared/Button";
@@ -140,7 +141,13 @@ function Login() {
   const dispatch = useDispatch();
 
   const onGoogleSuccess = async ({ tokenId }) => {
-    const isNewUser = await dispatch(saveUser(tokenId));
+    const {
+      result,
+      user,
+      isNewUser,
+    } = await fetchUser(tokenId, "login");
+
+    dispatch(saveUser(result, user));
     dispatch(showModal({
       isVisible: isNewUser,
       title: "가입 축하",
@@ -149,6 +156,7 @@ function Login() {
       path: "",
       linkButtonText: "",
     }));
+
     history.push("/");
   };
 
