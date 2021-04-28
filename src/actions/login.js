@@ -37,6 +37,7 @@ export const clearUser = () => async (dispatch) => {
 
 export const checkUser = (tokenId) => async (dispatch) => {
   dispatch({ type: START_LOADING });
+
   try {
     const { result, user } = await fetchUser(tokenId, "checkUser");
 
@@ -45,6 +46,7 @@ export const checkUser = (tokenId) => async (dispatch) => {
     } else {
       dispatch({ type: EXPIRED_TOKEN });
     }
+
     dispatch({ type: FINISH_LOADING });
   } catch (err) {
     console.error(err);

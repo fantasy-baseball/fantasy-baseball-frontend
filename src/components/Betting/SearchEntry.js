@@ -80,6 +80,7 @@ function SearchEntry({ players, setRoaster }) {
     }
 
     currentData.isActive = true;
+
     setRoaster(
       produce((draft) => {
         draft[position] = selectedPlayer;
