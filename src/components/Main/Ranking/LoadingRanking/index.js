@@ -1,8 +1,10 @@
 import React from "react";
-import styled, { useTheme } from "styled-components";
+
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import LoadingRankingList from "./LoadingRankingList";
+import styled, { useTheme } from "styled-components";
+
 import LoadingOthers from "./LoadingOthers";
+import LoadingRankingList from "./LoadingRankingList";
 
 const Wrapper = styled.div`
   width: 100%;

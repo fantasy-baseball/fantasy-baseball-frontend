@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import LinkButton from "../Shared/LinkButton";
+
 import BettingInfo from "../BettingInfo";
+import LinkButton from "../Shared/LinkButton";
 import RankingTable from "./RankingTable";
 
 const Wrapper = styled.div`
@@ -73,9 +75,8 @@ function UserRankings({ userRankings, gameDate }) {
   );
 
   const renderBettingResult = () => {
-    const { earnedMoney } = bettingResult;
-    const { bettingMoney } = bettingResult;
-    const difference = bettingResult.earnedMoney - bettingResult.bettingMoney;
+    const { earnedMoney, bettingMoney } = bettingResult;
+    const difference = earnedMoney - bettingMoney;
     const resultMessage = (difference > 0) ? "🎉 축하합니다!" : "😢 돈을 잃으셨네요..";
 
     return (

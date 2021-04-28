@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+
 import produce from "immer";
-import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { getUserRankings, getPlayerRankings } from "../../../actions/todayGame";
-import { formatDate, subDate } from "../../../utils/date";
-import { handleTabClick } from "../../../utils";
-import RankingList from "./RankingList";
-import LoadingRanking from "./LoadingRanking";
 import { RANKING_TAB_CONTENT, RANKING_TABS } from "../../../constants";
+import { handleTabClick } from "../../../utils";
+import { formatDate, subDate } from "../../../utils/date";
+import LoadingRanking from "./LoadingRanking";
+import RankingList from "./RankingList";
 
 const Wrapper = styled.article`
   width: 450px;

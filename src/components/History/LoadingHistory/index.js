@@ -1,6 +1,8 @@
 import React from "react";
-import styled, { useTheme } from "styled-components";
+
 import { SkeletonTheme } from "react-loading-skeleton";
+import styled, { useTheme } from "styled-components";
+
 import LoadingTable from "../../Shared/Loading/LoadingTable";
 
 const Wrapper = styled.div`
@@ -16,16 +18,6 @@ const LoadingHistoryWrapper = styled.div`
   width: calc(100vw - 348px);
   padding: ${({ theme }) => theme.padding.base};
   background-color: ${({ theme }) => theme.skeletonColor.background};
-  display: flex;
-  flex-flow: column;
-`;
-
-const LoadingHistoryTable = styled.div`
-  width: 100%;
-  margin-top: 16px;
-  padding: ${({ theme }) => theme.padding.base};
-  background-color: ${({ theme }) => theme.skeletonColor.box};
-  border-radius: 5px;
   display: flex;
   flex-flow: column;
 `;

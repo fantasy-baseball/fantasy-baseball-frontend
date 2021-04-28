@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+
 import styled from "styled-components";
+
+import { GAME_START_TIME } from "../../../constants";
+import checkBettingCondition from "../../../utils";
 import { formatDate, countTime, subDate } from "../../../utils/date";
 import LinkButton from "../../Shared/LinkButton";
-import checkBettingCondition from "../../../utils";
-import { BETTING_START_TIME } from "../../../constants";
 
 const Wrapper = styled.article`
   width: 100%;
@@ -63,13 +65,13 @@ function Betting() {
 
     switch (today.getDay()) {
       case 6:
-        todayStartTime = BETTING_START_TIME.saturday;
+        todayStartTime = GAME_START_TIME.saturday;
         break;
       case 0:
-        todayStartTime = BETTING_START_TIME.sunday;
+        todayStartTime = GAME_START_TIME.sunday;
         break;
       default:
-        todayStartTime = BETTING_START_TIME.weekdays;
+        todayStartTime = GAME_START_TIME.weekdays;
     }
 
     if (bettingCondition === "close" || bettingCondition === "monday") {
@@ -122,7 +124,7 @@ function Betting() {
 
     if (bettingCondition === "close") {
       return (
-        <BettingInfo>GAME STARTED</BettingInfo>
+        <BettingInfo>BETTING CLOSED</BettingInfo>
       );
     }
 
@@ -149,7 +151,7 @@ function Betting() {
     <Wrapper>
       <h2 className="hidden">BETTING COUNTDOWN</h2>
       <Countdown>
-        BETTING START COUNTDOWN
+        GAME START COUNTDOWN
         {renderTime()}
       </Countdown>
       {renderBettingButton()}

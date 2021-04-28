@@ -1,6 +1,7 @@
 import React from "react";
-import Roaster from "../../Roaster";
+
 import { EMPTY_ROASTER } from "../../../constants";
+import Roaster from "../../Roaster";
 
 function LoadingRoaster() {
   return (

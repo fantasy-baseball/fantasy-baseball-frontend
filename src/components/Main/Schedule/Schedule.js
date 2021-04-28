@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
 import { getSchedule } from "../../../actions/todayGame";
 import { formatDate } from "../../../utils/date";
-import ScheduleList from "./ScheduleList";
 import LoadingSchedule from "./LoadingScheduleList";
+import ScheduleList from "./ScheduleList";
 
 const Wrapper = styled.article`
   width: 100%;

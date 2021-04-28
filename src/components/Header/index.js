@@ -1,10 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GoogleLogout } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { GoogleLogout } from "react-google-login";
+import styled from "styled-components";
+
 import { clearUser } from "../../actions/login";
 
 const Wrapper = styled.div`

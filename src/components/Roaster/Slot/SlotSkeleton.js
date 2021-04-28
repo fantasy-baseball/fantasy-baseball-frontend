@@ -1,4 +1,5 @@
 import React from "react";
+
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import styled from "styled-components";
 

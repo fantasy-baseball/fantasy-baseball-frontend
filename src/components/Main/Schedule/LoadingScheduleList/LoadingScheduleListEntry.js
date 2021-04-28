@@ -1,5 +1,7 @@
 import React from "react";
+
 import styled from "styled-components";
+
 import LoadingTeam from "./LoadingTeam";
 
 const Wrapper = styled.div`

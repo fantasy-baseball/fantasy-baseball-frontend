@@ -10,13 +10,11 @@ import {
   FINISH_LOADING,
 } from "../constants/actionTypes";
 
-export const saveUser = (tokenId) => async (dispatch) => {
+export const saveUser = (result, user) => async (dispatch) => {
   try {
-    const { result, user, isNewUser } = await fetchUser(tokenId, "login");
-
     if (result === "ok") {
       dispatch({ type: LOGIN_SUCCESS, user });
-      return isNewUser;
+      return;
     }
 
     dispatch({ type: LOGIN_FAILURE });
@@ -39,6 +37,7 @@ export const clearUser = () => async (dispatch) => {
 
 export const checkUser = (tokenId) => async (dispatch) => {
   dispatch({ type: START_LOADING });
+
   try {
     const { result, user } = await fetchUser(tokenId, "checkUser");
 
@@ -47,6 +46,7 @@ export const checkUser = (tokenId) => async (dispatch) => {
     } else {
       dispatch({ type: EXPIRED_TOKEN });
     }
+
     dispatch({ type: FINISH_LOADING });
   } catch (err) {
     console.error(err);

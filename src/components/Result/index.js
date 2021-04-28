@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
 import { fetchUserRankings, fetchRoaster } from "../../api/game";
-import UserRankings from "./UserRankings";
-import Roaster from "../Roaster";
-import Notification from "../Notification";
-import LoadingRoaster from "./LoadingRoaster";
-import LoadingRanking from "./LoadingRanking";
 import { EMPTY_ROASTER } from "../../constants";
+import Notification from "../Notification";
+import Roaster from "../Roaster";
+import LoadingRanking from "./LoadingRanking";
+import LoadingRoaster from "./LoadingRoaster";
+import UserRankings from "./UserRankings";
 
 const Wrapper = styled.section`
   width: 100%;
