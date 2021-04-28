@@ -52,6 +52,7 @@ const BettingResult = styled.div`
 
 const findUserRanking = (email, rankings) => {
   const userIndex = rankings.findIndex((ranking) => ranking.user.email === email);
+  if (userIndex < 3) return null;
   return rankings.slice(userIndex - 2, userIndex + 3);
 };
 
@@ -98,10 +99,13 @@ function UserRankings({ userRankings, gameDate }) {
         title="TOP RANKERS"
         rankings={topRankers}
       />
-      <RankingTable
-        title="MY RANKING"
-        rankings={myRanking}
-      />
+      {myRanking
+        && (
+          <RankingTable
+            title="MY RANKING"
+            rankings={myRanking}
+          />
+        )}
       <LinkButton
         path={`/statistics/${gameDate}`}
         type="button"
