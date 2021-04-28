@@ -9,11 +9,13 @@ import {
   UPDATE_MONEY,
   START_LOADING,
   FINISH_LOADING,
+  CATCH_API_ERROR,
 } from "../constants/actionTypes";
 
 const initialState = {
   user: null,
   isLoading: true,
+  error: null,
 };
 
 const user = (state = initialState, action) => {
@@ -45,6 +47,10 @@ const user = (state = initialState, action) => {
     case FINISH_LOADING:
       return produce(state, (draft) => {
         draft.isLoading = false;
+      });
+    case CATCH_API_ERROR:
+      return produce(state, (draft) => {
+        draft.error = action.error;
       });
     default:
       return state;

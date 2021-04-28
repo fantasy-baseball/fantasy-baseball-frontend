@@ -8,30 +8,31 @@ import {
   UPDATE_MONEY,
   START_LOADING,
   FINISH_LOADING,
+  CATCH_API_ERROR,
 } from "../constants/actionTypes";
 
-export const saveUser = (result, user) => async (dispatch) => {
-  try {
-    if (result === "ok") {
-      dispatch({ type: LOGIN_SUCCESS, user });
-      return;
-    }
+const ERROR_MESSAGE = {
+  commonError: "유저 데이터 접근에 실패하였습니다.",
+};
 
-    dispatch({ type: LOGIN_FAILURE });
-  } catch {
+export const saveUser = (user) => async (dispatch) => {
+  try {
+    dispatch({ type: LOGIN_SUCCESS, user });
+  } catch (err) {
     dispatch({ type: LOGIN_FAILURE });
   }
 };
 
 export const clearUser = () => async (dispatch) => {
   try {
-    const result = await deleteUser();
+    const response = await deleteUser();
 
-    if (result === "ok") {
+    if (response.ok) {
       dispatch({ type: LOGOUT });
     }
   } catch (err) {
-    console.error(err);
+    const error = ERROR_MESSAGE.commonError;
+    dispatch({ type: CATCH_API_ERROR }, error);
   }
 };
 
@@ -39,9 +40,10 @@ export const checkUser = (tokenId) => async (dispatch) => {
   dispatch({ type: START_LOADING });
 
   try {
-    const { result, user } = await fetchUser(tokenId, "checkUser");
+    const response = await fetchUser(tokenId, "checkUser");
 
-    if (result === "ok") {
+    if (response.ok) {
+      const { data: user } = await response.json();
       dispatch({ type: CHECK_USER, user });
     } else {
       dispatch({ type: EXPIRED_TOKEN });
@@ -49,7 +51,8 @@ export const checkUser = (tokenId) => async (dispatch) => {
 
     dispatch({ type: FINISH_LOADING });
   } catch (err) {
-    console.error(err);
+    const error = ERROR_MESSAGE.commonError;
+    dispatch({ type: CATCH_API_ERROR }, error);
   }
 };
 

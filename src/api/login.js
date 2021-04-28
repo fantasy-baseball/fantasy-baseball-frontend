@@ -1,34 +1,24 @@
 const API_URL = process.env.REACT_APP_API_ADDRESS;
 
 export const fetchUser = async (tokenId, path) => {
-  try {
-    const res = await fetch(`${API_URL}/users/${path}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokenId}`,
-      },
-      credentials: "include",
-    });
-    const { result, data: user, isNewUser } = await res.json();
+  const response = await fetch(`${API_URL}/users/${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenId}`,
+    },
+    credentials: "include",
+  });
 
-    return { result, user, isNewUser };
-  } catch (err) {
-    console.error(err);
-  }
+  return response;
 };
 
 export const deleteUser = async () => {
-  try {
-    const res = await fetch(`${API_URL}/users/logout`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    const { result } = await res.json();
+  const response = await fetch(`${API_URL}/users/logout`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
 
-    return result;
-  } catch (err) {
-    console.error(err);
-  }
+  return response;
 };

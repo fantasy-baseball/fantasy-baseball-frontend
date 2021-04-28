@@ -141,23 +141,26 @@ function Login() {
   const dispatch = useDispatch();
 
   const onGoogleSuccess = async ({ tokenId }) => {
-    const {
-      result,
-      user,
-      isNewUser,
-    } = await fetchUser(tokenId, "login");
+    try {
+      const response = await fetchUser(tokenId, "login");
+      const { data: user, isNewUser } = await response.json();
 
-    dispatch(saveUser(result, user));
-    dispatch(showModal({
-      isVisible: isNewUser,
-      title: "가입 축하",
-      contentText: "가입 축하 선물로 5000 포인트를 드립니다!",
-      hasLinkButton: false,
-      path: "",
-      linkButtonText: "",
-    }));
+      if (response.ok) {
+        dispatch(saveUser(user));
+        dispatch(showModal({
+          isVisible: isNewUser,
+          title: "가입 축하",
+          contentText: "가입 축하 선물로 5000 포인트를 드립니다!",
+          hasLinkButton: false,
+          path: "",
+          linkButtonText: "",
+        }));
 
-    history.push("/");
+        history.push("/");
+      }
+    } catch (err) {
+      dispatch({ type: LOGIN_FAILURE });
+    }
   };
 
   const onGoogleFailure = () => {
