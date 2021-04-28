@@ -75,9 +75,8 @@ function UserRankings({ userRankings, gameDate }) {
   );
 
   const renderBettingResult = () => {
-    const { earnedMoney } = bettingResult;
-    const { bettingMoney } = bettingResult;
-    const difference = bettingResult.earnedMoney - bettingResult.bettingMoney;
+    const { earnedMoney, bettingMoney } = bettingResult;
+    const difference = earnedMoney - bettingMoney;
     const resultMessage = (difference > 0) ? "🎉 축하합니다!" : "😢 돈을 잃으셨네요..";
 
     return (
