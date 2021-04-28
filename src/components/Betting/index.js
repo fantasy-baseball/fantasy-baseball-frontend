@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { updateMoney } from "../../actions/login";
+import { showModal } from "../../actions/modal";
 import { fetchPlayers, postBetting } from "../../api/game";
+import { EMPTY_ROASTER } from "../../constants";
 import checkBettingCondition from "../../utils";
 import { formatDate } from "../../utils/date";
-import { showModal } from "../../actions/modal";
-import { updateMoney } from "../../actions/login";
-import SearchEntry from "./SearchEntry";
-import BettingOption from "./BettingOption";
-import Roaster from "../Roaster";
 import Notification from "../Notification";
-import { EMPTY_ROASTER } from "../../constants";
-import LoadingEntry from "./LoadingEntry";
+import Roaster from "../Roaster";
 import Loading from "../Shared/Loading/LoadingFullScreen";
+import BettingOption from "./BettingOption";
+import LoadingEntry from "./LoadingEntry";
+import SearchEntry from "./SearchEntry";
 
 const Wrapper = styled.section`
   width: 100%;

@@ -8,7 +8,7 @@ export const fetchSchedule = async (date) => {
     const res = await fetch(`${API_URL}/games/${date}/schedule`, {
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (res.status === 404) {
@@ -31,7 +31,7 @@ export const fetchPlayers = async (date) => {
     const res = await fetch(`${API_URL}/games/${date}/players`, {
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (res.status === 404) {
@@ -53,7 +53,7 @@ export const fetchBettingStatus = async (date) => {
     const res = await fetch(`${API_URL}/games/${date}/betting`, {
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (res.status === 404) {

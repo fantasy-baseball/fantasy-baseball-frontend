@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+
 import { useSelector } from "react-redux";
+import styled from "styled-components";
+
 import { fetchBettingHistory } from "../../api/game";
-import Profile from "./Profile";
-import HistoryTable from "./HistoryTable";
 import Notification from "../Notification";
+import HistoryTable from "./HistoryTable";
 import LoadingHistory from "./LoadingHistory";
+import Profile from "./Profile";
 
 const Wrapper = styled.div`
   width: 100%;

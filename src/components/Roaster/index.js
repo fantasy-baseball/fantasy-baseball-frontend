@@ -1,8 +1,10 @@
 import React from "react";
+
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Slot from "./Slot/Slot";
+
 import { SLOT_POSITIONS } from "../../constants";
+import Slot from "./Slot/Slot";
 
 const Wrapper = styled.div`
   width: 100%;

@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
-import { Redirect, Route, useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
+
 import jwtDecode from "jwt-decode";
+import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect, Route, useHistory } from "react-router-dom";
+import styled from "styled-components";
+
 import { checkUser } from "../../actions/login";
 
 const Loading = styled.div`
@@ -19,29 +21,29 @@ function PrivateRoute({
   const isLoading = useSelector((state) => state.login.isLoading);
   const user = useSelector((state) => state.login.user);
 
-  const checkUserLogin = () => {
-    if (document.cookie.indexOf("access_token") === -1) {
-      history.push("/login");
-      return;
-    }
-
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("access_token"))
-      .split("=")[1];
-
-    const jwtData = jwtDecode(token);
-    const { exp } = jwtData;
-    const isTokenExpired = Math.floor(Date.now() / 1000) + 15 > exp;
-
-    if (!isTokenExpired) {
-      dispatch(checkUser(token));
-    } else {
-      history.push("/login");
-    }
-  };
-
   useEffect(() => {
+    const checkUserLogin = () => {
+      if (document.cookie.indexOf("access_token") === -1) {
+        history.push("/login");
+        return;
+      }
+
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("access_token"))
+        .split("=")[1];
+
+      const jwtData = jwtDecode(token);
+      const { exp } = jwtData;
+      const isTokenExpired = Math.floor(Date.now() / 1000) + 15 > exp;
+
+      if (!isTokenExpired) {
+        dispatch(checkUser(token));
+      } else {
+        history.push("/login");
+      }
+    };
+
     checkUserLogin();
   }, []);
 

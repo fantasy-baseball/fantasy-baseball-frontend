@@ -1,7 +1,8 @@
 import React from "react";
+
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import { Bar, defaults } from "react-chartjs-2";
+import styled from "styled-components";
 
 defaults.color = "#ffffff";
 defaults.borderColor = "rgba(255, 255, 255, 0.1)";

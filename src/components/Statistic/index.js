@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+
 import produce from "immer";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+
 import { fetchPositionRankings } from "../../api/game";
-import { handleTabClick } from "../../utils";
-import Notification from "../Notification";
-import Chart from "./Chart";
-import Loading from "../Shared/Loading/LoadingFullScreen";
 import {
   STATISTIC_TAB_CONTENT,
   STATISTIC_TABS,
   PLAYER_POSITIONS,
 } from "../../constants";
+import { handleTabClick } from "../../utils";
+import Notification from "../Notification";
+import Loading from "../Shared/Loading/LoadingFullScreen";
+import Chart from "./Chart";
 
 const Wrapper = styled.section`
   width: 100%;
