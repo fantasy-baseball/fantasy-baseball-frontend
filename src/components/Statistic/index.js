@@ -70,23 +70,23 @@ function Statistic() {
     const getPositionRankings = async (date) => {
       try {
         setIsLoading(true);
+        const response = await fetchPositionRankings(date);
 
-        const fetchedPositionRankings = await fetchPositionRankings(date);
-
-        if (fetchedPositionRankings?.result === "none") {
+        if (response.status === 404) {
           setError("해당 날짜의 통계가 존재하지 않습니다.");
-          setIsLoading(false);
           return;
         }
 
-        if (fetchedPositionRankings === undefined) {
+        if (response.ok === false) {
           setError("데이터 로드에 실패하였습니다.");
           return;
         }
 
+        const { data } = await response.json();
+
         setTabContent(
           produce((draft) => {
-            fetchedPositionRankings.forEach((position) => {
+            data.forEach((position) => {
               draft[PLAYER_POSITIONS[position._id]] = position.players;
             });
           })

@@ -41,57 +41,56 @@ function History() {
     const getBettingHistory = async () => {
       try {
         setIsLoading(true);
-        const fetchedBettingHistory = await fetchBettingHistory();
+        const response = await fetchBettingHistory();
 
-        if (fetchBettingHistory.result !== "none") {
-          setBettingHistory(fetchedBettingHistory);
+        if (response.status === 404) {
+          setError("베팅 이력이 존재하지 않습니다.");
+          return;
         }
 
-        setIsLoading(false);
+        if (response.ok === false) {
+          setError("데이터 로드에 실패하였습니다.");
+          return;
+        }
+
+        const { data } = await response.json();
+
+        setBettingHistory(data);
       } catch (err) {
-        setError("베팅 이력을 불러올 수 없습니다. 다시 시도해주세요.");
+        setError("데이터 로드에 실패하였습니다.");
+      } finally {
+        setIsLoading(false);
       }
     };
+
     getBettingHistory();
   }, []);
 
   return (
     <Wrapper>
-      {error
-        ? (
-          <Notification
-            icon="😢"
-            title="FAIL TO LOAD DATA"
-            text={error}
-          />
-        )
-        : (
-          <>
-            <Profile
-              name={name}
-              email={email}
-              money={money}
-              imageUrl={imageUrl}
-            />
-            <HistoryWrapper>
-              {isLoading
-                ? <LoadingHistory />
-                : bettingHistory.length
-                  ? (
-                    <HistoryTable
-                      history={bettingHistory}
-                    />
-                  )
-                  : (
-                    <Notification
-                      icon="⚠️"
-                      title="NO BETTING HISTORY"
-                      text="아직 베팅이력이 없습니다."
-                    />
-                  )}
-            </HistoryWrapper>
-          </>
-        )}
+      <Profile
+        name={name}
+        email={email}
+        money={money}
+        imageUrl={imageUrl}
+      />
+      <HistoryWrapper>
+        {isLoading
+          ? <LoadingHistory />
+          : error
+            ? (
+              <Notification
+                icon="⚠️"
+                title="NO BETTING HISTORY"
+                text="아직 베팅이력이 없습니다."
+              />
+            )
+            : (
+              <HistoryTable
+                history={bettingHistory}
+              />
+            )}
+      </HistoryWrapper>
     </Wrapper>
   );
 }

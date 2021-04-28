@@ -40,35 +40,54 @@ function Result() {
 
   useEffect(() => {
     const getUserRankings = async () => {
-      setIsLoading(true);
-
       try {
-        const fetchedRankings = await fetchUserRankings(gameDate);
+        setIsLoading(true);
+        const response = await fetchUserRankings(gameDate);
 
-        if (fetchedRankings.result === "none") {
+        if (response.status === 404) {
           setError("날짜에 해당하는 베팅 결과가 존재하지 않습니다.");
-          setIsLoading(false);
           return;
         }
 
-        const fetchedRoaster = await fetchRoaster(gameDate);
-
-        if (fetchedRoaster.result === "none") {
-          setError("날짜에 해당하는 로스터가 존재하지 않습니다.");
-          setIsLoading(false);
+        if (response.ok === false) {
+          setError("날짜에 해당하는 베팅 결과가 존재하지 않습니다.");
           return;
         }
 
-        setUserRankings(fetchedRankings);
-        setRoaster(fetchedRoaster);
-        setIsLoading(false);
+        const { data } = await response.json();
+        setUserRankings(data);
       } catch (err) {
-        setIsLoading(false);
         setError("결과 정보를 불러올 수 없습니다. 다시 시도해주세요.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const getRoaster = async () => {
+      try {
+        const response = await fetchRoaster(gameDate);
+
+        if (response.status === 404) {
+          setError("날짜에 해당하는 로스터가 존재하지 않습니다.");
+          return;
+        }
+
+        if (response.ok === false) {
+          setError("데이터 로드에 실패하였습니다.");
+          return;
+        }
+
+        const { data } = await response.json();
+        setRoaster(data);
+      } catch (err) {
+        setError("결과 정보를 불러올 수 없습니다. 다시 시도해주세요.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
     getUserRankings();
+    getRoaster();
   }, []);
 
   return (
