@@ -54,6 +54,7 @@ export const getPlayerRankings = (date) => async (dispatch) => {
     if (fetchedPlayerRankings.result === "none") {
       const pitcherRankings = { result: "none" };
       const hitterRankings = { result: "none" };
+
       dispatch({
         type: FETCH_PLAYER_RANKINGS,
         pitcherRankings,
