@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { faExternalLinkAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -44,7 +44,30 @@ const AddIcon = styled.span`
 `;
 
 function SearchEntry({ players, setRoaster }) {
-  const [clickCount, setclickCount] = useState(0);
+  const [iconCount, setIconCount] = useState(0);
+  const [isSearched, setIsSearched] = useState(false);
+  const tableRowData = useRef();
+
+  const removeSelectedPlayers = (list, position) => {
+    const iconList = list;
+
+    const selectedDataIndex = iconList.findIndex((icon) => (
+      (PLAYER_POSITIONS[icon.values.add.position] === position
+        && icon.values.add.isActive)
+    ));
+
+    if (selectedDataIndex > -1) {
+      iconList[selectedDataIndex].values.add.isActive = false;
+    }
+  };
+
+  const getLatestDate = () => {
+    const latestDate = subDate(new Date(), 1);
+
+    if (latestDate.getDay() === 1) return subDate(new Date(), 2);
+
+    return latestDate;
+  };
 
   const handleAddIcon = (tableProps, event) => {
     const currentData = tableProps.value;
@@ -54,7 +77,7 @@ function SearchEntry({ players, setRoaster }) {
     const { isActive } = currentData;
     const selectedPlayer = players.find((player) => player.kboId === kboId);
 
-    setclickCount((prev) => {
+    setIconCount((prev) => {
       const newCount = prev + 1;
       return newCount;
     });
@@ -70,14 +93,8 @@ function SearchEntry({ players, setRoaster }) {
     }
 
     const iconList = tableProps.rows;
-    const selectedDataIndex = iconList.findIndex((icon) => (
-      PLAYER_POSITIONS[icon.values.add.position] === position
-        && icon.values.add.isActive
-    ));
 
-    if (selectedDataIndex > -1) {
-      iconList[selectedDataIndex].values.add.isActive = false;
-    }
+    removeSelectedPlayers(iconList, position);
 
     currentData.isActive = true;
 
@@ -96,6 +113,7 @@ function SearchEntry({ players, setRoaster }) {
 
   const renderAddIcon = (tableProps) => {
     const position = PLAYER_POSITIONS[tableProps.value.position];
+    tableRowData.current = tableProps.rows;
 
     return (
       <AddIcon
@@ -138,15 +156,8 @@ function SearchEntry({ players, setRoaster }) {
     },
   ];
 
-  const getLatestDate = () => {
-    const latestDate = subDate(new Date(), 1);
-
-    if (latestDate.getDay() === 1) return subDate(new Date(), 2);
-
-    return latestDate;
-  };
-
-  const generatorRandomRoaster = () => {
+  const generatorRandomRoaster = (tableRow) => {
+    const iconList = tableRow;
     const sortedPlayers = players.sort((a, b) => {
       if (a.position > b.position) return 1;
       if (a.position < b.position) return -1;
@@ -155,9 +166,23 @@ function SearchEntry({ players, setRoaster }) {
 
     for (let i = 0; i < 10; i += 1) {
       const randomNumber = Math.floor(Math.random() * 10).toString();
-      const playerNumber = i + randomNumber;
-      const randomPlayer = sortedPlayers[Number(playerNumber)];
+      const playerNumber = Number(i + randomNumber);
+      const randomPlayer = sortedPlayers[playerNumber];
       const position = PLAYER_POSITIONS[randomPlayer.position];
+
+      const playerIndex = iconList.findIndex((icon) => (
+        icon.values.add.kboId === randomPlayer.kboId
+      ));
+
+      removeSelectedPlayers(iconList, position);
+
+      if (iconList[playerIndex].values.add.isActive === false) {
+        iconList[playerIndex].values.add.isActive = true;
+        setIconCount((prev) => {
+          const newCount = prev + 1;
+          return newCount;
+        });
+      }
 
       setRoaster(
         produce((draft) => {
@@ -171,7 +196,7 @@ function SearchEntry({ players, setRoaster }) {
     <Wrapper>
       <h2 className="hidden">
         1군 엔트리 선수 검색하기
-        {clickCount}
+        {iconCount}
       </h2>
       <Table
         tableColumns={BETTING_COLUMNS}
@@ -180,6 +205,7 @@ function SearchEntry({ players, setRoaster }) {
         colWidths={["200px", "100px", "auto", "80px", "80px"]}
         tableHeight="400px"
         placeholder="선수 정보를 검색해주세요 (ex: 김현수, 좌익수, 좌투좌타 등)"
+        setIsSearched={setIsSearched}
       />
       <ButtonList>
         <Button
@@ -187,8 +213,9 @@ function SearchEntry({ players, setRoaster }) {
           title="RANDOM ROASTER"
           color="white"
           size="small"
-          handleClick={generatorRandomRoaster}
+          handleClick={() => generatorRandomRoaster(tableRowData.current)}
           hasArrow={false}
+          disabled={isSearched}
         />
         <LinkButton
           path={`/statistics/${formatDate(getLatestDate(), "yyyyMMdd")}`}

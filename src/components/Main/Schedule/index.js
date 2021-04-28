@@ -53,10 +53,12 @@ export default function Schedule() {
       return;
     }
 
+    if (schedule.result === "none") {
+      setError("경기 일정이 없습니다.");
+    }
+
     if (schedule.result === "failure") {
-      setError(schedule.message);
-      setIsLoading(false);
-      return;
+      setError("데이터를 로드하는 데 실패하였습니다.");
     }
 
     setIsLoading(false);

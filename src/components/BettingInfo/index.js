@@ -30,17 +30,22 @@ function SharedBettingInfo() {
   useEffect(() => {
     const getBettingData = async () => {
       try {
-        const status = await fetchBettingStatus(formatDate(new Date(), "yyyyMMdd"));
+        const response = await fetchBettingStatus(formatDate(new Date(), "yyyyMMdd"));
 
-        if (status.result === "none") {
-          setError("현재 베팅 정보를 가져올 수 없습니다.");
+        if (response.status === 404) {
+          setError("현재 베팅 정보가 존재하지 않습니다.");
           return;
         }
 
-        const { users, totalMoney } = status;
+        if (response.ok === false) {
+          setError("데이터 로드에 실패하였습니다.");
+          return;
+        }
 
-        setBettingUsers(users);
-        setBettingTotalMoney(totalMoney);
+        const { data } = await response.json();
+
+        setBettingUsers(data.users);
+        setBettingTotalMoney(data.totalMoney);
       } catch (err) {
         setError("현재 베팅 정보를 가져올 수 없습니다.");
       }

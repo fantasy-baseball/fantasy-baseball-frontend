@@ -55,7 +55,6 @@ function Ranking() {
   const [tabName, setTabName] = useState("users");
   const [tabContent, setTabContent] = useState(RANKING_TAB_CONTENT);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const {
     userRankings,
@@ -69,9 +68,10 @@ function Ranking() {
     if (userRankings.length < 1) {
       setIsLoading(true);
       dispatch(getUserRankings(formatDate(subDate(today, 1), "yyyyMMdd")));
+      return;
     }
 
-    if (userRankings?.result === "none") {
+    if (userRankings.result === "none") {
       setTabContent(
         produce((draft) => {
           draft.users.error = "유저 랭킹 정보가 존재하지 않습니다.";
@@ -81,9 +81,14 @@ function Ranking() {
       return;
     }
 
-    if (userRankings === undefined) {
-      setError("데이터 로드에 실패하였습니다.");
+    if (userRankings.result === "failure") {
+      setTabContent(
+        produce((draft) => {
+          draft.users.error = "데이터 로드에 실패하였습니다.";
+        })
+      );
       setIsLoading(false);
+      return;
     }
 
     setTabContent(
@@ -99,26 +104,28 @@ function Ranking() {
     if (hitterRankings.length < 1 || pitcherRankings.length < 1) {
       setIsLoading(true);
       dispatch(getPlayerRankings(formatDate(subDate(today, 1), "yyyyMMdd")));
+      return;
     }
 
-    if (hitterRankings?.result === "none") {
-      setTabContent(
-        produce((draft) => {
-          draft.hitters.error = "타자 랭킹 정보가 존재하지 않습니다.";
-        })
-      );
-    }
+    if (hitterRankings.result) {
+      const { result } = hitterRankings;
 
-    if (pitcherRankings?.result === "none") {
-      setTabContent(
-        produce((draft) => {
-          draft.pitchers.error = "투수 랭킹 정보가 존재하지 않습니다.";
-        })
-      );
-    }
+      if (result === "none") {
+        setTabContent(
+          produce((draft) => {
+            draft.hitters.error = "타자 랭킹 정보가 존재하지 않습니다.";
+            draft.pitchers.error = "투수 랭킹 정보가 존재하지 않습니다.";
+          })
+        );
+      } else {
+        setTabContent(
+          produce((draft) => {
+            draft.hitters.error = "데이터 로드에 실패하였습니다.";
+            draft.pitchers.error = "데이터 로드에 실패하였습니다.";
+          })
+        );
+      }
 
-    if (!hitterRankings || !pitcherRankings) {
-      setError("데이터 로드에 실패하였습니다.");
       setIsLoading(false);
       return;
     }
@@ -148,13 +155,9 @@ function Ranking() {
           </Tab>
         ))}
       </Tabs>
-      {error
-        ? <Error>{error}</Error>
-        : (
-          isLoading
-            ? <LoadingRanking />
-            : <RankingList data={tabContent[tabName]} />
-        )}
+      {isLoading
+        ? <LoadingRanking />
+        : <RankingList data={tabContent[tabName]} />}
     </Wrapper>
   );
 }

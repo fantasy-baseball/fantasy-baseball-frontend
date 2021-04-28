@@ -94,6 +94,7 @@ function SharedTable(props) {
     colWidths,
     tableHeight,
     placeholder,
+    setIsSearched,
   } = props;
 
   const [keyword, setKeyword] = useState("");
@@ -125,6 +126,14 @@ function SharedTable(props) {
     const { value } = event.target;
     setKeyword(value);
     setGlobalFilter(value);
+
+    if (setIsSearched) {
+      setIsSearched(true);
+
+      if (value === "") {
+        setIsSearched(false);
+      }
+    }
   };
 
   useLayoutEffect(() => {
@@ -212,10 +221,15 @@ SharedTable.propTypes = {
   colWidths: PropTypes.arrayOf(PropTypes.string).isRequired,
   tableHeight: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
+  setIsSearched: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
 };
 
 SharedTable.defaultProps = {
   placeholder: "키워드를 입력해주세요.",
+  setIsSearched: false,
 };
 
 export default SharedTable;

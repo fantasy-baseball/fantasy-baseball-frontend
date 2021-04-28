@@ -29,6 +29,16 @@ const Button = styled.button`
       }
     }
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+
+    &:hover {
+      background: inherit;
+      border-color: inherit;
+    }
+  }
 `;
 
 const Arrow = styled.span`
@@ -65,6 +75,7 @@ function SharedButton(props) {
     size,
     handleClick,
     hasArrow,
+    disabled,
   } = props;
 
   return (
@@ -73,6 +84,7 @@ function SharedButton(props) {
       color={color}
       size={size}
       onClick={handleClick}
+      disabled={disabled}
     >
       {title}
       {hasArrow
@@ -93,10 +105,12 @@ SharedButton.propTypes = {
   size: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
   hasArrow: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 SharedButton.defaultProps = {
   hasArrow: true,
+  disabled: false,
 };
 
 export default SharedButton;

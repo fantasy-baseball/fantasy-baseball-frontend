@@ -107,9 +107,9 @@ function Betting() {
 
       setSubmitLoading(true);
 
-      const { result } = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
+      const response = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
 
-      if (result === "duplicate") {
+      if (response.status === 409) {
         setModalMessage(
           "이미 베팅에 참가하셨습니다.",
           true
@@ -117,7 +117,7 @@ function Betting() {
         return;
       }
 
-      if (result === "close") {
+      if (response.status === 401) {
         setModalMessage(
           "지금은 베팅 시간이 아닙니다. 베팅은 경기 시작 한 시간 전에 오픈됩니다.",
           true
@@ -125,7 +125,7 @@ function Betting() {
         return;
       }
 
-      if (result === "failure") {
+      if (response.ok === false) {
         setModalMessage(
           "베팅 참가에 실패하였습니다. 다시 시도해주세요.",
           true
@@ -140,7 +140,10 @@ function Betting() {
 
       dispatch(updateMoney(bettingMoney));
     } catch (err) {
-      console.log(err);
+      setModalMessage(
+        "베팅 참가에 실패하였습니다. 다시 시도해주세요.",
+        true
+      );
     } finally {
       setSubmitLoading(false);
     }
@@ -150,18 +153,22 @@ function Betting() {
     const getPlayers = async () => {
       try {
         setIsLoading(true);
+        const response = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
 
-        const fetchedPlayers = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
-
-        if (fetchedPlayers.result === "none") {
+        if (response.status === 404) {
           setError("1군 엔트리가 존재하지 않습니다.");
-          setIsLoading(false);
           return;
         }
 
-        setPlayers(fetchedPlayers);
+        if (response.ok === false) {
+          setError("데이터 로드에 실패하였습니다.");
+          return;
+        }
+
+        const { data } = await response.json();
+        setPlayers(data);
       } catch (err) {
-        console.log(err);
+        setError("데이터 로드에 실패하였습니다.");
       } finally {
         setIsLoading(false);
       }
@@ -174,7 +181,7 @@ function Betting() {
     <>
       {submitLoading
         && <Loading isFullScreen={true} />}
-      {bettingCondition === "open"
+      {bettingCondition !== "open"
         ? (
           <Wrapper>
             <BettingWrapper>
@@ -186,7 +193,7 @@ function Betting() {
                       <Notification
                         icon="🧢❌"
                         title="FAIL TO LOAD ENTRY"
-                        text="아직 1군 엔트리가 발표되지 않았습니다."
+                        text={error}
                       />
                     )
                     : (

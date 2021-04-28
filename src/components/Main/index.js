@@ -2,10 +2,10 @@ import React from "react";
 
 import styled from "styled-components";
 
-import Betting from "./Betting/Betting";
-import Guide from "./Guide/Guide";
-import Ranking from "./Ranking/Ranking";
-import Schedule from "./Schedule/Schedule";
+import Betting from "./Betting";
+import Guide from "./Guide";
+import Ranking from "./Ranking";
+import Schedule from "./Schedule";
 
 const Wrapper = styled.section`
   width: 100%;
