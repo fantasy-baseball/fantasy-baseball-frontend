@@ -22,16 +22,6 @@ const LoadingHistoryWrapper = styled.div`
   flex-flow: column;
 `;
 
-const LoadingHistoryTable = styled.div`
-  width: 100%;
-  margin-top: 16px;
-  padding: ${({ theme }) => theme.padding.base};
-  background-color: ${({ theme }) => theme.skeletonColor.box};
-  border-radius: 5px;
-  display: flex;
-  flex-flow: column;
-`;
-
 function LoadingHistory() {
   const theme = useTheme();
 
