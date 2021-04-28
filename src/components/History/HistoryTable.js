@@ -13,7 +13,7 @@ const ResultLink = styled.a`
 
 function HistoryTable({ history }) {
   const renderLinkIcon = ({ value }) => (
-    <ResultLink href={value} target="_blank">
+    <ResultLink href={value}>
       <FontAwesomeIcon icon={faExternalLinkAlt} />
     </ResultLink>
   );
