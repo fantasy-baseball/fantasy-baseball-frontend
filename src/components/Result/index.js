@@ -45,7 +45,7 @@ function Result() {
         const response = await fetchUserRankings(gameDate);
 
         if (response.status === 404) {
-          setError("날짜에 해당하는 베팅 결과가 존재하지 않습니다.");
+          setError("유저 랭킹 정산이 아직 완료되지 않았습니다.");
           return;
         }
 

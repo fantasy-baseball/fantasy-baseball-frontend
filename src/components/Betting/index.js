@@ -121,7 +121,7 @@ function Betting() {
 
       if (response.status === 401) {
         setModalMessage(
-          "지금은 베팅 시간이 아닙니다. 베팅은 경기 시작 한 시간 전에 오픈됩니다.",
+          "지금은 베팅 시간이 아닙니다. 베팅은 경기 시작 후 한 시간 동안 오픈됩니다.",
           true
         );
         return;
