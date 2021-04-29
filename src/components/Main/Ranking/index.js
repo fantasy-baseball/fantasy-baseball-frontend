@@ -41,15 +41,6 @@ const Tab = styled.li`
   }
 `;
 
-const Error = styled.div`
-  width: 100%;
-  height: 350px;
-  background: ${({ theme }) => theme.color.white};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 function Ranking() {
   const [tabList, setTabList] = useState(RANKING_TABS);
   const [tabName, setTabName] = useState("users");
