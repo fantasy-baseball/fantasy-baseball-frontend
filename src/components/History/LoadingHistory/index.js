@@ -8,7 +8,6 @@ import LoadingTable from "../../Shared/Loading/LoadingTable";
 const Wrapper = styled.div`
   width: calc(100vw - 332px);
   height: 100%;
-  background-color: ${({ theme }) => theme.skeletonColor.background};
   display: flex;
   justify-content: center;
   line-height: 30px;
@@ -17,7 +16,6 @@ const Wrapper = styled.div`
 const LoadingHistoryWrapper = styled.div`
   width: calc(100vw - 348px);
   padding: ${({ theme }) => theme.padding.base};
-  background-color: ${({ theme }) => theme.skeletonColor.background};
   display: flex;
   flex-flow: column;
 `;
