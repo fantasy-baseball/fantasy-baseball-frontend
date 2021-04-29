@@ -81,8 +81,8 @@ function History() {
             ? (
               <Notification
                 icon="⚠️"
-                title="NO BETTING HISTORY"
-                text="아직 베팅이력이 없습니다."
+                title="Error"
+                text={error}
               />
             )
             : (

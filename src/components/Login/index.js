@@ -14,7 +14,7 @@ import Button from "../Shared/Button";
 
 const semitransparentBlockAppear = keyframes`
   0% {
-    margin: 0 0 0 -300px;
+    margin: 0 0 0 -500px;
   }
   100% {
     margin: 0;
