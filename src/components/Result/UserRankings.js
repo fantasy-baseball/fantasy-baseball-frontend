@@ -67,6 +67,8 @@ const getUserBettingInfo = (email, rankings) => {
 
 function UserRankings({ userRankings, gameDate }) {
   const user = useSelector((state) => state.login.user);
+
+  const [isCalculated, setIsCalculated] = useState(false);
   const [topRankers] = useState(userRankings.slice(0, 3));
   const [myRanking] = useState(
     findUserRanking(user.email, userRankings)
@@ -79,6 +81,14 @@ function UserRankings({ userRankings, gameDate }) {
     const { earnedMoney, bettingMoney } = bettingResult;
     const difference = earnedMoney - bettingMoney;
     const resultMessage = (difference > 0) ? "🎉 축하합니다!" : "😢 돈을 잃으셨네요..";
+
+    if (isCalculated === false) {
+      return (
+        <BettingResult>
+          아직 정산되지 않았습니다.
+        </BettingResult>
+      );
+    }
 
     return (
       <BettingResult>
@@ -117,7 +127,10 @@ function UserRankings({ userRankings, gameDate }) {
         {bettingResult
           && renderBettingResult()}
         <InfoBottom>
-          <BettingInfo gameDate={gameDate} />
+          <BettingInfo
+            setIsCalculated={setIsCalculated}
+            gameDate={gameDate}
+          />
           <LinkButton
             path="/"
             type="button"
