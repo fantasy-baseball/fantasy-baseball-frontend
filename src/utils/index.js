@@ -19,11 +19,7 @@ const checkDay = (day) => {
 
 const checkBettingCondition = (date) => {
   const today = checkDay(date.getDay());
-  const now = formatDate(date, "kk:mm:ss");
-
-  console.log(now);
-  console.log(GAME_START_TIME[today]);
-  console.log(BETTING_END_TIME[today]);
+  const now = formatDate(date, "HH:mm:ss");
 
   if (today === "monday") {
     return "monday";

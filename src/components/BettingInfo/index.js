@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { faUsers, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { fetchBettingStatus } from "../../api/game";
-import { formatDate } from "../../utils/date";
 
 const BettingInfo = styled.div`
   display: flex;
@@ -22,15 +22,16 @@ const Value = styled.span`
   padding: 0 0 0 0.5rem;
 `;
 
-function SharedBettingInfo() {
+function SharedBettingInfo({ gameDate }) {
   const [bettingUsers, setBettingUsers] = useState([]);
   const [bettingTotalMoney, setBettingTotalMoney] = useState([]);
   const [error, setError] = useState(null);
+  const unmounted = useRef(false);
 
   useEffect(() => {
     const getBettingData = async () => {
       try {
-        const response = await fetchBettingStatus(formatDate(new Date(), "yyyyMMdd"));
+        const response = await fetchBettingStatus(gameDate);
 
         if (response.status === 404) {
           setError("현재 베팅 정보가 존재하지 않습니다.");
@@ -51,8 +52,12 @@ function SharedBettingInfo() {
       }
     };
 
-    getBettingData();
-  }, []);
+    if (!unmounted) {
+      getBettingData();
+    }
+
+    return () => { unmounted.current = true; };
+  }, [bettingTotalMoney]);
 
   return (
     <BettingInfo>
@@ -83,5 +88,9 @@ function SharedBettingInfo() {
     </BettingInfo>
   );
 }
+
+SharedBettingInfo.propTypes = {
+  gameDate: PropTypes.string.isRequired,
+};
 
 export default React.memo(SharedBettingInfo);

@@ -67,11 +67,11 @@ const getUserBettingInfo = (email, rankings) => {
 
 function UserRankings({ userRankings, gameDate }) {
   const user = useSelector((state) => state.login.user);
-  const [topRankers, setTopRankers] = useState(userRankings.slice(0, 3));
-  const [myRanking, setMyRanking] = useState(
+  const [topRankers] = useState(userRankings.slice(0, 3));
+  const [myRanking] = useState(
     findUserRanking(user.email, userRankings)
   );
-  const [bettingResult, setBettingResult] = useState(
+  const [bettingResult] = useState(
     getUserBettingInfo(user.email, userRankings)
   );
 
@@ -117,7 +117,7 @@ function UserRankings({ userRankings, gameDate }) {
         {bettingResult
           && renderBettingResult()}
         <InfoBottom>
-          <BettingInfo />
+          <BettingInfo gameDate={gameDate} />
           <LinkButton
             path="/"
             type="button"

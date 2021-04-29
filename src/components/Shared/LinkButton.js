@@ -53,7 +53,7 @@ const End = styled.span`
   background: ${(props) => selectColor(props)};
   display: inline-block;
   position: absolute;
-  bottom: 8px;
+  bottom: 6px;
   transform: rotate(-135deg);
   transform-origin: bottom left;
 `;

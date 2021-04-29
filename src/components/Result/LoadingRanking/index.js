@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 70px);
   padding: ${({ theme }) => theme.padding.base};
-  background-color: ${({ theme }) => theme.skeletonColor.background};
 `;
 
 const LoadingRankingWrapper = styled.div`

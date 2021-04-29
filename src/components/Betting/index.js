@@ -45,7 +45,9 @@ function Betting() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [bettingCondition, setBettingCondition] = useState(checkBettingCondition(new Date()));
+  const [bettingCondition] = useState(checkBettingCondition(new Date()));
+
+  const gameDate = formatDate(new Date(), "yyyyMMdd");
 
   const dispatch = useDispatch();
 
@@ -107,7 +109,7 @@ function Betting() {
 
       setSubmitLoading(true);
 
-      const response = await postBetting(formatDate(new Date(), "yyyyMMdd"), bettingData);
+      const response = await postBetting(gameDate, bettingData);
 
       if (response.status === 409) {
         setModalMessage(
@@ -153,7 +155,7 @@ function Betting() {
     const getPlayers = async () => {
       try {
         setIsLoading(true);
-        const response = await fetchPlayers(formatDate(new Date(), "yyyyMMdd"));
+        const response = await fetchPlayers(gameDate);
 
         if (response.status === 404) {
           setError("1군 엔트리가 존재하지 않습니다.");
@@ -181,7 +183,7 @@ function Betting() {
     <>
       {submitLoading
         && <Loading isFullScreen={true} />}
-      {bettingCondition !== "open"
+      {bettingCondition === "open"
         ? (
           <Wrapper>
             <BettingWrapper>
@@ -207,6 +209,7 @@ function Betting() {
                           bettingMoney={bettingMoney}
                           handleBettingMoney={handleBettingMoney}
                           submitBetting={submitBetting}
+                          gameDate={gameDate}
                         />
                       </>
                     )
