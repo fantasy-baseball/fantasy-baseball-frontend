@@ -183,7 +183,7 @@ function Betting() {
     <>
       {submitLoading
         && <Loading isFullScreen={true} />}
-      {bettingCondition !== "open"
+      {bettingCondition === "open"
         ? (
           <Wrapper>
             <BettingWrapper>
