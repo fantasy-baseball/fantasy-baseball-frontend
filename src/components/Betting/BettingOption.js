@@ -29,6 +29,7 @@ function BettingOption(props) {
     bettingMoney,
     handleBettingMoney,
     submitBetting,
+    gameDate,
   } = props;
 
   return (
@@ -41,7 +42,7 @@ function BettingOption(props) {
         handleChange={handleBettingMoney}
       />
       <InfoList>
-        <BettingInfo />
+        <BettingInfo gameDate={gameDate} />
         <Button
           type="submit"
           title="BETTING"
@@ -59,6 +60,7 @@ BettingOption.propTypes = {
   bettingMoney: PropTypes.number.isRequired,
   handleBettingMoney: PropTypes.func.isRequired,
   submitBetting: PropTypes.func.isRequired,
+  gameDate: PropTypes.string.isRequired,
 };
 
 export default BettingOption;
