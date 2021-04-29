@@ -10,10 +10,10 @@ const color = {
 };
 
 const skeletonColor = {
-  background: "rgba(255, 255, 255, 0.5)",
-  box: "rgba(255, 255, 255, 0.4)",
-  skeleton: "rgba(255, 255, 255, 0.1)",
-  highlight: "rgba(255, 255, 255, 0.05)",
+  background: "#373b3e",
+  box: "#3f4346",
+  skeleton: "#5f5f5f",
+  highlight: "#4a4a4a",
 };
 
 const fontSize = {
