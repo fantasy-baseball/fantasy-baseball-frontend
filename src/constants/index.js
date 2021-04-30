@@ -173,16 +173,16 @@ export const RANKING_TABS = [
 ];
 
 export const STATISTIC_TAB_CONTENT = {
-  pitcher: [1],
-  firstBaseman: [2],
-  secondBaseman: [3],
-  thirdBaseman: [4],
-  shortStop: [5],
-  leftFielder: [6],
-  centerFielder: [7],
-  rightFielder: [8],
-  catcher: [9],
-  designatedHitter: [10],
+  pitcher: [],
+  firstBaseman: [],
+  secondBaseman: [],
+  thirdBaseman: [],
+  shortStop: [],
+  leftFielder: [],
+  centerFielder: [],
+  rightFielder: [],
+  catcher: [],
+  designatedHitter: [],
 };
 
 export const STATISTIC_TABS = [
