@@ -15,6 +15,7 @@ const globalFonts = createGlobalStyle`
   @font-face {
     font-family: "Bebas Neue";
     font-style: normal;
+    font-display: block;
     letter-spacing: 0.1em;
     src: local("Bebas Neue"), local("BebasNeue"),
       url(${BebasNeueWoff}) format("woff"),
@@ -24,6 +25,7 @@ const globalFonts = createGlobalStyle`
   @font-face {
     font-family: "Nanum Barun Gothic";
     font-weight: 400;
+    font-display: block;
     src: local("Nanum Barun Gothic"),
       url(${NanumBarunGothicWoff}) format("woff"),
       url(${NanumBarunGothicWoff2}) format("woff2");
@@ -32,6 +34,7 @@ const globalFonts = createGlobalStyle`
   @font-face {
     font-family: "Nanum Barun Gothic";
     font-weight: 700;
+    font-display: block;
     src: local("Nanum Barun Gothic"),
       url(${NanumBarunGothicBoldWoff}) format("woff"),
       url(${NanumBarunGothicBoldWoff2}) format("woff2");
@@ -40,6 +43,7 @@ const globalFonts = createGlobalStyle`
   @font-face {
     font-family: "Nanum Barun Gothic";
     font-weight: 300;
+    font-display: block;
     src: local("Nanum Barun Gothic"),
       url(${NanumBarunGothicLightWoff}) format("woff"),
       url(${NanumBarunGothicLightWoff2}) format("woff2");
@@ -48,6 +52,7 @@ const globalFonts = createGlobalStyle`
   @font-face {
     font-family: "Nanum Barun Gothic";
     font-weight: 200;
+    font-display: block;
     src: local("Nanum Barun Gothic"),
       url(${NanumBarunGothicUltraLightWoff}) format("woff"),
       url(${NanumBarunGothicUltraLightWoff2}) format("woff2");
