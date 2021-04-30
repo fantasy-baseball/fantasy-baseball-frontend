@@ -51,6 +51,7 @@ export const getUserRankings = (date) => async (dispatch) => {
             earnedMoney: ranking.earnedMoney,
             imageUrl,
             rank: ranking.rank,
+            profit: ranking.profit,
           };
         })
         .slice(0, 5);
