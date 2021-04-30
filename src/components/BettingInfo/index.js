@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { faUsers, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,15 +18,26 @@ const InfoList = styled.ul`
   gap: 1rem;
 `;
 
+const Label = styled.span`
+  padding: 0.3rem 0.5rem;
+  background: ${({ theme }) => theme.color.blue};
+  display: inline-block;
+  color: ${({ theme }) => theme.color.white};
+
+  span {
+    padding: 0 0 0 0.3rem;
+  }
+`;
+
 const Value = styled.span`
   padding: 0 0 0 0.5rem;
 `;
 
-function SharedBettingInfo({ gameDate }) {
+function SharedBettingInfo({ gameDate, setIsCalculated }) {
   const [bettingUsers, setBettingUsers] = useState([]);
   const [bettingTotalMoney, setBettingTotalMoney] = useState([]);
   const [error, setError] = useState(null);
-  const unmounted = useRef(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     const getBettingData = async () => {
@@ -47,16 +58,17 @@ function SharedBettingInfo({ gameDate }) {
 
         setBettingUsers(data.users);
         setBettingTotalMoney(data.totalMoney);
+        setIsCalculated(data.hasResult);
       } catch (err) {
         setError("현재 베팅 정보를 가져올 수 없습니다.");
       }
     };
 
-    if (!unmounted) {
+    if (!isMounted) {
       getBettingData();
     }
 
-    return () => { unmounted.current = true; };
+    return () => { setIsMounted(true); };
   }, [bettingTotalMoney]);
 
   return (
@@ -66,21 +78,31 @@ function SharedBettingInfo({ gameDate }) {
         : (
           <InfoList>
             <li>
-              <FontAwesomeIcon
-                icon={faUsers}
-                size="lg"
-                color="black"
-              />
+              <Label>
+                <FontAwesomeIcon
+                  icon={faUsers}
+                  size="lg"
+                  color="white"
+                />
+                <span>
+                  참가한 유저 수
+                </span>
+              </Label>
               <Value>
                 {bettingUsers.length}
               </Value>
             </li>
             <li>
-              <FontAwesomeIcon
-                icon={faCoins}
-                size="lg"
-                color="black"
-              />
+              <Label>
+                <FontAwesomeIcon
+                  icon={faCoins}
+                  size="lg"
+                  color="white"
+                />
+                <span>
+                  총 베팅 금액
+                </span>
+              </Label>
               <Value>{bettingTotalMoney}</Value>
             </li>
           </InfoList>
@@ -91,6 +113,11 @@ function SharedBettingInfo({ gameDate }) {
 
 SharedBettingInfo.propTypes = {
   gameDate: PropTypes.string.isRequired,
+  setIsCalculated: PropTypes.func,
+};
+
+SharedBettingInfo.defaultProps = {
+  setIsCalculated: (state) => state,
 };
 
 export default React.memo(SharedBettingInfo);

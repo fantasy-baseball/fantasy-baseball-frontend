@@ -1,6 +1,6 @@
 import React from "react";
 
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faBaseballBall, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -58,6 +58,25 @@ const PlayerInfo = styled.div`
   }
 `;
 
+const ResultInfo = styled.ul`
+  padding: 0.3rem 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.color.white};
+
+  li {
+    display: block;
+
+    &:first-child {
+      margin: 0 0 0.3rem 0;
+    }
+
+    span {
+      margin: 0 0 0 0.3rem;
+    }
+  }
+`;
+
 function Slot({ slotPosition, roasterPosition, isSkeleton }) {
   const {
     title,
@@ -96,7 +115,18 @@ function Slot({ slotPosition, roasterPosition, isSkeleton }) {
         {name
           && <p>{`${name} / ${team}`}</p>}
         {score
-        && <p>{`${score} / ${totalBettingMoney}`}</p>}
+          && (
+            <ResultInfo>
+              <li>
+                <FontAwesomeIcon icon={faBaseballBall} color="white" />
+                <span>{score}</span>
+              </li>
+              <li>
+                <FontAwesomeIcon icon={faCoins} color="white" />
+                <span>{totalBettingMoney}</span>
+              </li>
+            </ResultInfo>
+          )}
       </PlayerInfo>
     </Wrapper>
   );
