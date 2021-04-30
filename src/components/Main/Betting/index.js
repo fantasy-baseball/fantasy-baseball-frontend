@@ -76,9 +76,23 @@ function Betting() {
 
     if (bettingCondition === "close" || bettingCondition === "monday") {
       return (
-        <Timer>
-          00:00:00
-        </Timer>
+        <>
+          BETTINNG CLOSED
+          <Timer>
+            00:00:00
+          </Timer>
+        </>
+      );
+    }
+
+    if (bettingCondition === "open") {
+      return (
+        <>
+          BETTING START
+          <Timer>
+            00:00:00
+          </Timer>
+        </>
       );
     }
 
@@ -93,13 +107,16 @@ function Betting() {
     );
 
     if (hours === "00" && minutes === "00" && seconds === "00") {
-      setBettingCondition("close");
+      setBettingCondition("open");
     }
 
     return (
-      <Timer>
-        {`${hours}:${minutes}:${seconds}`}
-      </Timer>
+      <>
+        GAME START COUNTDOWN
+        <Timer>
+          {`${hours}:${minutes}:${seconds}`}
+        </Timer>
+      </>
     );
   };
 
@@ -151,7 +168,6 @@ function Betting() {
     <Wrapper>
       <h2 className="hidden">BETTING COUNTDOWN</h2>
       <Countdown>
-        GAME START COUNTDOWN
         {renderTime()}
       </Countdown>
       {renderBettingButton()}
