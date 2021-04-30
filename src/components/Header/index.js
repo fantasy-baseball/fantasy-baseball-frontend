@@ -49,9 +49,8 @@ const ButtonList = styled.ul`
 
 const Button = styled.button`
   margin: 0;
-  padding: 0;
   background: transparent;
-  border: transparent;
+  border: none;
   font-family: "Bebas Neue";
   font-size: ${({ theme }) => theme.fontSize.middle};
   line-height: 1rem;

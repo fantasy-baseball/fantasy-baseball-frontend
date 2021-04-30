@@ -36,12 +36,12 @@ const ChartTabs = styled.ul`
   background: rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 `;
 
 const Tab = styled.li`
   width: 100%;
   height: auto;
+  margin: 0 0 1.5rem 0;
   display: inline-block;
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: center;
