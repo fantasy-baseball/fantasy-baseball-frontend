@@ -108,8 +108,8 @@ const renderLowerRanks = (list) => {
         <span>{list[i]?.team}</span>
         <span>{list[i]?.users}</span>
         <span>
-          {list[i].earnedMoney
-            ? list[i].earnedMoney
+          {list[i].profit
+            ? list[i].profit
             : list[i].score}
         </span>
       </Rank>
@@ -139,8 +139,8 @@ function RankingList({ data }) {
                     <li>{data.list[0].name}</li>
                     <li>{data.list[0]?.team}</li>
                     <li>
-                      {data.list[0].earnedMoney
-                        ? data.list[0].earnedMoney
+                      {data.list[0].profit
+                        ? data.list[0].profit
                         : data.list[0].score}
                     </li>
                   </FirstRankInfo>

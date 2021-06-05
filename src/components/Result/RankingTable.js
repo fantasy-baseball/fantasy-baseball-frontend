@@ -25,8 +25,8 @@ const RANKING_COLUMNS = [
     accessor: "user.name",
   },
   {
-    Header: "EARNED MONEY",
-    accessor: "earnedMoney",
+    Header: "PROFIT",
+    accessor: "profit",
   },
 ];
 

@@ -52,12 +52,19 @@ const BettingResult = styled.div`
 
 const findUserRanking = (email, rankings) => {
   const userIndex = rankings.findIndex((ranking) => ranking.user.email === email);
+
   if (userIndex < 3) return null;
+
   return rankings.slice(userIndex - 2, userIndex + 3);
 };
 
 const getUserBettingInfo = (email, rankings) => {
   const userBetting = rankings.find((ranking) => ranking.user.email === email);
+
+  if (userBetting === undefined) {
+    return null;
+  }
+
   return {
     earnedMoney: userBetting.earnedMoney,
     bettingMoney: userBetting.bettingMoney,
@@ -82,7 +89,7 @@ function UserRankings({ userRankings, gameDate }) {
     const difference = earnedMoney - bettingMoney;
     const resultMessage = (difference > 0) ? "🎉 축하합니다!" : "😢 돈을 잃으셨네요..";
 
-    if (isCalculated === false) {
+    if (isCalculated === false || bettingResult === null) {
       return (
         <BettingResult>
           아직 정산되지 않았습니다.

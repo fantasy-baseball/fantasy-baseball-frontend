@@ -192,7 +192,7 @@ function Login() {
             size="middle"
             title="PLAY BALL"
             handleClick={renderProps.onClick}
-            disabled={renderProps.disabled}
+            disabled={false}
           />
         )}
         onSuccess={onGoogleSuccess}
