@@ -5,7 +5,7 @@
   <img src="./readme-assets/fantasy-baseball-login.gif" />
 </p>
 
-- Site: https://fantasybaseball.xyz
+- 사이트: [https://fantasybaseball.xyz](https://fantasybaseball.xyz)
 
 # 목차
 
