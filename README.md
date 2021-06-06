@@ -1,6 +1,6 @@
 # FANTASY BASEBALL
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/fantasy-baseball-logo.png" />
   <img src="./readme-assets/fantasy-baseball-login.gif" />
 </p>
@@ -110,7 +110,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 ### 로그인
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/fb-login.png" width="640" style="border: 1px solid #f1f0f0;;" />
 </p>
 
@@ -119,7 +119,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 ### 메인
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/fb-main-timer.gif" width="640" style="border: 1px solid #f1f0f0;;" />
 </p>
 
@@ -136,7 +136,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 ### 베팅 등록
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/fb-roaster.gif" width="640" style="border: 1px solid #f1f0f0;" />
   <img src="./readme-assets/fb-submit-betting.gif" width="640" style="border: 1px solid #f1f0f0;" />
 </p>
@@ -158,7 +158,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 ### 베팅 이력
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/fb-history.png" width="640" style="border: 1px solid #f1f0f0;" />
 </p>
 
@@ -168,7 +168,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 ### 선수별 통계
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/fb-statistic.gif" width="640" style="border: 1px solid #f1f0f0;" />
 </p>
 
@@ -179,7 +179,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 #### 베팅 시작 알림
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/open-email-template.png" width="400" />
 </p>
 
@@ -187,7 +187,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 #### 베팅 결과 확인 알림
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/result-email-template.png" width="400" />
 </p>
 
@@ -290,20 +290,20 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 2-2. 배당금 계산 예시
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/user-betting.png" width="640" />
 </p>
 
 - 유저 베팅액을 각 포지션에 1/10 씩 할당
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/return-betting-point.png" width="640" />
 </p>
 
 - 1루수 포지션에 할당된 총 베팅 금액 : 5,000
 - 선택받은 선수 중 점수 1등인 윤타자, 2등인 전머장을 선택한 유저들은 자신의 베팅액을 돌려 받음
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/return-benefit.png" width="640" />
 </p>
 
@@ -322,7 +322,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 ## DB 구조
 
-<p style="text-align: center;">
+<p align="center">
   <img src="./readme-assets/db.png" width="640" />
 </p>
 
