@@ -5,6 +5,8 @@
   <img src="./readme-assets/fantasy-baseball-login.gif" />
 </p>
 
+- Site: https://fantasybaseball.xyz
+
 # 목차
 
 - [개요](#개요)
@@ -167,8 +169,15 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 - 스코어 순으로 정렬된 그래프를 볼 수 있으며, 각 선수들에게 베팅한 유저수도 나타납니다.
 
 ### 메일링 시스템
+#### 베팅 시작 알림
+<img src="./readme-assets/open-email-template.png" width="400" />
 
-[메일 이미지 넣기]
+- 판타지 베이스볼 유저는 베팅 시작 메일을 받을 수 있습니다.
+
+#### 베팅 결과 확인 알림
+<img src="./readme-assets/result-email-template.png" width="400" />
+
+- 베팅 참가자는 다음날 결과 확인 알림 메일을 받을 수 있습니다.
 
 ## 베팅 알고리즘
 
