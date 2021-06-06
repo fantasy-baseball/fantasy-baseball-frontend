@@ -69,7 +69,7 @@ function Betting() {
 
   const handleBettingMoney = (event) => {
     const { value } = event.target;
-    setBettingMoney(value);
+    setBettingMoney(Number(value));
   };
 
   const submitBetting = async (event) => {
