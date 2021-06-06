@@ -5,10 +5,9 @@
   <img src="./readme-assets/fantasy-baseball-login.gif" />
 </p>
 
-- 사이트: [https://fantasybaseball.xyz](https://fantasybaseball.xyz)
+## 목차
 
-# 목차
-
+- [링크](#링크)
 - [개요](#개요)
 - [개발 동기](#개발-동기)
 - [프로젝트 멤버](#프로젝트-멤버)
@@ -22,6 +21,12 @@
 - [DB 구조](#DB-구조)
 - [개발 중 이슈](#개발-중-이슈)
 
+## 링크
+
+- [배포 사이트](https://fantasybaseball.xyz)
+- [프론트엔드](https://github.com/fantasy-baseball/)
+- [백엔드](https://github.com/fantasy-baseball/fantasy-baseball-backend)
+
 ## 개요
 
 - 판타지 스포츠와 베팅 시스템을 결합한 웹 애플리케이션입니다.
@@ -34,11 +39,13 @@
 - 판타지 스포츠는, 자신만의 팀을 꾸리고, 각 선수의 실제 경기 결과를 반영하여 경쟁하는 일종의 시뮬레이션 게임입니다. 본 앱은 야구 판타지 스포츠 플레이 환경을 제공하여 야구 경기 관람 흥미를 돋우고 야구에 대한 관심을 높이는 것을 목적으로 기획되었습니다.
 
 ## 프로젝트 멤버
+
 - [박정빈](https://github.com/pjb6510): 베팅 이력, 로딩 스켈레톤, 크롤링, 스케쥴링, 베팅액 분배 방식 기획, 백엔드 로깅, 백엔드 로직 통합
 - [윤한솔](https://github.com/yoohaso): 로그인, 메일링, 로스터 UI, 모달, 경기 결과 스코어 계산
 - [전유림](https://github.com/youlimjeon): 메인, 베팅 등록, 베팅 결과, 선수별 통계, 공통 컴포넌트 및 스타일 관리, 유저별 배당금 계산
 
 ## 기술 스택
+
 ### Frontend
 
 - ES2015+
@@ -169,19 +176,27 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 - 스코어 순으로 정렬된 그래프를 볼 수 있으며, 각 선수들에게 베팅한 유저수도 나타납니다.
 
 ### 메일링 시스템
+
 #### 베팅 시작 알림
-<img src="./readme-assets/open-email-template.png" width="400" />
+
+<p style="text-align: center;">
+  <img src="./readme-assets/open-email-template.png" width="400" />
+</p>
 
 - 판타지 베이스볼 유저는 베팅 시작 메일을 받을 수 있습니다.
 
 #### 베팅 결과 확인 알림
-<img src="./readme-assets/result-email-template.png" width="400" />
+
+<p style="text-align: center;">
+  <img src="./readme-assets/result-email-template.png" width="400" />
+</p>
 
 - 베팅 참가자는 다음날 결과 확인 알림 메일을 받을 수 있습니다.
 
 ## 베팅 알고리즘
 
 ### 선수 스코어 계산 방법
+
  - 선발 선수들의 게임 성적으로 스코어를 계산합니다.
  - 배점 항목과 점수는 [컴투스 프로야구 포인트](http://cpbpoint.mbcplus.com/about/cpbpoint/)를 참고하였습니다.
  - 선수들의 성적은 경기 종료 후 KBO에 공개되는 데이터를 이용하였습니다.
@@ -191,6 +206,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
  - 투수는 이닝, 승, 패, 탈삼진 등의 항목이 있습니다.
 
 #### 타자
+
 | 항목 | 코드 | 포인트 |
 |---|:---:|---:|
 | `타석` | PA | 1 |
@@ -214,6 +230,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 | `실책` | Err | -10 |
 
 #### 투수
+
 | 항목 | 코드 | 포인트 |
 |---|:---:|---:|
 | `승` | Wgs | 125 |
@@ -235,6 +252,7 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 | `퍼펙트게임` | PFG | 200 |
 
 #### 예시
+
 - 김선수(타자)
 
 | 항목(개수) | 코드 | 포인트 |
@@ -272,15 +290,23 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 
 2-2. 배당금 계산 예시
 
----
-![user-betting](./readme-assets/user-betting.png)
+<p style="text-align: center;">
+  <img src="./readme-assets/user-betting.png" width="640" />
+</p>
+
 - 유저 베팅액을 각 포지션에 1/10 씩 할당
----
-![return-betting-point](./readme-assets/return-betting-point.png)
+
+<p style="text-align: center;">
+  <img src="./readme-assets/return-betting-point.png" width="640" />
+</p>
+
 - 1루수 포지션에 할당된 총 베팅 금액 : 5,000
 - 선택받은 선수 중 점수 1등인 윤타자, 2등인 전머장을 선택한 유저들은 자신의 베팅액을 돌려 받음
----
-![return-benefit](./readme-assets/return-benefit.png)
+
+<p style="text-align: center;">
+  <img src="./readme-assets/return-benefit.png" width="640" />
+</p>
+
 - 1등, 2등을 제외한 나머지 선수들에게 걸린 총 베팅 금액 : 3,000
 - 1등 선수를 선택한 유저들이 나눠 가질 총 금액 : 3,000 * 70% = 2,100
 - 2등 선수를 선택한 유저들이 나눠 가질 총 금액 : 3,000 * 30% = 900
@@ -295,7 +321,10 @@ MANAGER_EMAIL=YOUR_MANAGER_EMAIL
 - 유저3 총 획득 금액 : 500 + 900 = 1,400
 
 ## DB 구조
-![db](./readme-assets/db.png)
+
+<p style="text-align: center;">
+  <img src="./readme-assets/db.png" width="640" />
+</p>
 
 - Game : 특정 날에 베팅과 정산이 이루어지는 한 게임에 관한 모델입니다. 그 날 진행된 모든 야구경기, 경기에 참가했던 모든 선수들, 유저들이 선택한 선수와 베팅한 금액 등을 다룹니다.
 - Player : 선수에 관한 모델입니다. 크롤링 후, kboId를 기준으로 동일 인물의 정보가 있는지 판별합니다. 이미 있다면 크롤링 된 새로운 데이터로 갱신, 없다면 생성합니다.
